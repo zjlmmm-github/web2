@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>分享的文档</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+</head>
+<body>
+<div id="word" style="padding: 10px;">
+</div>
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/wangEditor.js"></script>
+<script>
+    var E = window.wangEditor
+    var editor = new E('#word')
+    editor.config.height = 1200
+    // 或者 const editor = new E( document.getElementById('div1') )
+    editor.config.menus = []
+    editor.create()
+
+    function getUrl() {
+        var url = location.search;
+        var theRequest = {};
+        if (url.indexOf("?") !== -1) {
+            var str = url.substr(1);
+            var strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest
+    }
+
+    $(function () {
+        let urlData = getUrl()
+        let share = urlData.share
+        $.ajax({
+            type: 'GET',
+            url: 'http://www.ihouse3d.com.cn/users/' + share + '?time=' + guid(),
+            success: function (data) {
+                editor.txt.html(decodeURIComponent(data))
+            }
+        })
+    })
+
+    function guid() {
+        return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            let r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+</script>
+</html>

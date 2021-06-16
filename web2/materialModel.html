@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>3D实物模型库</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="assets/css/awesome.css">
+    <!--<link rel="stylesheet" href="assets/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="assets/fonts/themify-icons.css">
+
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.css">
+
+    <link rel="stylesheet" href="assets/css/animate.css">
+
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="assets/css/slick.css"/>
+    <link rel="stylesheet" href="assets/css/slick-theme.css"/>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcun icon" href="assets/img/favicon.ico">
+    <link rel="bookmark" href="assets/img/favicon.ico">
+    <link rel="stylesheet" href="assets/css/model.css">
+    <link rel="stylesheet" href="assets/css/jquery.sPage.css">
+    <link rel="stylesheet" href="assets/css/public.css">
+    <!--    <link rel="stylesheet" href="assets/css/login.css">-->
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="dModel-bg" id="ModelBg">
+    <div class="Model-box">
+        <img src="assets/img/model/关闭.png" width="30" class="Model-close" alt="" onclick="modelClose()"
+             onmouseover="redClose(this)" onmouseout="backClose(this)">
+        <iframe src="" frameborder="0" width="100%" height="100%" id="ModelBox" style="z-index: 1"></iframe>
+        <img src="" alt="" width="60" style="" id="codeImg" onmouseover="bigCode()" onmouseout="bigCodeOut()"
+             class="codeImg">
+        <div style="position: absolute;width: 1100px;height: 654px;top:0;z-index: 2;background: rgba(0,0,0,0.7);display: none"
+             id="bigCode">
+            <img id="_codeImg" alt="" style="display: block;margin: 25% auto" width="150">
+        </div>
+    </div>
+</div>
+<div class="dModel-bg" id="qyBuy">
+    <div class="qyBox">
+        <img src="assets/img/model/关闭.png" width="30" class="Model-close" alt="" onclick="buyClose()"
+             onmouseover="redClose(this)" onmouseout="backClose(this)">
+        <div class="qyBox-item" onclick="qyBuy('0')">
+            <p>收藏到企业库</p>
+            <span>该模型将被收藏到企业库</span>
+        </div>
+        <div class="qyBox-item" onclick="qyBuy('1')">
+            <p>收藏到个人库</p>
+            <span>该模型将被收藏到个人库</span>
+        </div>
+    </div>
+</div>
+<div id="sn-qq" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="" style=" width:0px;">
+            <div class="modal-body" style="height: 0px;">
+                <iframe height="100%" width="100%" frameBorder="0" style="outline: none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- START NAVBAR -->
+<div id="navigation" class="fixed-top navbar-light bg-faded site-navigation">
+</div>
+<!-- END NAVBAR -->
+
+<!-- START HOME -->
+<!--<section id="home" class="home_bg" style="background-image: url(assets/img/bg/home-bg1.png);  background-size:cover; background-position: center center;height: 75px;">
+    <div class="container">
+    </div>
+</section>-->
+<section id="home"
+         style="height: 600px;position: relative;background-color:#C7BFE6;  background-size:cover; background-position: center center;">
+    <div class="container">
+        <img style="position:absolute;width:600px;height:400px;top:130px;right:150px;" src="assets/img/timg3.jpg" />
+        <div class="hero-text" style="width:100%">
+            <h1 style="font-size:42px;margin-top:0px;"><font color="#FF6600"> 免费</font>下载实物模型</h1>
+            <p style="font-size:26px;margin-left:10px;margin-top: 50px;"><strong>*. 下载包含max,3ds资源包</strong></p>
+            <p style="font-size:26px;margin-left:10px;margin-top: 30px;"><strong>*. 想转换自己的模型，请联系我们</strong></p>
+        </div>
+    </div>
+</section>
+<div id='app'>
+    <div class="class-search app-box">
+        <p class="table-item active-table-item"
+        >3D模型</p>
+        <div class="search-input">
+            <input type="text" placeholder="搜索ID、关键词、以图搜图" class="input-item" id="Keyword">
+            <p class="icon-pic">
+                <span class="pic-in"></span>
+            </p>
+            <span class="search-btn" onclick="handleSearchBtn()">
+                        <span class="search-btn-in"></span>
+                    </span>
+        </div>
+    </div>
+    <div class="crumb app-box">
+
+    </div>
+    <!-- 检索项目 -->
+    <div class="sort-wrapper app-box">
+        <div class="sort-filter-box ">
+            <ul class="sort-filter-one-class clearfloat" id="firstMenu">
+            </ul>
+            <span class="new-sort-style-more2"></span>
+        </div>
+        <div class="sort-filter-box clearfloat">
+            <ul class="sort-filter-one-class clearfloat" id="secondMenu">
+
+            </ul>
+            <span class="new-sort-style-more2"></span>
+        </div>
+        <div class="sort-style clearfloat">
+            <ul class="sort-filter-one-class clearfloat" id="threeMenu">
+
+            </ul>
+            <span class="new-sort-style-more2"></span>
+        </div>
+    </div>
+
+
+    <div class="app-box clearfloat model-goods-box" id="item-box">
+    </div>
+    <div id="myPage"></div>
+</div>
+<div class="footer-top section-padding">
+</div>
+
+<div class="footer">
+</div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/v.js"></script>
+<script src="assets/js/wx-login.js"></script>
+<script src="assets/js/jquery.sPage.js"></script>
+<script src="assets/js/model.js"></script>
+<!-- Latest compiled and minified Bootstrap -->
+<script src="assets/js/bootstrap.js"></script>
+<!-- modernizer JS -->
+<script src="assets/js/modernizr-2.8.3.min.js"></script>
+<!-- owl-carousel min js  -->
+<script src="assets/owlcarousel/js/owl.carousel.min.js"></script>
+<!-- jquery nav -->
+<script src="assets/js/jquery.nav.js"></script>
+<!-- jquery.slicknav -->
+<script src="assets/js/jquery.slicknav.js"></script>
+<!-- jquery smooth-scroll JS -->
+<script src="assets/js/smooth-scroll.js"></script>
+<!-- scrolltopcontrol js -->
+<script src="assets/js/scrolltopcontrol.js"></script>
+<!-- countTo js -->
+<script src="assets/js/jquery.inview.min.js"></script>
+<!-- Slick js -->
+<script src="assets/js/slick.min.js"></script>
+<!-- WOW - Reveal Animations When You Scroll -->
+<script src="assets/js/wow.min.js"></script>
+<!-- MAGNIFICANT JS -->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!-- form-contact js -->
+<script src="assets/js/form-contact.js"></script>
+<!-- scripts js -->
+<script src="assets/js/scripts.js"></script>
+<script src="headfooter.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<!-- <link rel="stylesheet" href=""> -->
+	<script src="assets/js/jquery.min.js"></script>
+</head>
+<body>
+	<div id="form-div"></div>
+</body>
+<script>
+	//alert(localStorage.getItem("payDaadasdadta"))
+
+	var str=localStorage.getItem("payData");
+
+	if (str!=null) {
+		localStorage.removeItem("payData");
+		$('#form-div').append(str);
+	}else{
+
+
+		$(function() {
+        let strURL = window.location.href;
+        //strURL="http://www.ihouse3d.com/payreturn.html?type=0&useraccount=zhouqj&charset=utf-8&out_trade_no=20200401064045763&method=alipay.trade.page.pay.return&total_amount=0.01&sign=ScmSyOORsw%2FUU6cpTe7v6CYb4st%2Bn7NFzVsuxFFODA8GcCxgiVbnr4M72BzK2KnEAQm4MPFdC%2BnSm4oCLC2grHQSHHt7%2F45lkykaZy0dlPE63UNpTJHRLV4NfvkGRVi%2FZvLuiVAMr%2BVnrN6PSwd40fD42pvN2IEqadqvIPOgmy9An91fpyvf8zgG5p9GlwUxztpUCJ4HjDIZW4%2FpoXZZkB7quoYa2CcU0RjGF9xRMHmcMpBViCTLVD4rGoj0vGghZJFgrJe9pIC6JL0xnnN%2BEaJiqNixmzbF4s5eqcWtxFV11x1oQQBZDwcLyocj33W4HgJcLnGQ3j3E%2B1tFghRV4g%3D%3D&trade_no=2020040122001411150501181553&auth_app_id=2016101800717841&version=1.0&app_id=2016101800717841&sign_type=RSA2&seller_id=2088102180177786&timestamp=2020-04-01+06%3A55%3A18";
+
+        let type = GetParameterByName(strURL, "type");
+        if(!type){
+            alert("获取type失败!");
+            return;
+        }
+        let user_account = GetParameterByName(strURL, "useraccount");
+        if(!user_account){
+            alert("获取useraccount失败!");
+            return;
+        }
+        let out_trade_no = GetParameterByName(strURL, "out_trade_no");
+        if(!out_trade_no){
+            alert("获取out_trade_no失败!");
+            return;
+        }
+        let method = GetParameterByName(strURL, "method");
+        if(!method){
+            alert("获取method失败!");
+            return;
+        }
+        let total_amount = GetParameterByName(strURL, "total_amount");
+        if(!total_amount){
+            alert("获取total_amount失败!");
+            return;
+        }
+        let trade_no = GetParameterByName(strURL, "trade_no");
+        if(!trade_no){
+            alert("获取trade_no失败!");
+            return;
+        }
+        let auth_app_id = GetParameterByName(strURL, "auth_app_id");
+        if(!auth_app_id){
+            alert("获取auth_app_id失败!");
+            return;
+        }
+        let app_id = GetParameterByName(strURL, "app_id");
+        if(!app_id){
+            alert("获取app_id失败!");
+            return;
+        }
+        let seller_id = GetParameterByName(strURL, "seller_id");
+        if(!seller_id){
+            alert("获取seller_id失败!");
+            return;
+        }
+        let timestamp = GetParameterByName(strURL, "timestamp");
+        if(!timestamp){
+            alert("获取timestamp失败!");
+            return;
+        }
+
+        timestamp = decodeURIComponent(timestamp);
+
+        var object = {};
+        object['type'] = type;
+        object['user_account'] = user_account;
+        object['out_trade_no'] = out_trade_no;
+        object['method'] = method;
+        object['total_amount'] = total_amount;
+        object['trade_no'] = trade_no;
+        object['auth_app_id'] = auth_app_id;
+        object['app_id'] = app_id;
+        object['seller_id'] = seller_id;
+        object['timestamp'] = timestamp;
+
+        var jsonData = JSON.stringify(object);
+
+        $.ajax({
+            type: "POST",
+            url: "http://www.ihouse3d.com.cn/PayWebService.asmx/SavePayInfo",
+            dataType: "json",
+            data:
+                {
+                    "PayData":jsonData
+                },
+            success: function(data) {
+               console.log(data.msg);
+               window.close();
+            }
+        });
+
+    })
+
+	}
+
+	function GetParameterByName(url,name)
+    {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+</script>
+</html>

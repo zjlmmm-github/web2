@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>iHouse3D系统结构图</title>
+	<style type="text/css" media="screen">
+		.container{
+			width: 100%;
+			height: 700px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="container_1"></div>
+    <script type="text/javascript" src="lib/echarts.min.js"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+	<script src="js/iconAnalysis.js"></script>
+	<script>
+
+		var dom_1 = document.getElementById("container_1");
+		var myChart_1 = echarts.init(dom_1);
+		option = null;
+
+var option = {
+	title: {
+	        subtext: 'iHouse3D系统结构图',
+	        subtextStyle:{
+				color: '#666' ,
+	        	fontSize: 18 ,
+	        },
+	        left: 'center'
+	},	
+    tooltip: {
+        trigger: 'item',
+        triggerOn: 'mousemove'
+    },
+    series: [
+        {
+            type: "sankey",
+            nodeWidth:50,
+            left: "15%",
+            top: "10%",
+            right: "20%",
+            bottom: "35%",
+            data: [
+                {
+                    "name": "云设计端1",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#0037DA",
+                            "borderColor": "#0037DA"
+                        }
+                    }
+                },
+                {
+                    "name": "云设计端2",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#809B48",
+                            "borderColor": "#809B48"
+                        }
+                    }
+                },
+                {
+                    "name": "云设计端3",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#9F2936",
+                            "borderColor": "#9F2936"
+                        }
+                    }
+                },
+                {
+                    "name": "云渲染服务器1",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "rgba(128,155,72,255)",
+                            "borderColor": "rgba(128,155,72,255)"
+                        }
+                    }
+                },
+                {
+                    "name": "云设计端5",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#3C8EA4",
+                            "borderColor": "#3C8EA4"
+                        }
+                    }
+                },
+                {
+                    "name": "云渲染服务器2",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "rgba(106,82,134,255)",
+                            "borderColor": "rgba(106,82,134,255)"
+                        }
+                    }
+                },
+                {
+                    "name": "云设计端4",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#1B587C",
+                            "borderColor": "#1B587C"
+                        }
+                    }
+                },
+                {
+                    "name": "云渲染服务器3",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "rgba(64,105,157,255)",
+                            "borderColor": "rgba(64,105,157,255)"
+                        }
+                    }
+                },
+                {
+                    "name": "云渲染服务器n",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "rgba(64,105,157,255)",
+                            "borderColor": "rgba(64,105,157,255)"
+                        }
+                    }
+                },                
+                {
+                    "name": "数据中心",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#40699D",
+                            "borderColor": "#40699D"
+                        }
+                    }
+                },
+                {
+                    "name": "云设计端6",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#6A5286",
+                            "borderColor": "#6A5286"
+                        }
+                    }
+                },
+                {
+                    "name": "云设计端7",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#6A5286",
+                            "borderColor": "#6A5286"
+                        }
+                    }
+                },
+                {
+                    "name": "云设计端8",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#6A5286",
+                            "borderColor": "#6A5286"
+                        }
+                    }
+                },
+                {
+                    "name": "云设计端9",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#6A5286",
+                            "borderColor": "#6A5286"
+                        }
+                    }
+                },                
+                {
+                    "name": "云设计端n",
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#F07F09",
+                            "borderColor": "#F07F09"
+                        }
+                    }
+                }
+            ],
+            links: [
+                {
+                    "source": "数据中心",
+                    "target": "云设计端n",
+                    "value": 30
+                },
+                {
+                    "source": "数据中心",
+                    "target": "云设计端4",
+                    "value": 30
+                },
+                {
+                    "source": "数据中心",
+                    "target": "云设计端3",
+                    "value": 30
+                },
+                {
+                    "source": "数据中心",
+                    "target": "云设计端5",
+                    "value": 30
+                },
+                {
+                    "source": "数据中心",
+                    "target": "云设计端2",
+                    "value": 30
+                },
+                {
+                    "source": "数据中心",
+                    "target": "云设计端1",
+                    "value": 30
+                },
+                {
+                    "source": "数据中心",
+                    "target": "云设计端6",
+                    "value": 30
+                },
+                {
+                    "source": "数据中心",
+                    "target": "云设计端7",
+                    "value": 30
+                },
+                {
+                    "source": "数据中心",
+                    "target": "云设计端8",
+                    "value": 30
+                },
+                {
+                    "source": "数据中心",
+                    "target": "云设计端9",
+                    "value": 30
+                },                
+                {
+                    "source": "云渲染服务器1",
+                    "target": "数据中心",
+                    "value": 70
+                },
+                {
+                    "source": "云渲染服务器2",
+                    "target": "数据中心",
+                    "value": 70
+                },                
+                {
+                    "source": "云渲染服务器3",
+                    "target": "数据中心",
+                    "value": 70
+                },
+                {
+                    "source": "云渲染服务器n",
+                    "target": "数据中心",
+                    "value": 90
+                },                
+            ],
+            lineStyle: {
+                color: "source",
+                width: 1,
+                curveness: 0.5
+            },
+            itemStyle: {
+                color: "#1f77b4",
+                borderColor: "#1f77b4"
+            },
+            label: {
+                color: "rgba(0,0,0,0.7)",
+                fontFamily: "宋体",
+                fontSize: 16
+            }
+        }],
+        };
+		myChart_1.setOption(option, true);
+
+	</script>
+</body>
+</html>

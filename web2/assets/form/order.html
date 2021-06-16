@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+
+    <link rel="stylesheet" type="text/css" href="lib/ZCell.min.css" />
+    <script type="text/javascript" src="lib/ZCell.min.js"></script>
+    <script type="text/javascript" src="lib/ZCell.register.js"></script>
+    <script type="text/javascript" src="lib/Base.js"></script>
+    <script type="text/javascript" src="js/xlsx.core.min.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="lib/base64-binary.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+<div id="order">
+    <div id="cellContainer"></div>
+    <div class="bottom-btn">
+<!--        <button class="save">保存</button>
+        <button id="cancel">取消</button>-->
+        <button class="Delete" onclick="OnDelete()">删除</button>
+    </div>
+</div>
+
+<script>
+    let zcell;
+    // let mWebService = sessionStorage.getItem('webService')
+    let mWebService = 'http://3d.kaizhuang.com/'
+    GetParameter();
+
+    function ZCellInit(rows)
+    {
+        zcell = new ZCell(document.getElementById("cellContainer"));
+        //指定列、行
+        zcell.InserSheet(0, 12, rows);
+
+        let colWidth = [110,200,100,250,150,100,100,100,130,150,130,130];
+
+        //列宽度
+        for(let index = 0; index < 12; ++index)
+        {
+            zcell.GetSheet(0).SetColWidth(index + 1, colWidth[index]);
+        }
+
+        //行高度
+        for (let index = 1; index <= rows; ++index) {
+            zcell.GetSheet(0).SetRowHeight(index, 40);
+        }
+
+        //设置列/行标签不显示
+        zcell.GetSheet(0).ShowColLab(0);
+        zcell.GetSheet(0).ShowRowLab(0);
+
+        //列、行、合并列数(从第1列开始算)、合并行数(从第1行开始算)
+        //zcell.GetSheet(0).MergeCells(1, 2, 1, 1);
+
+
+        zcell.GetSheet(0).SetCellValue(1, 1, "订单编号");
+        zcell.GetSheet(0).SetCellValue(2, 1, "项目名称");
+        zcell.GetSheet(0).SetCellValue(3, 1, "客户名称");
+        zcell.GetSheet(0).SetCellValue(4, 1, "项目地点");
+        zcell.GetSheet(0).SetCellValue(5, 1, "下单时间");
+        zcell.GetSheet(0).SetCellValue(6, 1, "总价格");
+        zcell.GetSheet(0).SetCellValue(7, 1, "约定周期");
+        zcell.GetSheet(0).SetCellValue(8, 1, "联系人");
+        zcell.GetSheet(0).SetCellValue(9, 1, "联系电话");
+        zcell.GetSheet(0).SetCellValue(10, 1, "联系邮箱");
+        zcell.GetSheet(0).SetCellValue(11, 1, "订单详情");
+        zcell.GetSheet(0).SetCellValue(12, 1, "料单详情");
+
+        $('#zfstatd').hide();
+
+    }
+
+    function _GetRequest() {
+        var url = document.cookie;
+        var theRequest = {};
+        var strs = url.split(";");
+        for (var i = 0; i < strs.length; i++) {
+            strs[i] = strs[i].replace(" ", "")
+            theRequest[strs[i].split("=")[0].substring(0, 5)] = strs[i].split("=")[1];
+        }
+
+        return theRequest;
+    }
+
+    function GetParameter()
+    {
+        var cookieData = _GetRequest()
+        var userAcount = cookieData.name;
+
+        $.ajax({
+            url: mWebService + 'Service1.asmx/ExecuteQuery',
+            //url: 'http://127.0.0.1/Service1.asmx/ExecuteQuery',
+            type: "post",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:
+                {
+                    Database: "kaizhuang",
+                    Sql:`select * from order_list where user_account='${userAcount}'`
+                },
+            success: function (data)
+            {
+                if("1" == data.code)
+                {
+                    let jData = JSON.parse(data.data);
+                    let rows = jData.Table.length;
+                    ZCellInit(rows + 1);
+
+                    for(let index = 0; index < rows; ++index)
+                    {
+                        let item = jData.Table[index];
+
+                        zcell.GetSheet(0).SetCellValue(1, 2 + index, item.code);
+                        zcell.GetSheet(0).SetCellValue(2, 2 + index, item.project_name);
+                        zcell.GetSheet(0).SetCellValue(3, 2 + index, item.curstomer_name);
+                        zcell.GetSheet(0).SetCellValue(4, 2 + index, item.address);
+                        zcell.GetSheet(0).SetCellValue(5, 2 + index, item.create_time);
+                        zcell.GetSheet(0).SetCellValue(6, 2 + index, item.total_price);
+                        zcell.GetSheet(0).SetCellValue(7, 2 + index, "2020-09-01");
+                        zcell.GetSheet(0).SetCellValue(8, 2 + index, item.contacts);
+                        zcell.GetSheet(0).SetCellValue(9, 2 + index, item.telphone);
+                        zcell.GetSheet(0).SetCellValue(10, 2 + index, "");
+
+                        let strDingdan = base64_encode(item.dingdan);
+                        //订单
+                        var linktpye = {
+                            "code": "object",
+                            "object": `<a href='javascript:void(0)'   onclick='ShowDingDan("${strDingdan}");'>查看</a>`
+                        };
+                        zcell.GetSheet(0).SetCellType(11, 2 + index, linktpye);
+
+                        //料单
+                        var linktpye = {
+                            "code": "object",
+                            "object": `<a href='javascript:void(0)'   onclick='ShowLiaoDan("${item.liaodan}");'>查看</a>`
+                        };
+                        zcell.GetSheet(0).SetCellType(12, 2 + index, linktpye);
+                    }
+                }
+                else if("0" == data.code)
+                {
+                    alert(data.msg);
+                }
+            },
+            error: function (err)
+            {
+                console.log(err);
+            }
+        });
+    }
+
+
+    //显示订单
+    function ShowDingDan(dingdan)
+    {
+        dingdan = base64_decode(dingdan);
+        if(dingdan)
+        {
+            let jsonData = JSON.parse(dingdan);
+
+            let kzProjectInfo = decodeURIComponent(base64_decode(jsonData.kzProjectInfo));
+            let wuliaoList = decodeURIComponent(base64_decode(jsonData.wuliaoList));
+            let dan_jia = jsonData.dan_jia;
+            let product_cyle = jsonData.product_cyle;
+            let install_cyle = jsonData.install_cyle;
+
+
+            sessionStorage.setItem('kzProjectInfo',kzProjectInfo);
+            sessionStorage.setItem('wuliaoList',wuliaoList);
+
+            sessionStorage.setItem('dan_jia',dan_jia);
+            sessionStorage.setItem('product_cyle',product_cyle);
+            sessionStorage.setItem('install_cyle',install_cyle);
+
+
+            window.open('./kaizhuangpingtai.html','_blank');
+        }
+    }
+
+    //显示料单
+    function ShowLiaoDan(liaodan)
+    {
+        if(liaodan)
+        {
+            liaodan = base64_decode(liaodan);
+            liaodan = decodeURIComponent(liaodan);
+
+            let jLiaoDan = JSON.parse(liaodan);
+            let kzProjectInfo = jLiaoDan.kzProjectInfo;
+            let wuliaozhucai = jLiaoDan.wuliaozhucai;
+            let wuliaofucai = jLiaoDan.wuliaofucai;
+            let kzReportData = jLiaoDan.kzReportData;
+            let orderDate = jLiaoDan.orderDate;
+            let orderNumber = jLiaoDan.orderNumber;
+
+
+            sessionStorage.setItem('kzProjectInfo',JSON.stringify(kzProjectInfo));
+            sessionStorage.setItem('wuliaozhucai',JSON.stringify(wuliaozhucai));
+            sessionStorage.setItem('wuliaofucai',JSON.stringify(wuliaofucai));
+            sessionStorage.setItem('kzReportData',JSON.stringify(kzReportData));
+            sessionStorage.setItem('orderDate',orderDate);
+            sessionStorage.setItem('orderNumber',orderNumber);
+
+            window.open('./kaizhuangzhucai.html','_blank');
+        }
+    }
+
+    function OnDelete()
+    {
+        let currentRowNo = zcell.GetSheet(0).GetCurrentRowNo();
+        if(1 == currentRowNo)
+        {
+            alert('禁止删除表头数据');
+            return;
+        }
+
+        if(-1 == currentRowNo)
+        {
+            alert('请选择要删除的行');
+            return;
+        }
+
+        if(confirm("确定要删除吗？"))
+        {
+            Delete();
+        }
+    }
+
+    function Delete()
+    {
+        let currentRowNo = zcell.GetSheet(0).GetCurrentRowNo();
+
+        if(1 == currentRowNo)
+        {
+            alert('禁止删除表头数据');
+        }
+        else if(-1 != currentRowNo)
+        {
+            let orderID = zcell.GetSheet(0).GetCellValue(1,currentRowNo);
+            //zcell.GetSheet(0).DeleteRow(currentRowNo, 1);
+            let strSQL=`delete from order_list where code='${orderID}'`;
+
+            $.ajax({
+                url: mWebService + 'Service1.asmx/ExecuteNonQuery',
+                type: "post",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                data:
+                    {
+                        Database: "kaizhuang",
+                        Sql:strSQL
+                    },
+                success: function (data)
+                {
+                    if(data.code == "1")
+                    {
+                        zcell.GetSheet(0).DeleteRow(currentRowNo, 1);
+                        alert('删除成功');
+                    }
+                    else {
+                        alert(data.msg);
+                    }
+
+                },
+                error: function (err)
+                {
+                    console.log(err);
+                }
+            });
+
+        }
+        else
+        {
+            alert('请选择要删除的行');
+        }
+    }
+
+</script>
+
+</body>
+</html>

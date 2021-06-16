@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页界面管理</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/ui.css">
+    <style>
+        #app {
+            width: 100%;
+            height: 100%;
+            padding: 20px 0;
+            min-height: 800px;
+        }
+
+        .headerBtn {
+            position: relative;
+            height: 40px;
+        }
+
+        .headerBtn p {
+            background: #2d98e6;
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 5px;
+            color: #ffffff;
+            position: absolute;
+            top: 0;
+            cursor: pointer;
+            right: 30px;
+        }
+        .headerBtn span {
+            background: #2d98e6;
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 5px;
+            color: #ffffff;
+            position: absolute;
+            top: 0;
+            cursor: pointer;
+            right: 135px;
+        }
+        .headerBtn p:nth-child(4) {
+            display: none;
+        }
+
+        .headerBtn p:nth-child(5) {
+            display: none;
+        }
+        .headerBtn p:nth-child(6) {
+            display: none;
+        }
+        .headerBtn input {
+            width: 100px;
+            height: 40px;
+            position: absolute;
+            top: 0;
+            right: 30px;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .titleBox {
+            display: flex;
+            border-bottom: 1px solid #f3f3f3;
+        }
+
+        .titleBox-item {
+            margin: 0 20px;
+            font-size: 16px;
+            color: #999999;
+            padding-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .activeTile {
+            color: #2d98e6;
+            border-bottom: 2px solid #2d98e6;
+        }
+
+        .picBox {
+            position: relative;
+        }
+
+        .appPicBox {
+            position: relative;
+            display: none;
+        }
+
+        .item {
+            position: absolute;
+            width: 18.8%;
+            margin: .4%;
+            cursor: pointer;
+            box-shadow: 8px 8px 20px #ccc;
+            z-index: 1;
+        }
+
+        .qjitem {
+            width: 30%;
+            margin: .4%;
+            cursor: pointer;
+            box-shadow: 8px 8px 20px #ccc;
+            z-index: 1;
+            display: inline-block;
+            /*height: 230px;*/
+            position: relative;
+        }
+
+        .item > img {
+            width: 100%;
+        }
+
+        .itemBtn {
+            height: 30px;
+            text-align: right;
+            line-height: 30px;
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            color: #2d98e6;
+        }
+
+        .panoBox {
+            display: none;
+            width: 100%;
+            height: 600px;
+
+        }
+
+        .panoBox iframe {
+            display: block;
+            width: 100%;
+            height: 200px;
+        }
+
+
+        .configQj {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9;
+            display: none;
+        }
+
+        .configQj-box {
+            width: 500px;
+            height: 200px;
+            background: #ffffff;
+            border-radius: 5px;
+            margin: 250px auto;
+        }
+
+        .qjTitle {
+            font-size: 18px;
+            font-weight: bolder;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .buttonBox {
+            margin: 20px auto;
+            width: 300px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .videoBox {
+            display: none;
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+        }
+
+        #videoFile {
+            display: none;
+        }
+
+        #file1 {
+            display: none;
+        }
+
+        .slide-btn {
+            width: 100px;
+            display: inline-block;
+            border: 1px solid;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            position: absolute;
+            overflow: hidden;
+            cursor: pointer;
+            right: 10px;
+            top: 5px;
+        }
+
+        .slide-btn .inner-on, .slide-btn .inner-off {
+            width: 151px;
+            box-sizing: border-box;
+            display: inline-block;
+            position: relative;
+            left: 0;
+            cursor: pointer;
+            transition: left 0.5s;
+        }
+
+        .inner-on .left, .inner-off .left {
+            width: 50px;
+            color: #fff;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            background: #58b058;
+            text-align: center;
+            display: inline-block;
+            padding: 4px 0;
+        }
+
+        .inner-on .space, .inner-off .space {
+            width: 51px;
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 4px 0;
+            color: #fff;
+            background-color: #f5f5f5;
+            border-left: 1px solid #cccccc;
+            border-right: 1px solid #cccccc;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+        }
+
+        .inner-on .right, .inner-off .right {
+            width: 50px;
+            color: #fff;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            background: #f9a123;
+            text-align: center;
+            display: inline-block;
+            padding: 4px 0;
+        }
+
+        .item-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 36px;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+        .item-icon-item{
+            width: 30px;
+            color: #ffffff;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: 2;
+        }
+        .item-icon-item img{
+            margin-bottom: 5px;
+        }
+        .kgBox{
+            position: relative;
+            height: 36px;
+        }
+        .pxBtn{
+
+        }
+        .makeBox {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 2001;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .makeBox-detail {
+            padding: 20px;
+            width: 800px;
+            /*height: 500px;*/
+            margin: 100px auto;
+            background: #ffffff;
+            border-radius: 5px;
+        }
+
+        .makeBox-detail > p {
+            color: red;
+            margin-bottom: 20px;
+        }
+
+        #txt {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #e7e7e7;
+        }
+
+        .makeBtn-box {
+            display: flex;
+            justify-content: space-between;
+            width: 400px;
+            margin: 20px auto;
+        }
+
+        .saveBtn {
+            width: 102px;
+            height: 52px;
+            text-align: center;
+            line-height: 52px;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #409eff;
+        }
+
+        .saveBtn:hover {
+            background: #66b1ff;
+        }
+
+        .closeBtn {
+            width: 102px;
+            height: 52px;
+            text-align: center;
+            line-height: 52px;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #f56c6c;
+        }
+
+        .closeBtn:hover {
+            background: #f78989;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-loading="loading" element-loading-text="加载中.....">
+    <div id="makeBox" class="makeBox" style="display: none">
+        <div class="makeBox-detail">
+            <textarea id="txt"></textarea>
+            <div class="makeBtn-box">
+                <p class="saveBtn">保存</p>
+                <p class="closeBtn">关闭</p>
+            </div>
+        </div>
+    </div>
+    <div class="configQj">
+        <div class="configQj-box">
+            <p class="qjTitle">添加全景</p>
+            <p style="text-align: center"><span>全景地址：</span>
+                <el-input v-model="link" style="width: 300px"></el-input>
+            </p>
+            <div class="buttonBox">
+                <el-button type="primary" onclick="setQj()" style="padding: 18px 28px">添加</el-button>
+                <el-button type="danger" onclick="closeBox()" style="padding: 18px 28px">关闭</el-button>
+            </div>
+        </div>
+    </div>
+    <div class="titleBox">
+        <p class="titleBox-item activeTile">图片管理</p>
+        <p class="titleBox-item">全景管理</p>
+        <p class="titleBox-item">动画管理</p>
+        <p class="titleBox-item">截图管理</p>
+    </div>
+
+    <div class="headerBtn">
+        <h1 style="color: red;padding: 10px">图片尺寸为1270*730</h1>
+        <span>排序</span>
+        <p>添加图片</p>
+        <p>添加全景</p>
+        <p>添加动画</p>
+        <p>添加截图</p>
+        <input type="file" multiple="multiple" id="file">
+        <input type="file" multiple="multiple" id="file1">
+        <input type="file" id="videoFile">
+    </div>
+    <div class="picBox"></div>
+    <div class="panoBox">
+    </div>
+    <div class="videoBox">
+
+    </div>
+    <div class="appPicBox"></div>
+</div>
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/cookie.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/indexConfig.js"></script>
+</html>

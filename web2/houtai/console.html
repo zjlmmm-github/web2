@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html">
+		
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="layui/css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="style/admin.css" media="all">
+		<link rel="stylesheet" type="text/css" href="iconfont/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<div class="layui-fluid">
+			<div class="layui-card console_con">
+				<div class="layui-card-body">
+					<div class="layadmin-backlog">
+						<ul class="layui-row layui-col-space1">
+							<li class="layui-col-xs3">
+								<a href="javascript:;" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_zzsc.png"></h3>
+									<p>正在施工</p>
+								</a>
+							</li>
+							<li class="layui-col-xs3">
+								<a href="grab_center.html" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_qdzx.png"></h3>
+									<p>抢单中心</p>
+								</a>
+							</li>
+							<li class="layui-col-xs3">
+								<a href="javascript:;" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_rygl.png"></h3>
+									<p>人员管理</p>
+								</a>
+							</li>
+							<li class="layui-col-xs3">
+								<a href="shouyi_det.html" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_shgl.png"></h3>
+									<p>结算中心</p>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md8">
+					<div class="layui-card console_con">
+						<div class="layui-card-body">
+							<div class="layadmin-backlog">
+								<div class="layadmin-backlog-body console_grid">
+									<div class="console_label">实时进度</div>
+									<div class="process_box">
+										<div class="process_item before-warm">
+											<div class="title clearfix">
+												<p class="pull-left">项目名称 <span class="layui-btn layui-btn-warm layui-btn-xs">已完工</span></p>
+												<p class="date pull-right">2020-12-20</p>
+											</div>
+											<div class="desc clearfix">
+												<p class="pull-left">XX订单已逾期，请联系甲方</p>
+												<a href="" class="concat pull-right color-warm"><i class="iconfont icon-lianxi1"></i>联系甲方</a>
+											</div>
+											<div class="photos clearfix">
+												<img class="img pull-left" src="images/icon_dqye.png">
+												<img class="img pull-left" src="images/icon_ljsy.png">
+											</div>
+										</div>
+										<div class="process_item before-primary">
+											<div class="title clearfix">
+												<p class="pull-left">项目名称 <span class="layui-btn layui-btn-xs">已逾期</span></p>
+												<p class="date pull-right">2020-12-20</p>
+											</div>
+											<div class="desc clearfix">
+												<p class="pull-left">XX订单已逾期，请联系甲方</p>
+												<a href="" class="concat pull-right color-primary"><i class="iconfont icon-lianxi1"></i>联系甲方</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-md4">
+					<div class="layui-card console_con">
+						<div class="layui-card-body">
+							<div class="layadmin-backlog">
+								<div class="layadmin-backlog-body console_grid">
+									<div class="console_label">类型分布</div>
+									<div style="height: 350px;" id="leixing"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md8">
+					<div class="layui-card console_con">
+						<div class="layui-card-body">
+							<div class="layadmin-backlog">
+								<div class="layadmin-backlog-body console_grid">
+									<div class="console_label tabs_label">
+										<span>订单统计</span> 
+										<div class="tabs"><span class="tab_item active">数量</span><span class="tab_item">金额</span></div>
+									</div>
+									<div style="height: 350px; width: 100%;" id="tongji"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-md4">
+					<div class="layui-card console_con">
+						<div class="layui-card-body">
+							<div class="layadmin-backlog">
+								<div class="layadmin-backlog-body console_grid">
+									<div class="console_label tabs_date clearfix">
+										<div class="pull-left">阶段分布</div> 
+										<div class="tabs pull-right"><span class="tab_item active">月</span><span class="tab_item">季度</span><span class="tab_item">年</span></div>
+									</div>
+									<div class="jieduan_box">
+										<div class="jieduan_item">
+											<div class="jieduan_label"><i class="status_icon pay"></i>待支付</div>
+											<div class="layui-progress layui-progress-big" lay-showpercent="yes">
+											  <div class="layui-progress-bar layui-bg-blue" lay-percent="50%"></div>
+											</div>
+										</div>
+										<div class="jieduan_item">
+											<div class="jieduan_label"><i class="status_icon prod"></i>生产中</div>
+											<div class="layui-progress layui-progress-big" lay-showpercent="yes">
+											  <div class="layui-progress-bar layui-bg-green" lay-percent="50%"></div>
+											</div>
+										</div>
+										<div class="jieduan_item">
+											<div class="jieduan_label"><i class="status_icon send"></i>配送中</div>
+											<div class="layui-progress layui-progress-big" lay-showpercent="yes">
+											  <div class="layui-progress-bar layui-bg-orange" lay-percent="50%"></div>
+											</div>
+										</div>
+										<div class="jieduan_item">
+											<div class="jieduan_label"><i class="status_icon down"></i>已完成</div>
+											<div class="layui-progress layui-progress-big" lay-showpercent="yes">
+											  <div class="layui-progress-bar layui-bg-red" lay-percent="50%"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<script src="js/echarts.common.min.js"></script>
+		<script src="layui/layui.all.js"></script>
+		<script>
+			var leixingChart = echarts.init(document.getElementById('leixing'));
+			var myChart = echarts.init(document.getElementById('tongji'));
+			const list = [{value: 1048, name: '住宅'},
+							{value: 735, name: '酒店'},
+							{value: 580, name: '办公'},
+							{value: 580, name: '建筑'},
+							{value: 484, name: '商业'},
+							{value: 300, name: '餐饮'},
+							{value: 300, name: '其他'}]
+			/* 类型分布 */
+			leixing = {
+				color: ['#FF5722', '#01AAED', '#FFB800', '#009688', '#5FB878', '#91cc75', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc', '#5470c6', '#2F4056'],
+				tooltip: {
+					trigger: 'item',
+				},
+				roseType: 'radius',
+				legend: {
+					show: true,
+					type: 'scroll',
+					orient: 'vertical',
+					left: 'right',
+					y: 'center',
+					icon: 'circle',
+					itemWidth: '10',
+					itemHeight: '10',
+					itemGap: 20,
+					// 使用字符串模板，模板变量为图例名称 {name}
+					formatter:function(name){  //该函数用于设置图例显示后的百分比
+						var data = list
+						var total = 0;
+						var value;
+						list.forEach((item)=>{
+							total += item.value;
+							if (item.name == name) {
+								value = item.value;
+							}
+						})
+						var p = Math.round(((value / total) * 100)); //求出百分比
+						return `${name}  ${p}%`;  //返回出图例所显示的内容是名称+百分比
+					},
+				},
+				series: [
+					{
+						name: '类型分布',
+						type: 'pie',
+						radius: ['50%', '75%'],
+						avoidLabelOverlap: true,
+						center: ['40%', '50%'],
+						label: {
+							show: false,
+							position: 'center'
+						},
+						emphasis: {
+							label: {
+								show: false,
+								fontSize: '30'
+							}
+						},
+						labelLine: {
+							show: false
+						},
+						data: list
+					}
+				]
+			};
+			/* 订单统计 */
+			option = {
+				color: ['#009688', '#01AAED'],
+			    tooltip: {
+			        trigger: 'axis'
+			    },
+				grid: {
+					left: 50, // 默认10%，给30就挺合适的。
+					right: 30, // 默认10%
+				},
+			    legend: {
+					left: 'right',
+			        data: ['进行中', '已完成']
+			    },
+			    calculable: true,
+			    xAxis: [
+			        {
+			            type: 'category',
+			            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+			        }
+			    ],
+			    yAxis: [
+			        {
+			            type: 'value'
+			        }
+			    ],
+			    series: [
+			        {
+			            name: '进行中',
+			            type: 'bar',
+			            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+			        },
+			        {
+			            name: '已完成',
+			            type: 'bar',
+			            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+			        }
+			    ]
+			};
+			leixingChart.setOption(leixing);
+			myChart.setOption(option);
+			//浏览器大小改变时重置大小
+			window.onresize = function() {
+				myChart.resize();
+				leixingChart.resize();
+			};
+		</script>
+	</body>
+</html>

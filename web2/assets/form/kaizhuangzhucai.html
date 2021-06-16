@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>加工料单</title>
+	<link rel="stylesheet" href="css/config.css">
+	<link rel="stylesheet" href="css/kz_zhucai.css">
+</head>
+<body>
+	<div id="app">
+		<div class="kz_top">
+			<button class="btn_jiagon_liaodan" onclick="OnJiagonLiaoDan()">加工料单</button>
+			<button class="btn_mingxi_qingdang" onclick="OnMingxiQingDang()">明细清单</button>
+		</div>
+		<div class="kz_left">
+			<div class="kz_logo">				
+				<img src="img/logo.png" alt="">
+			</div>
+			<ul class="kz_left_list">
+				<li class="kz_left_item active">
+					<span>项目名称：{{gProjectInfo.name}}</span>
+				</li>
+				<li class="kz_left_item">
+					<span>厂商名称：开装</span>
+				</li>
+				<li class="kz_left_item">
+					<span>订单编号：{{orderNumber}}</span>
+				</li>
+				<li class="kz_left_item">
+					<span>下单时间：{{orderDate}}</span>
+				</li>
+				<li class="kz_left_item">
+					<span>联  系 人：{{gProjectInfo.contact}}</span>
+				</li>
+				<li class="kz_left_item">
+					<span>联系电话：{{gProjectInfo.phone}}</span>
+				</li>
+			</ul>
+			<div class="kz_gongzhonghao">
+				<img src="img/gongzhonghao.png" alt="">
+				<p>关注公众号</p>
+			</div>
+		</div>
+		<div class="kz_right">
+			<div class="kz_right_header">
+				<div class="kz_header_left">
+					<span>{{gProjectInfo.name}}项目加工料单</span>
+					<span>订单编号：{{orderNumber}}</span>
+				</div>
+				<div class="kz_header_right">
+					<span class="kz-user-title">用户管理</span>
+					<p class="kz-line"></p>
+					<div class="kz-user">
+						<img src="img/user_2.png" alt="">
+						<div class="user-conters">
+							<p class="user-name">Administrators</p>
+							<p class="user-jurisdiction">系统管理员</p>
+						</div>
+					</div>
+					<p class="kz-line"></p>
+					<img src="img/1-1.png" class="kz-close" alt="">
+				</div>
+			</div>
+			<div class="table_conter list_liaodan">
+				<div class="table_header clearfloat">
+					<div class="table_header_td width_1">
+						<span>部品编码</span>
+					</div>
+					<div class="table_header_td width_2">
+						<span>部品名称</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>材质</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>规格</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>花色</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>品牌</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>数量</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>单位</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>单价</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>总价</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>加工要求</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>是否库存</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>生产周期</span>
+					</div>
+					<div class="table_header_td width_3">
+						<span>备注</span>
+					</div>
+				</div>
+				<div class="table_tr clearfloat" v-for="item in wuliaoList">
+					<div class="table_td width_1">
+						<span>{{item[0]}}</span>
+					</div>
+					<div class="table_td width_2">
+						<span :title="item[1]">{{item[1]}}</span>
+					</div>
+					<div class="table_td width_3">
+						<span>{{item[2]}}</span>
+					</div>
+					<div class="table_td width_3">
+						<span>{{item[3]}}</span>
+					</div>
+					<div class="table_td width_3">
+						<span>{{item[4]}}</span>
+					</div>
+					<div class="table_td width_1">
+						<span>{{item[5]}}</span>
+					</div>
+					<div class="table_td width_3">
+						<span>{{item[6]}}</span>
+					</div>
+					<div class="table_td width_3">
+						<span>{{item[7]}}</span>
+					</div>
+					<div class="table_td width_3">
+						<span>{{item[8]}}</span>
+					</div>
+					<div class="table_td width_3">
+						<span>{{item[9]}}</span>
+					</div>
+					<div class="table_td width_3">
+						<span></span>
+					</div>
+					<div class="table_td width_3">
+						<span></span>
+					</div>
+					<div class="table_td width_3">
+						<span></span>
+					</div>
+					<div class="table_td width_3">
+						<span v-if="item[0]=='C51441-1121'">双面开槽</span>
+					</div>
+				</div>
+			</div>
+			<div class="table_conter  list_qingdangdan">
+				<div class="table_header clearfloat">
+					<div class="table_header_td width_1">
+						<span>大类</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>房间</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>墙面</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>编号</span>
+					</div>
+					<div class="table_header_td width_2">
+						<span>品名</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>材质</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>规则</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>花色</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>加工信息</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>包装号</span>
+					</div>
+					<div class="table_header_td width_1">
+						<span>二维码</span>
+					</div>
+				</div>
+				<div class="table_tr clearfloat" v-for="item in zhucaiList">
+					<div class="table_td width_1">
+						<span>墙板</span>
+					</div>
+					<div class="table_td width_1">
+						<span>{{roomName}}</span>
+					</div>
+					<div class="table_td width_1">
+						<span><p class="redBlock"></p></span>
+					</div>
+					<div class="table_td width_1">
+						<span>{{item[0]}}</span>
+					</div>
+					<div class="table_td width_2">
+						<span>{{item[1]}}</span>
+					</div>
+					<div class="table_td width_1">
+						<span>{{item[2]}}</span>
+					</div>
+					<div class="table_td width_1">
+						<span>{{item[3]}}</span>
+					</div>
+					<div class="table_td width_1">
+						<span>{{item[4]}}</span>
+					</div>
+					<div class="table_td width_1">
+						<span>双面开槽</span>
+					</div>
+					<div class="table_td width_1">
+						<span>A1</span>
+					</div>
+					<div class="table_td width_1">
+						<span v-on:click="OnShowDetail(item)">查看</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="btn-conter">
+				<button @click="btn_print">打印</button>
+				<button @click="btn_export">导出</button>
+			</div>
+		</div>
+		<div class="qr-backgroud" onclick="OnHideQRCode()">
+			<div class="qr-code" onclick="OnHideQRCode()">
+			</div>
+		</div>
+	</div>
+	<script src="../js/3dyun.js"></script>
+	<script src="lib/vue.min.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script type="text/javascript" src="js/xlsx.core.min.js"></script>
+	<script type="text/javascript" src="lib/jquery.qrcode.min.js"></script>
+	<script>
+		let gReportType = 0;
+
+		var app=new Vue({
+            el:"#app",
+            data(){
+            	return{
+/*	            	wuliaoList:[],
+	            	gProjectInfo:'',
+					orderNumber:'',
+					orderDate:'',*/
+
+					wuliaoList:[],
+					zhucaiList:[],
+					gProjectInfo:'',
+					orderNumber:'',
+					orderDate:'',
+					roomName:'',
+					wuliaozhucai:[],
+					wuliaofucai:[]
+            	}
+            },
+            methods:{
+				btn_print(){
+					window.print();
+				},
+				btn_export(){
+
+					let data=[];
+					let exp = '';
+					if(gReportType == 0)
+					{
+						for (var i = 0; i < this.wuliaoList.length; i++) {
+							data[i]=this.wuliaoList[i].join(',');
+						}
+						exp='部品编码,部品名称,材质,规格,花色,品牌,数量,单位,单价,总价,加工要求,是否库存,生产周期,备注\n'+data.join('\n');
+					}
+					else
+					{
+						exp='大类,房间,墙面,编号,品名,材质,规则,花色,加工信息,包装号\n';
+						for (var i = 0; i < this.zhucaiList.length; i++) {
+							let item = this.zhucaiList[i];
+
+							exp +=`墙板,红色,${this.roomName},${item[0]},${item[1]},${item[2]},${item[3]},${item[4]},双面开槽,A1\n`;
+						}
+					}
+
+					exportExcel(exp);
+				}
+            },
+            created(){
+            	let gProjectInfo = sessionStorage.getItem("kzProjectInfo");
+				this.gProjectInfo=$.parseJSON(gProjectInfo);
+				this.roomName = this.gProjectInfo.roomname;
+
+            	let wuliaozhucai=sessionStorage.getItem('wuliaozhucai');
+			    let wuliaofucai=sessionStorage.getItem('wuliaofucai');
+			    wuliaozhucai=$.parseJSON(wuliaozhucai);
+			    wuliaofucai=$.parseJSON(wuliaofucai);
+
+				//订单日期
+				this.orderDate = sessionStorage.getItem('orderDate');
+
+                //订单编号
+				this.orderNumber = sessionStorage.getItem('orderNumber');
+
+				let kzReportData=sessionStorage.getItem("kzReportData");
+				kzReportData=$.parseJSON(kzReportData);
+
+				let zhucaiArr=wuliaozhucai[0];
+				let boardsArr=kzReportData.room["0"].boards;
+
+				for (var i = 0; i < boardsArr.length; i++) {
+					this.wuliaozhucai[i]=$.parseJSON(JSON.stringify(zhucaiArr));
+					this.wuliaozhucai[i][3]=boardsArr[i].width+'*'+boardsArr[i].length+'*'+boardsArr[i].height;
+					this.wuliaozhucai[i][6]=boardsArr[i].count;
+					this.wuliaozhucai[i][9]=boardsArr[i].count*parseInt(this.wuliaozhucai[i][8])
+					this.wuliaozhucai[i][10]=boardsArr[i].roomname;
+					this.wuliaozhucai[i][11]=boardsArr[i].wallid;
+					this.wuliaozhucai[i][12]=boardsArr[i].color;
+				}
+
+				this.zhucaiList = SetZhucaiList(this.wuliaozhucai,this.zhucaiList);
+				//SaveZhucaiList(this.zhucaiList,this.roomName);
+
+				this.wuliaoList= this.wuliaozhucai.concat(this.wuliaofucai);
+
+				/*
+				for (var i = 0; i < boardsArr.length; i++) {
+					wuliaozhucai[i]=$.parseJSON(JSON.stringify(zhucaiArr));
+					wuliaozhucai[i][3]=boardsArr[i].width+'*'+boardsArr[i].length+'*'+boardsArr[i].height;
+					wuliaozhucai[i][6]=boardsArr[i].count;
+					wuliaozhucai[i][9]=boardsArr[i].count*parseInt(wuliaozhucai[i][8])
+				}
+
+			    this.wuliaoList= wuliaozhucai.concat(wuliaofucai);
+				SortArray(this.wuliaoList);
+				*/
+            }
+        });
+
+		function SortArray(wuliaoList)
+		{
+			let sortArray = new Array();
+			for(let index = 0; index < 4; ++index)
+				sortArray[index] = new Array();
+
+			for (var i = 0; i < wuliaoList.length; i++)
+			{
+				//this.wuliaoList[i] = this.wuliaoList[i].split(",");
+				if(-1 != wuliaoList[i][1].indexOf("(主)"))
+				{
+					sortArray[0].push(wuliaoList[i]);
+				}
+				else if(-1 != wuliaoList[i][1].indexOf("(开)"))
+				{
+					sortArray[1].push(wuliaoList[i]);
+				}
+				else if(-1 != wuliaoList[i][1].indexOf("(辅)"))
+				{
+					sortArray[2].push(wuliaoList[i]);
+				}
+				else
+				{
+					sortArray[3].push(wuliaoList[i]);
+				}
+			}
+
+			let arrData = [];
+			for(let index = 0; index < 4; ++index)
+			{
+				if(sortArray[index].length > 0)
+					arrData.push(sortArray[index]);
+			}
+
+			let listIndex = 0;
+			for(let index = 0; index < arrData.length; ++index)
+			{
+				for(let k = 0; k < arrData[index].length; ++k)
+				{
+					wuliaoList[listIndex] =arrData[index][k];
+					++listIndex;
+				}
+			}
+		}
+
+		//明细清单
+		function OnMingxiQingDang()
+		{
+			gReportType = 1;
+
+			$('.list_liaodan').hide();
+			$('.list_qingdangdan').show();
+
+			$('.btn_mingxi_qingdang').css({"background-color":"#595C79","color":"#FFF"});
+			$('.btn_jiagon_liaodan').css({"background-color":"#FFF","color":"#000"});
+		}
+
+		function OnShowDetail(item)
+		{
+			//$('.board-detail-model').show();
+
+			$('.qr-code').empty();
+
+			let itemData = `${app.orderNumber},${app.gProjectInfo.name},${item[1]},${item[3]},${item[4]},双面开槽,${app.roomName},A1}`;
+			itemData = encodeURI(itemData)
+			//window.open(`mobile_wall.html?data=${itemData}`);
+			$('.qr-code').qrcode(m_strWebService + `h5/baojia/kaizhuang/mobile_wall.html?data=${itemData}`);
+			$('.qr-backgroud').show();
+		}
+
+		function SetZhucaiList(wuliaozhucai,zhucaiList)
+		{
+			if(wuliaozhucai.length > 0)
+			{
+				let num = 0;
+				zhucaiList = [];
+				for(let index = 0; index < wuliaozhucai.length; ++index)
+				{
+					let boardCounts = parseInt(wuliaozhucai[index][6]);
+					for(let k = 0; k < boardCounts; ++k)
+					{
+						num = num + 1;
+						let strNumber = "A-"+(num);
+						let data = CopyValue(wuliaozhucai[index]);
+						data[0] = strNumber;
+
+						zhucaiList.push(data);
+					}
+				}
+			}
+
+			return zhucaiList
+		}
+
+		function CopyValue(obj) {
+			// 只拷贝对象
+			if (typeof obj !== 'object') return;
+			// 根据obj的类型判断是新建一个数组还是一个对象
+			var newObj = obj instanceof Array ? [] : {};
+			for (var key in obj) {
+				// 遍历obj,并且判断是obj的属性才拷贝
+				if (obj.hasOwnProperty(key)) {
+					// 判断属性值的类型，如果是对象递归调用深拷贝
+					newObj[key] = typeof obj[key] === 'object' ? CopyValue(obj[key]) : obj[key];
+				}
+			}
+			return newObj;
+		}
+
+		function exportExcel(csv) {
+			var sheet = csv2sheet(csv);
+			var blob = sheet2blob(sheet);
+			openDownloadDialog(blob, '导出.xlsx');
+		}
+
+		// csv转sheet对象
+		function csv2sheet(csv) {
+			var sheet = {}; // 将要生成的sheet
+			csv = csv.split('\n');
+			csv.forEach(function(row, i) {
+				row = row.split(',');
+				if(i == 0) sheet['!ref'] = 'A1:'+String.fromCharCode(65+row.length-1)+(csv.length-1);
+				row.forEach(function(col, j) {
+					sheet[String.fromCharCode(65+j)+(i+1)] = {v: col};
+				});
+			});
+			return sheet;
+		}
+
+		// 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载
+		function sheet2blob(sheet, sheetName) {
+			sheetName = sheetName || 'sheet1';
+			var workbook = {
+				SheetNames: [sheetName],
+				Sheets: {}
+			};
+			workbook.Sheets[sheetName] = sheet;
+			// 生成excel的配置项
+			var wopts = {
+				bookType: 'xlsx', // 要生成的文件类型
+				bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
+				type: 'binary'
+			};
+			var wbout = XLSX.write(workbook, wopts);
+			var blob = new Blob([s2ab(wbout)], {type:"application/octet-stream"});
+			// 字符串转ArrayBuffer
+			function s2ab(s) {
+				var buf = new ArrayBuffer(s.length);
+				var view = new Uint8Array(buf);
+				for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+				return buf;
+			}
+			return blob;
+		}
+
+
+		/**
+		 * 通用的打开下载对话框方法，没有测试过具体兼容性
+		 * @param url 下载地址，也可以是一个blob对象，必选
+		 * @param saveName 保存文件名，可选
+		 */
+		function openDownloadDialog(url, saveName)
+		{
+			if(typeof url == 'object' && url instanceof Blob)
+			{
+				url = URL.createObjectURL(url); // 创建blob地址
+			}
+			var aLink = document.createElement('a');
+			aLink.href = url;
+			aLink.download = saveName || ''; // HTML5新增的属性，指定保存文件名，可以不要后缀，注意，file:///模式下不会生效
+			var event;
+			if(window.MouseEvent) event = new MouseEvent('click');
+			else
+			{
+				event = document.createEvent('MouseEvents');
+				event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+			}
+			aLink.dispatchEvent(event);
+		}
+
+
+		//加工料单
+		function OnJiagonLiaoDan()
+		{
+			gReportType = 0;
+
+			$('.list_qingdangdan').hide();
+			$('.list_liaodan').show();
+
+			$('.btn_jiagon_liaodan').css({"background-color":"#595C79","color":"#ffffff"});
+			$('.btn_mingxi_qingdang').css({"background-color":"#FFF","color":"#000"});
+		}
+
+		//明细清单
+		function OnMingxiQingDang()
+		{
+			gReportType = 1;
+
+			$('.list_liaodan').hide();
+			$('.list_qingdangdan').show();
+
+			$('.btn_mingxi_qingdang').css({"background-color":"#595C79","color":"#FFF"});
+			$('.btn_jiagon_liaodan').css({"background-color":"#FFF","color":"#000"});
+		}
+
+		function OnHideQRCode()
+		{
+			$('.qr-backgroud').hide();
+		}
+
+	</script>
+</body>
+</html>

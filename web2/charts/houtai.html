@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>iHouse3D后台功能表</title>
+    <style type="text/css" media="screen">
+        .container {
+            width: 100%;
+            height: 1600px;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="container_1"></div>
+<script type="text/javascript" src="lib/echarts.min.js"></script>
+<script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+<script src="js/iconAnalysis.js"></script>
+<script>
+
+    var dom_1 = document.getElementById("container_1");
+    var myChart_1 = echarts.init(dom_1);
+    option = null;
+
+    var data = {
+        "name": "iHouse3D后台",
+        "children": [
+            {
+                "name": "企业共享库",
+                "children": [
+                    {"name": "企业共享贴图上传",
+                        "children": [
+		                    {"name": "上传贴图"},
+		                    {"name": "删除贴图"},
+		                    {"name": "修改贴图"},
+		                    {"name": "3D查看贴图"},
+		                ]
+                    },
+                    {"name": "企业共享模型上传",
+                        "children": [
+		                    {"name": "上传模型"},
+		                    {"name": "删除模型"},
+		                    {"name": "修改模型"},
+		                    {"name": "3D查看模型"},
+		                ]                    
+                    },
+                    {"name": "企业购买的共享贴图",
+                        "children": [
+		                    {"name": "删除贴图"},
+		                    {"name": "3D查看贴图"},
+		                ] 
+                    },
+                    {"name": "企业购买的共享模型",
+                        "children": [
+		                    {"name": "删除模型"},
+		                    {"name": "3D查看模型"},
+		                ]                     
+                    },
+                ]
+            },
+            {
+                "name": "私有库",
+                "children": [
+                    {"name": "私有贴图上传",
+                        "children": [
+		                    {"name": "上传贴图"},
+		                    {"name": "删除贴图"},
+		                    {"name": "修改贴图"},
+		                    {"name": "3D查看贴图"},
+		                ]
+                    },
+                    {"name": "私有模型上传",
+                        "children": [
+		                    {"name": "上传模型"},
+		                    {"name": "删除模型"},
+		                    {"name": "修改模型"},
+		                    {"name": "3D查看模型"},
+		                ]                     
+                    },
+                    {"name": "个人购买贴图",
+                        "children": [
+		                    {"name": "删除贴图"},
+		                    {"name": "3D查看贴图"},
+		                ] 
+                    },
+                    {"name": "个人购买模型",
+						"children": [
+		                    {"name": "删除模型"},
+		                    {"name": "3D查看模型"},
+		                ]                     
+                    },
+                ]
+            },
+
+            {
+                "name": "平台共享场景库",
+                "children": [
+                    {"name": "贴图上传",
+                    	"children": [
+		                    {"name": "上传贴图"},
+		                    {"name": "删除贴图"},
+		                    {"name": "修改贴图"},
+		                    {"name": "3D查看贴图"},
+		                ]
+                    },
+                    {"name": "模型上传",
+                    	"children": [
+		                    {"name": "上传模型"},
+		                    {"name": "删除模型"},
+		                    {"name": "修改模型"},
+		                    {"name": "3D查看模型"},
+		                ] 
+                    },
+                ]                
+            },
+            {
+                "name": "用户管理",
+                "children": [
+                    {"name": "创建用户"},
+                    {"name": "修改用户"},
+                    {"name": "删除用户"},
+                    {"name": "设置用户有效时间"},
+                    {"name": "自定义用户类型"},
+                    {"name": "自定义用户权限"},
+                ]
+            },
+            {"name": "自己账号的方案管理",
+            	"children": [
+                    {"name": "删除方案"}
+                    ]},
+            {"name": "共享方案管理",
+           		 "children": [
+                    {"name": "删除方案"}
+                    ]},
+        ]
+
+    };
+
+    var option = {
+        title: {
+            subtext: 'iHouse3D后台功能表',
+            subtextStyle: {
+                color: '#666',
+                fontSize: 18,
+            },
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            triggerOn: 'mousemove'
+        },
+        series: [
+            {
+                type: 'tree',
+                name: 'tree1',
+                data: [data],
+
+                top: '1%',
+                left: '20%',
+                bottom: '1%',
+                right: '25%',
+
+                symbolSize: 9,
+
+                edgeShape: 'polyline',
+                edgeForkPosition: '43%',
+                initialTreeDepth: 7,
+
+                lineStyle: {width: 2},
+
+                label: {
+                    backgroundColor: '#fff',
+                    position: 'left',
+                    fontSize: 15,
+                    verticalAlign: 'middle',
+                    align: 'right'
+                },
+
+                leaves: {
+                    label: {
+                        position: 'right',
+                        verticalAlign: 'middle',
+                        align: 'left'
+                    }
+                },
+                expandAndCollapse: true,
+                animationDuration: 550,
+                animationDurationUpdate: 550
+            }
+        ]
+    };
+    myChart_1.setOption(option, true);
+
+</script>
+</body>
+</html>

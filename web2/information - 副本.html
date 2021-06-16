@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>个人中心</title>
+    <link rel="shortcun icon" href="assets/img/favicon.ico">
+    <link rel="bookmark" href="assets/img/favicon.ico">
+    <!--    <link rel="stylesheet" href="assets/css/reset.css">-->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="assets/css/awesome.css">
+    <!--<link rel="stylesheet" href="assets/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="assets/fonts/themify-icons.css">
+
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.css">
+
+    <link rel="stylesheet" href="assets/css/animate.css">
+
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="assets/css/slick.css"/>
+    <link rel="stylesheet" href="assets/css/slick-theme.css"/>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!--    <link rel="stylesheet" href="assets/css/login.css">-->
+    <link rel="stylesheet" href="assets/css/information.css">
+    <link rel="stylesheet" href="assets/css/ui.css">
+    <link rel="stylesheet" href="assets/css/jquery.sPage.css">
+    <link rel="stylesheet" href="assets/css/public.css">
+    <!-- 引入组件库 -->
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/base64-binary.js"></script>
+    <style>
+        input, textarea, button, select, a, button {
+            outline: 0 none;
+            border: none;
+        }
+
+        #myPage {
+            text-align: center;
+            padding: 20px 0;
+            display: none;
+        }
+
+        .floating_ck {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- START NAVBAR -->
+<div id="navigation" class="fixed-top navbar-light bg-faded site-navigation">
+</div>
+<!-- END NAVBAR -->
+
+<!-- START HOME -->
+<section id="home" class="home_bg"
+         style="background-image: url(assets/img/bg/home-bg1.png);  background-size:cover; background-position: center center;height: 75px;">
+    <div class="container">
+    </div><!--- END CONTAINER -->
+</section>
+<div class="bar-bg" id="tbox">
+    <div class="bar">
+        <div class="bar-box">
+            <div class="ok">上传中..</div>
+            <div class="tbox">
+                <div class="tiao"></div>
+            </div>
+            <p class="bar-btn" onclick="cancelClick()" id="bar-btn">取消</p>
+        </div>
+    </div>
+</div>
+
+<div id="clickMenu"><p class="Menu-item" onclick="openAdminRecord()">充值记录</p>
+    <p class="Menu-item" onclick="openAdminConsumer()">消费记录</p>
+    <p class="Menu-item" onclick="openAdminRecharge()">云币操作</p>
+</div>
+<div class="admin-rechargeRecord" id="admin-rechargeRecord">
+    <div class="admin-rechargeRecord-box my-table">
+        <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x" onclick="closeAdminRecord()">
+        <p class="admin-title">充值记录</p>
+        <table class="_rechargeRecord">
+            <thead class="my-table-header">
+            <tr>
+                <td>时间</td>
+                <td>账号</td>
+                <td>类型</td>
+                <td>价格</td>
+                <td>支付方式</td>
+            </tr>
+            </thead>
+            <tbody class="my-table-body">
+            <tr>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="admin-rechargeRecord" id="admin-consumerRecords">
+    <div class="admin-rechargeRecord-box my-table">
+        <p class="admin-title">消费记录</p>
+        <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x" onclick="closeAdminConsumer()">
+        <table class="_consumerRecords">
+            <thead class="my-table-header">
+            <tr>
+                <td>时间</td>
+                <td>账号</td>
+                <td>交易</td>
+                <td>详情</td>
+                <td>类型</td>
+            </tr>
+            </thead>
+            <tbody class="my-table-body">
+            <tr>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="bg" id="app">
+    <div id="makeBox" class="makeBox" style="display: none;">
+        <div class="makeBox-detail">
+            <p>格式：网站名称,网站地址(英文逗号分隔,填写完一条数据后换行)</p><textarea id="txt"></textarea>
+            <div class="makeBtn-box">
+                <el-button type="primary" onclick="saveMakeTxt()" style="padding: 18px 36px">保存</el-button>
+                <el-button type="danger" onclick="closeMakeBox()" style="padding: 18px 36px">关闭</el-button>
+            </div>
+        </div>
+    </div>
+    <div id="takeBox" class="makeBox" style="display: none;">
+        <div class="makeBox-detail">
+            <p>格式：序号,在线换装地址(英文逗号分隔,填写完一条数据后换行)</p><textarea id="txt1"></textarea>
+            <div class="makeBtn-box">
+                <el-button type="primary"  style="padding: 18px 26px" onclick="saveTakeTxt()">保存</el-button>
+                <el-button type="danger" style="padding: 18px 26px" onclick="closeTakeBox()">关闭</el-button>
+            </div>
+        </div>
+    </div>
+    <div class="makeBox" id="riliBox" style="display: none">
+        <div class="makeBox-Box">
+            <img src="assets/img/model/关闭.png" alt="" onclick="closeRili()">
+            <iframe src="calendar/index.html" frameborder="0"></iframe>
+            
+        </div>
+        <div style="position:absolute;right: 3%;top: 30%">
+            <img src="assets/img/rili.png" alt="" width="100" >
+            <p style="text-align: center;color: #ffffff">扫码用手机查看</p>
+        </div>
+    </div>
+    <div id="_makeBox" class="makeBox" style="display: none;">
+        <div class="makeBox-detail" style="height: 500px;margin: 200px auto;position: relative">
+            <img src="assets/img/information/x.png" alt="" class="admin-x" onclick="_closeMakeBox()">
+        </div>
+    </div>
+    <div class="admin" id="admin">
+        <div class="admin-box">
+            <img src="assets/img/information/x.png" alt="" class="admin-x" onclick="closeAdmin()">
+            <p><span>用户名：</span><span id="admin-user"></span></p>
+            <p><span>云币：</span><span id="admin-bi"></span></p>
+            <br>
+            <el-input onkeyup="this.value=this.value.replace(/\D/g,'')" v-model="input4" placeholder="请输入云币数"
+                      id="biNum"></el-input>
+            <el-button type="primary" onclick="handleAdminClick('add')">充值</el-button>
+            <el-button type="danger" onclick="handleAdminClick('delete')">扣除</el-button>
+        </div>
+    </div>
+    <div style="height: 40px"></div>
+    <div class="box">
+        <div class="class-box">
+            <div class="_information">
+                <div class="_information-bi">
+                    <p class="_information-name" id="_name"></p>
+                    <img src="assets/img/information/头像.png" alt="" width="40" class="headerImg" id="_headerImg">
+                </div>
+                <div class="_information-bi">
+                    <p class="bi">云币：</p>
+                    <p class="bi"><span id="_biNum"></span><span class="shuaxin" onclick="getBi()">刷新</span></p>
+                </div>
+                <!--                <img src="assets/img/information/shuaxin.png" alt="">-->
+                <div class="_information-bi">
+                    <p class="bi">类型：</p>
+                    <p class="bi" id="ut"></p>
+                </div>
+                <p class="add-title" id="rechargeTitle" onclick="changeType('recharge')">个人充值</p>
+                <p class="add-title" id="myInforTitle" onclick="changeType('myInfor')">个人信息</p>
+            </div>
+            <div style="height: 20px;background: #f3f3f3"></div>
+            <div style="background: #ffffff;padding-bottom: 20px">
+                <p class="home-title">工作台</p>
+                <p class="add-title add-title-active" onclick="changeType('3dyun')" id="3dyunTitle">3D云设计管理后台</p>
+                <p class="add-title" onclick="changeType('rili')" id="riliBtn">工作日志</p>
+                <p class="add-title" onclick="changeType('word')" id="wordBtn">在线文档编辑</p>
+                <a href="faq.html" target="_blank"><p class="add-title">FAQ</p></a>
+                <!--                <p class="add-title" onclick="changeType('pano')" id="panoTitle">全景制作</p>-->
+                <!--&lt;!&ndash;                <p class="add-title" onclick="changeType('ddcode')" id="ddcodeTitle" style="display: none">吊顶设计小程序</p>&ndash;&gt;-->
+                <!--                <p class="add-title" onclick="changeType('hcode')" id="hcodeTitle">3d云设计小程序</p>-->
+            </div>
+            <div style="height: 20px;background: #f3f3f3"></div>
+            <p class="home-title">小工具(可定制开发)</p>
+            <!--            <p class="add-title " id="addTitle" onclick="changeType('detail')">上传场景(赚云币)</p>-->
+
+
+            <a href="http://134.175.95.142/h5/exhibition/index.html" target="_blank"><p class="add-title" id="rjht"
+                                                                                        style="display: none">软件后台</p>
+            </a>
+            <a href="http://www.ihouse3d.cn/bst/index.html" target="_blank"><p class="add-title" id="bst"
+                                                                               style="display: none">百施通</p>
+            </a>
+            <a href="http://www.ihouse3d.cn/bst/offer/index.html" target="_blank"><p class="add-title" id="_bst"
+                                                                                     style="display: none">百施通报价</p>
+            </a>
+            <a href="http://www.ihouse3d.cn/bst/offer-new/index.html" target="_blank"><p class="add-title" id="_bst-new"
+                                                                                         style="display: none">
+                百施通报价新</p>
+            </a>
+            <a href="http://www.ihouse3d.com.cn/ihouse3d.html" target="_blank" onclick="flashClick()"><p
+                    class="add-title"
+                    style="display: none" id="fq">
+                flash前端</p></a>
+            <a href="http://www.ihouse3d.com.cn/houtai.html" target="_blank"><p class="add-title" style="display: none"
+                                                                                id="fh">
+                flash后端</p></a>
+            <a href="http://www.ihouse3d.com.cn/h5/SimpleMaterial/materialTexture.html" target="_blank"><p
+                    class="add-title">模型查看器</p></a>
+            <a target="_blank" onclick="openPano()"><p class="add-title">全景编辑</p></a>
+            <p class="add-title" onclick="changeType('hcode')" id="hcodeTitle">在线换装<i class="el-icon-edit-outline makeBtn" onclick="openTakeBox()" style="display: none" id="hzBtn"></i></p>
+            <a href="http://www.ihouse3d.com.cn/h5/baojia/kaizhuang/BoardOptimized/board.html" target="_blank"><p
+                    class="add-title" >裁板工具</p></a>
+            <p class="add-title" onclick="changeType('qj')" id="qjBtn">全景生成工具</p>
+            <p class="add-title" onclick="changeType('tt')" id="tietu">法向量贴图</p>
+            <a href="faq.html" target="_blank"><p class="add-title" style="display: none" id="trouble">问题解决</p></a>
+            <p class="add-title" onclick="openShop()">在线商城</p>
+            <p class="add-title" onclick="changeType('Btn')" id="btn-title" style="display: none">校园系统</p>
+            <a href="http://www.ihouse3d.com.cn/h5/dx.html" target="_blank"><p class="add-title" style="display: none"
+                                                                               id="dx">斗西系统</p></a>
+            <a href="http://3d.douyahome.com/" target="_blank"><p class="add-title" style="display: none" id="dy">
+                豆芽云居</p></a>
+            <a href="http://www.ihouse3d.com.cn/hz.html" target="_blank"><p class="add-title" style="display: none"
+                                                                            id="sh">上海会展设计系统</p></a>
+            <a href="http://www.ihouse3d.com.cn/h5/kz.html" target="_blank"><p class="add-title" style="display: none"
+                                                                               id="kz">开装系统</p></a>
+            <div style="height: 20px;background: #f3f3f3"></div>
+            <p class="home-title">我的收藏 <i class="el-icon-edit-outline makeBtn" onclick="openMakeBox()"></i></p>
+            <div id="fBox"></div>
+        </div>
+        <div class="detail-box" style="position: relative;display: none" id="ddcode">
+
+            <p style="position: absolute;top: 60%;left:35%;font-size: 18px;">若需要定制开发请联系：陈先生 13123910766</p>
+        </div>
+        <div class="detail-box" style="display: none" id="qj-Box">
+            <img src="assets/img/information/pano-adv.jpg" alt="" style="width: 100%">
+            <div style="display: flex">
+                <p class="class-title active-class-pano" onclick="changePanoClick('jieshao',this)">介绍</p>
+                <p class="class-title" onclick="changePanoClick('gongju',this)">全景工具</p>
+                <p class="class-title" onclick="changePanoClick('chakan',this)">查看作品</p>
+            </div>
+            <div id="panojs" style="padding: 10px">
+                <img src="assets/img/information/pano-jishao.jpg" alt="" width="100%">
+            </div>
+            <div id="panogj" style="display: none;padding: 10px;position: relative">
+                <!--                <iframe src="https://www.ihouse3d.com/users/share/chenx/savefile/E97DA54C-DB4A-E0C3-4E57-39A2DF70F84C/dee26be9-ee2d-44c6-9350-5cef6c58ea88/iHouse.html"-->
+                <!--                        frameborder="0" id="qjweb" width="100%" height="700" style=""></iframe>-->
+                <img src="assets/img/information/logo1.png" alt="" class="logo">
+                <div style="position: absolute;top: 37%;width: 100%;text-align: center">
+                    <p class="title">全景给我们更多想象</p>
+                    <a href="video/教程.mp4" target="_blank"><p class="course"><span class="course-text">经验教程</span></p>
+                    </a>
+                    <a href="http://www.ihouse3d.com.cn/h5/Panoramagram/panorama.html" target="_blank"><span
+                            class="btn2">合成全景</span></a>
+                </div>
+            </div>
+            <div id="panock" style="display: none">
+                <div id="qjck-box" style="padding: 10px">
+                    <!--                    <iframe src="http://www.ihouse3d.com.cn/h5/Panoramagram/works.html?type=web" frameborder="0"-->
+                    <!--                            width="100%" height="1100px"></iframe>-->
+                </div>
+            </div>
+        </div>
+        <div class="detail-box" style="position: relative;display: none" id="hcode">
+            <div id="codeBox" style="display: flex;padding: 180px 200px 0;justify-content: space-around">
+
+                <iframe src="http://www.ihouse3d.com.cn/replace/index.html" frameborder="0" width="375" height="667"
+                        style="
+    box-shadow: 0 0 20px 1px rgba(0,0,0,0.5);" id="hzBox"></iframe>
+                <div style="" id="hzItemBox">
+
+                </div>
+            </div>
+            <p style="text-align: center;margin-top: 20px">http://www.ihouse3d.com.cn/replace/index.html</p>
+        </div>
+        <div class="detail-box" id="detail" style="display: none">
+            <div class="detail-class">
+                <div style="display: flex">
+                    <p class="class-title active-class" onclick="changePage('jieshao',this)">介绍</p>
+                    <p class="class-title " onclick="changePage('onload',this)" id="loadPageBtn">上传场景</p>
+                    <p class="class-title" onclick="changePage('myModel',this)" id="myModelBtn">我的场景</p>
+                    <p class="class-title" onclick="changePage('admin',this)" id="adminModel" style="display: none">
+                        场景管理</p>
+                </div>
+                <div id="uploadBtn" style="display: none">
+                    <p style="font-size: 18px;color: red;line-height: 56px;margin-right: 5px;font-weight: bold">
+                        审核通过获得50个云币</p>
+                    <p class="upload-btn" onclick="TestUploadFile()">确认上传</p>
+                </div>
+            </div>
+            <div>
+                <div style="padding: 10px" id="jieshao">
+                    <img src="assets/img/information/jieshao_.jpg" alt="" style="width: 100%">
+                </div>
+                <div style="display: none" id="onloadPage">
+                    <div class="img-box">
+                        <div class="big-img">
+                            <img src="" id="big-pic" class="big-pic">
+                            <p class="big-img-txt" id="big-img-txt"><span>效果图预览</span><br>
+                                <span style="font-size: 14px">（推荐尺寸1100*675）</span></p>
+                            <iframe src="" frameborder="0" width="802" height="492" id="qjBox" class="qjBox"></iframe>
+                            <video src="" controls="controls" width="802" height="492" class="qjBox" id="video"></video>
+                        </div>
+                        <div class="small-img">
+                            <div class="small-item" onclick="changeBigPic(1)" onmouseover="changeSmallIcon(this)"
+                                 onmouseout="changeSmallIconOut(this)">
+                                <img src="" style="display: none" id="small-pic1" class="small-pic">
+                                <img src="assets/img/information/添加.png" alt="" width="50" class="small-add"
+                                     id="small-add1">
+                                <img src="assets/img/information/关闭白.png" alt="" width="15" class="small-img-delete"
+                                     onclick="clearImg(this)">
+                                <img src="assets/img/information/替换.png" alt="" width="15" class="small-img-change">
+                                <input type="file" class="changeFile" id="changeFile1"
+                                >
+                                <p class="small-add-txt" id="small-add-txt1">添加效果图</p>
+                                <input type="file" class="btn-file" id="file1"
+                                >
+                            </div>
+                            <div class="small-item" onclick="changeBigPic(2)" onmouseover="changeSmallIcon(this)"
+                                 onmouseout="changeSmallIconOut(this)">
+                                <img src="" style="display: none" id="small-pic2" class="small-pic">
+                                <img src="assets/img/information/添加.png" alt="" width="50" class="small-add"
+                                     id="small-add2">
+                                <img src="assets/img/information/关闭白.png" alt="" width="15" class="small-img-delete"
+                                     onclick="clearImg(this)">
+                                <img src="assets/img/information/替换.png" alt="" width="15" class="small-img-change">
+                                <input type="file" class="changeFile" id="changeFile2"
+                                >
+                                <p class="small-add-txt" id="small-add-txt2">添加效果图</p>
+                                <input type="file" class="btn-file" id="file2"
+                                >
+                            </div>
+                            <div class="small-item" onclick="changeBigPic(3)" onmouseover="changeSmallIcon(this)"
+                                 onmouseout="changeSmallIconOut(this)">
+                                <img src="" style="display: none" id="small-pic3" class="small-pic">
+                                <img src="assets/img/information/添加.png" alt="" width="50" class="small-add"
+                                     id="small-add3">
+                                <img src="assets/img/information/关闭白.png" alt="" width="15" class="small-img-delete"
+                                     onclick="clearImg(this)">
+                                <img src="assets/img/information/替换.png" alt="" width="15" class="small-img-change">
+                                <input type="file" class="changeFile" id="changeFile3"
+                                >
+                                <p class="small-add-txt" id="small-add-txt3">添加效果图</p>
+                                <input type="file" class="btn-file" id="file3"
+                                >
+                            </div>
+                            <p style="font-size: 16px;color: red;margin-top: 60px">需上传三张效果图</p>
+                        </div>
+                        <p style="font-size: 16px;margin-top: 10px">文件上传须知：</p>
+                        <div style="display: flex;margin-top: 10px;justify-content:space-between">
+                            <div style="font-size: 14px">
+                                <p>收益说明</p>
+                                <p style="color: #999999;margin-top: 10px;font-size: 14px">审核通过获得50个云币</p>
+                                <p style="margin-top: 10px">审核时间1-3个工作日，节假日延迟</p>
+                            </div>
+                            <ul style="line-height: 25px;font-size: 14px;color: #999999;">
+                                <li style="color: #333333;font-size: 14px">制作要求</li>
+                                <li>1、图片要求：高清、无水印、无边框。</li>
+                                <li>3、格式大小：jpg、jpeg、png格式。1000-10000像素之间。4MB以内。</li>
+                                <li>4、模型要求：效果图与模型完全一致，包括灯光贴图质感（单体无须灯光）。</li>
+                                <li>5、模型格式：MAX 2020版本以下，仅支持压缩包形式，1000MB以内。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="max-box">
+                        <div class="upMax-box">
+                            <div class="upMax"><p>添加模型</p>
+                                <p style="font-size: 12px;margin-top: 5px">（支持zip，rar文件）</p></div>
+                            <input type="file" id="file5" class="max-file">
+                            <p class="max-title" id="max-title">未添加文件</p>
+                        </div>
+                        <p class="name-box"><span style="color: red">*</span><span>场景名称：</span>
+                            <el-input v-model="input" placeholder="请输入内容" style="width: 200px"
+                                      id="modelName"></el-input>
+                        </p>
+                        <p class="name-box"><span style="color: red">*</span><span>场景类别：</span>
+                            <el-select v-model="value1" placeholder="请选择" style="width: 200px" id="modelType">
+                                <el-option
+                                        v-for="item in options1"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </p>
+                        <p class="name-box"><span style="color: red">*</span><span>MAX版本：</span>
+                            <el-select v-model="value2" placeholder="请选择" style="width: 200px">
+                                <el-option
+                                        v-for="item in options2"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </p>
+                        <p class="name-box"><span>&nbsp;&nbsp;全景地址：</span>
+                            <el-input v-model="input1" placeholder="请输入内容" style="width: 200px" id="qjUrl"></el-input>
+                            <span class="see-btn" onclick="handleSeeBtn('qjUrl')">查看</span>
+                        </p>
+                        <p class="name-box"><span>&nbsp;&nbsp;视频地址：</span>
+                            <el-input v-model="input2" placeholder="请输入内容" style="width: 200px"
+                                      id="videoUrl"></el-input>
+                            <span class="see-btn" onclick="handleSeeBtn('videoUrl')">查看</span>
+                        </p>
+                        <div class="homeImg" onmouseover="changeHomeIcon(this)" onmouseout="changeHomeIconOut(this)">
+                            <img src="" id="homeImg" style="display: none" class="home-pic">
+                            <img src="assets/img/information/添加.png" width="80" class="home-add" id="home-add">
+                            <p class="homeImg-txt" id="homeImg-txt">添加场景缩略图</p>
+                            <p class="_homeImg-txt">（必填）</p>
+                            <img src="assets/img/information/关闭白.png" alt="" width="15" class="_small-img-delete"
+                                 onclick="clearHomeImg(this)">
+                            <img src="assets/img/information/替换.png" alt="" width="15" class="_small-img-change">
+                            <input type="file" class="_changeFile" id="changeFile4"
+                            >
+                            <input type="file" id="file4"
+                                   class="home-file">
+                        </div>
+                    </div>
+                </div>
+                <div class="my-model" id="myModelPage">
+                    <!--                            <p class="list-title">-->
+                    <!--                                <span style="color: red;font-size: 24px;margin-left: 10px">|</span>-->
+                    <!--                                <span class="list-title-text">名师模型</span>-->
+                    <!--                                <span class="list-english">&nbsp; / &nbsp;FAMOUS MODELS</span>-->
+                    <!--                            </p>-->
+                    <div id="type0" style="display: flex;flex-wrap: wrap;"></div>
+                </div>
+                <div class="my-model" id="adminModelPage">
+                    <div id="type1" style="display: flex;flex-wrap: wrap;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="detail-box" style="display: none" id="BtnPage">
+            <div style="margin: 20px">
+                <a href="http://www.ihouse3d.com.cn/fc/index.html?code=163f5&baseBuildingId=1850" target="_blank">
+                    <el-button type="primary">管理员</el-button>
+                </a>
+                <a href="http://www.ihouse3d.com.cn/fc/index.html?code=163f6&baseRoomId=133106&baseBuildingId=1850&floor=1"
+                   target="_blank">
+                    <el-button type="primary">房间责任人</el-button>
+                </a>
+                <a href="http://www.ihouse3d.com.cn/fc/index.html?code=163f7&baseRoomId=133106&baseBuildingId=1850&floor=1"
+                   target="_blank">
+                    <el-button type="primary">资产领用人</el-button>
+                </a>
+                <a href="http://www.ihouse3d.com.cn/fc/index.html?code=163f8&baseRoomId=133106&baseBuildingId=1850&floor=1"
+                   target="_blank">
+                    <el-button type="primary">普通用户</el-button>
+                </a>
+            </div>
+        </div>
+        <div id="recharge" style="display: none;margin-left: 10px">
+            <div class="personal">
+                <div class="personal-title">
+                    <span class="personal-title-one">个人充值</span>
+                    <!--<p class="personal-title-two">云币用于兑换网站服务，云币永久有效</p>-->
+                </div>
+                <div class="personal-detail">
+                    <div class="personal-detail-small" style="opacity: 0;">
+                        <p class="small-title">小额充值</p>
+                        <div class="_small-item  small-active">
+                            <span class="small-item-text">110</span>
+                            <b>云币</b>
+                            <span class="small-item-text2">100</span>
+                            <b>元</b>
+                        </div>
+                        <div class="_small-item">
+                            <span class="_small-item-text">230</span>
+                            <b>云币</b>
+                            <span class="_small-item-text2">200</span>
+                            <b>元</b>
+                        </div>
+                        <div class="btn-box">
+                            <span class="personal-btn pay-btn_1">暂未开通充值</span>
+                        </div>
+                    </div>
+                    <div class="item-box" style="opacity: 0;">
+                        <div class="personal-detail-item-bg"></div>
+                        <div class="item-box-detail"><p class="item-box-detail-top"><span class="big">600</span><b
+                                class="item-box-detail-cn">云币</b></p>
+                            <p class="item-box-detail-bottom"><span class="big">500</span><b class="item-box-detail-cn">元</b>
+                            </p></div>
+                        <div class="list-box">
+                            <ul>
+                                <li class="item-box-li"><span class="_icon"></span><span>送3D云设计</span></li>
+                                <li class="item-box-li"><span class="_icon"></span><span>送全景制作功能</span>
+                                </li>
+                                <li class="item-box-li"><span class="_icon"></span><span>含600云币</span></li>
+                                <li class="item-box-li"><span class="_icon"></span><span>可下载模型</span></li>
+                                <li class="item-box-li"><span class="_icon"></span><span>云币永久有效</span></li>
+                            </ul>
+                        </div>
+                        <div class="btn-box">
+                            <span class="personal-btn pay-btn_2">暂未开通充值</span>
+                        </div>
+                    </div>
+                    <div class="item-box" style="opacity: 0;">
+                        <div class="personal-detail-item-bg"></div>
+                        <div class="item-box-detail"><p class="item-box-detail-top"><span class="big">1250</span><b
+                                class="item-box-detail-cn">云币</b></p>
+                            <p class="item-box-detail-bottom"><span class="big">1000</span><b
+                                    class="item-box-detail-cn">元</b>
+                            </p></div>
+                        <div class="list-box">
+                            <ul>
+                                <li class="item-box-li"><span class="_icon"></span><span>送3D云设计</span></li>
+                                <li class="item-box-li"><span class="_icon"></span><span>送全景制作功能</span>
+                                </li>
+                                <li class="item-box-li"><span class="_icon"></span><span>含1250云币</span></li>
+                                <li class="item-box-li"><span class="_icon"></span><span>可下载模型</span></li>
+                                <li class="item-box-li"><span class="_icon"></span><span>云币永久有效</span></li>
+                            </ul>
+                        </div>
+                        <div class="btn-box">
+                            <span class="personal-btn pay-btn_3">暂未开通充值</span>
+                        </div>
+                    </div>
+                    <div class="item-box" style="opacity: 0;">
+                        <div class="personal-detail-item-bg"></div>
+                        <div class="item-box-detail"><p class="item-box-detail-top"><span class="big">2600</span><b
+                                class="item-box-detail-cn">云币</b></p>
+                            <p class="item-box-detail-bottom"><span class="big">2000</span><b
+                                    class="item-box-detail-cn">元</b>
+                            </p></div>
+                        <div class="list-box">
+                            <ul>
+                                <li class="item-box-li"><span class="_icon"></span><span>送3D云设计</span></li>
+                                <li class="item-box-li"><span class="_icon"></span><span>送全景制作功能</span>
+                                </li>
+                                <li class="item-box-li"><span class="_icon"></span><span>含2600云币</span></li>
+                                <li class="item-box-li"><span class="_icon"></span><span>可下载模型</span></li>
+                                <li class="item-box-li"><span class="_icon"></span><span>云币永久有效</span></li>
+                            </ul>
+                        </div>
+                        <div class="btn-box">
+                            <span class="personal-btn pay-btn_4">暂未开通充值</span>
+                        </div>
+                    </div>
+                    <p style="width: 800px;margin-top: -240px;font-size: 20px">免费送云币，请联系我们 <img
+                            src="assets/img/model/weixin1.jpg" alt=""><span>扫码添加微信</span></p>
+                </div>
+
+            </div>
+            <div class="trouble-box">
+                <div class="trouble-title">
+                    <span class="trouble-title-one">常见问题</span>
+                </div>
+                <div class="trouble-list">
+                    <ul>
+                        <li class="trouble-li"><p class="question">问：为什么要使用云币才能渲染？</p>
+                            <p class="ans">
+                                答：因为渲染服务器数量有限，为确保大家都能使用渲染服务器，平衡使用时间，所以采用扣云币渲染方式！</p>
+                        </li>
+                        <li class="trouble-li"><p class="question">问：云币多次时间有效？</p>
+                            <p class="ans">答：云币永久有效。</p></li>
+                        <li class="trouble-li"><p class="question">问：我想更多的使用云渲染怎么做？</p>
+                            <p class="ans">答：我们鼓励开发者，独立部署系统（数据中心、后台管理和云渲染服务器）到自己的服务器上，这样就可以自由渲染，无限制，具体请联系我们。</p></li>
+                        <li class="trouble-li"><p class="question">问：云币收费吗？</p>
+                            <p class="ans">答：云币不收费，需要请联系QQ： 754452577。</p></li>
+                    </ul>
+                    <div><span class="question">其他充值疑问请随时联系我们</span><span
+                            class="phone-num">服务热线：13123910766</span><span
+                            class="phone-num">客服</span></div>
+                </div>
+            </div>
+        </div>
+        <div id="myInfor">
+            <div class="mHeaderTab" style="display: flex;">
+                <div class="mTab-item mTab-active">
+                    <p>充值记录</p>
+                </div>
+                <div class="mTab-item">
+                    <p>消费记录</p>
+                </div>
+                <div class="mTab-item" style="display: none" id="adminBtn">
+                    <p>充值管理</p>
+                </div>
+
+            </div>
+            <div style="display: none" id="seacher">
+                <el-input v-model="input5" placeholder="输入姓名" style="width: 200px;padding-top: 20px"></el-input>
+                <el-button type="primary">搜索</el-button>
+            </div>
+            <div class="my-table">
+                <div style="display: none" id="userSearch">
+                    <el-input
+                            placeholder="请输入内容"
+                            prefix-icon="el-icon-search"
+                            v-model="search" style="width: 200px;margin-bottom: 10px;" id="searchTxt">
+                    </el-input>
+                    <el-button type="primary" onclick="searchUser()">搜索</el-button>
+                    <el-button type="primary" onclick="allUser()">还原</el-button>
+                </div>
+                <table class="rechargeRecord">
+                    <thead class="my-table-header">
+                    <tr>
+                        <td>时间</td>
+                        <td>账号</td>
+                        <td>类型</td>
+                        <td>价格</td>
+                        <td>支付方式</td>
+                    </tr>
+                    </thead>
+                    <tbody class="my-table-body">
+                    </tbody>
+                </table>
+                <table class="consumerRecords">
+                    <thead class="my-table-header">
+                    <tr>
+                        <td>时间</td>
+                        <td>账号</td>
+                        <td>交易</td>
+                        <td>详情</td>
+                        <td>类型</td>
+                    </tr>
+                    </thead>
+                    <tbody class="my-table-body">
+
+                    </tbody>
+                </table>
+                <table class="personalRecords">
+                    <thead class="my-table-header">
+                    <tr>
+                        <td>账号</td>
+                        <td>用户名（微信qq名）</td>
+                        <td>云币</td>
+                        <td>手机号</td>
+                        <td>创建时间</td>
+                    </tr>
+                    </thead>
+                    <tbody class="my-table-body">
+
+                    </tbody>
+
+                </table>
+                <div id="myPage"></div>
+            </div>
+        </div>
+        <div style=";width: 85%" id="3dyun">
+            <iframe src="3dyun.html?dis=1" frameborder="0" scrolling="no" width="100%" style="min-height: 1100px"
+                    id="3dyunWeb"></iframe>
+        </div>
+    </div>
+</div>
+<div class="footer-top section-padding">
+</div>
+
+<div class="footer">
+</div>
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.sPage.js"></script>
+<script src="assets/js/top.js"></script>
+
+<!-- Latest compiled and minified Bootstrap -->
+<script src="assets/js/bootstrap.js"></script>
+<!-- modernizer JS -->
+<script src="assets/js/modernizr-2.8.3.min.js"></script>
+<!-- owl-carousel min js  -->
+<script src="assets/owlcarousel/js/owl.carousel.min.js"></script>
+<!-- jquery nav -->
+<script src="assets/js/jquery.nav.js"></script>
+<!-- jquery.slicknav -->
+<script src="assets/js/jquery.slicknav.js"></script>
+<!-- jquery smooth-scroll JS -->
+<script src="assets/js/smooth-scroll.js"></script>
+<!-- scrolltopcontrol js -->
+<script src="assets/js/scrolltopcontrol.js"></script>
+<!-- countTo js -->
+<script src="assets/js/jquery.inview.min.js"></script>
+<!-- Slick js -->
+<script src="assets/js/slick.min.js"></script>
+<!-- WOW - Reveal Animations When You Scroll -->
+<script src="assets/js/wow.min.js"></script>
+<!-- MAGNIFICANT JS -->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!-- form-contact js -->
+<script src="assets/js/form-contact.js"></script>
+<!-- scripts js -->
+<script src="assets/js/scripts.js"></script>
+<script src="headfooter.js"></script>
+<script src="assets/js/information.js"></script>
+<!--二维码-->
+<script type="text/javascript" src="assets/js/jquery.qrcode.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                search: '',
+                input: '',
+                input1: '',
+                input2: '',
+                input4: '',
+                input5: '',
+                options1: [{
+                    value: '选项1',
+                    label: '名师模型'
+                }, {
+                    value: '选项2',
+                    label: '家具软装'
+                }, {
+                    value: '选项3',
+                    label: '家居场景'
+                }, {
+                    value: '选项4',
+                    label: '工装场景'
+                }, {
+                    value: '选项5',
+                    label: '其他模型'
+                }],
+                value1: '名师模型',
+                options2: [{
+                    value: '选项1',
+                    label: '2012'
+                }, {
+                    value: '选项2',
+                    label: '2013'
+                }, {
+                    value: '选项3',
+                    label: '2014'
+                }, {
+                    value: '选项4',
+                    label: '2016'
+                }],
+                value2: '2013'
+            }
+        }
+    })
+</script>
+</html>

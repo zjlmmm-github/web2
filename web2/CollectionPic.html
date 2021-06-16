@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>收藏图片</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/ui.css">
+    <style>
+        .itemBox {
+            position: relative;
+            width: 100%;
+        }
+
+        .item {
+            position: absolute;
+            width: 18.8%;
+            margin: .5%;
+            cursor: pointer;
+            box-shadow: 8px 8px 20px #ccc;
+        }
+
+        .item > img {
+            width: 100%;
+        }
+
+        .itemIcon {
+            display: none;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .iconBox {
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            top: 40%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .itemIcon-item {
+            width: 60px;
+        }
+
+        .itemIcon-item > img {
+            width: 30px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .itemIcon-item > p {
+            margin-top: 5px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .addBtnBox {
+            height: 60px;
+            width: 100%;
+            position: relative;
+        }
+
+        .addBtnBox > p {
+            background: #2d98e6;
+            color: #ffffff;
+            height: 50px;
+            width: 100px;
+            text-align: center;
+            border-radius: 4px;
+            line-height: 50px;
+            right: 20px;
+            position: absolute;
+            top: 10px
+        }
+
+        #file {
+            position: absolute;
+            height: 50px;
+            width: 100px;
+            right: 20px;
+            opacity: 0;
+            cursor: pointer;
+            top: 10px
+        }
+
+        .copy {
+            position: absolute;
+            top: -1000px;
+            opacity: 0;
+        }
+
+        #app {
+            width: 100%;
+            min-height: 800px;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-loading="loading" element-loading-text="加载中.....">
+    <div class="addBtnBox">
+        <p>新增图片</p>
+        <input type="file" id="file" multiple="multiple" accept="image/*">
+    </div>
+    <div class="itemBox">
+
+    </div>
+</div>
+<input type="text" class="copy" id="copy">
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/cookie.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/ui.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                loading: true
+            }
+        }
+    })
+    var folder = cookie.fold
+    loadPic()
+
+    function loadPic() {
+
+        $.ajax({
+            type: 'GET',
+            cache: false,
+            async: false,
+            url: 'http://www.ihouse3d.com.cn/users/' + folder + '/' + name + '/pic.txt',
+            success: function (data) {
+                $('.itemBox').html('')
+                let dataArr = data.split(',')
+                dataArr.reverse()
+                for (let i = 0; i < dataArr.length; i++) {
+                    let item = dataArr[i].split('.')
+                    item = item[0] + '_icon.' + item[1]
+                    let itemInfo = `<div class="item">
+        <div class="itemIcon">
+            <div class="iconBox">
+            <div class="itemIcon-item" onclick="deletePic(this)" id="del,${dataArr[i]}">
+                <img src="assets/img/删除.png" alt="">
+                <p>删除</p>
+            </div>
+            <div class="itemIcon-item" onclick="openPicDetail(this)">
+                <img src="assets/img/查看.png" alt="">
+                <p>查看</p>
+            </div>
+            <div class="itemIcon-item" onclick="copy(this)">
+                <img src="assets/img/分享.png" alt="">
+                <p>分享</p>
+            </div>
+</div>
+        </div>
+        <img src="http://www.ihouse3d.com.cn/users/${folder}/${name}/collectionPic/${dataArr[i]}" alt="">
+    </div>`
+                    $('.itemBox').append(itemInfo)
+                }
+                $('.item').hover(function () {
+                    $(this).children('.itemIcon').show()
+                }, function () {
+                    $(this).children('.itemIcon').hide()
+                })
+            },
+            error: function () {
+
+            }
+        })
+        setTimeout(function () {
+            init()
+            app.loading = false
+        }, 1000)
+
+
+    }
+
+    function init() {
+        let itemWidth = $(".item").outerWidth(true);//每个图片的宽度
+        let cols = parseInt($(window).width() / itemWidth);//浏览器的宽度/图片的宽度=列数
+        let heightArr = [];//创建一个存放每个图片的高度的数组
+        for (let i = 0; i < cols; i++) { //每个数组的长度就是 列数的长度
+            heightArr.push(0);//最开始的时候可以默认高度是0；【，0，0】
+        }
+        //循环每一条图片
+        $('.item').each(function (index, item) {
+            let idex = 0;//初始索引为0
+            let minHeight = heightArr[0];//初始设置最小高度是数组的第一个
+            for (let i = 0; i < heightArr.length; i++) {
+                if (heightArr[i] < minHeight) {//判断数组中的每一个是否比默认设置的最小高度小，小于直接赋值给最小高度
+                    minHeight = heightArr[i];//最小高度
+                    idex = i;//当前索引
+                }
+            }
+            //设置每个图片的样式
+
+            $(item).css({
+                left: itemWidth * idex,//图片距离左边的位置 就是当前图片的宽度*他的索引
+                top: minHeight //图片距离顶部的位置就是最小高度
+            })
+            heightArr[idex] += $(item).outerHeight(true); //高度对应的索引值就是当前图片高度的值
+        })
+    }
+
+    window.addEventListener("DOMContentLoaded", contentLoaded, false);
+
+    function contentLoaded() {
+        document.getElementById('file').addEventListener('change',
+            file1, false);
+    }
+
+    var fileArr = []
+
+    function file1() {
+        fileArr = document.getElementById('file').files
+        setTimeout(function () {
+            fileLoad(0)
+        }, 500)
+    }
+
+    function guid() {
+        return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function fileLoad(num) {
+        // let obj = document.getElementById('file')
+        let file = fileArr[num]
+        let type = file.name.split('.')[1]
+        if (type === 'jpg' || type === 'png' || type === 'svg' || type === 'gif') {
+            console.log(file)
+            let reader = new FileReader();
+            reader.onload = function (event) {
+                let txt = event.target.result;
+                let fileName = guid()
+                let smallPicName = file.name.split('.')
+                let imgPath = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/collectionPic/' + fileName + '.' + smallPicName[1]
+                let imgData = {
+                    "type": "image",
+                    "pathfilename": imgPath,
+                    "filedata": txt
+                }
+
+
+                smallPicName = fileName + '_icon.' + smallPicName[1]
+                let _imgPath = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/collectionPic/' + smallPicName
+                let _imgData = {
+                    "type": "image",
+                    "pathfilename": _imgPath,
+                    "filedata": ''
+                }
+                let image = new Image();
+                image.src = URL.createObjectURL(file);
+                let oldWidth = '', oldHeight = ''
+                image.onload = function () {
+                    oldWidth = image.width
+                    oldHeight = image.height
+                    let canvas = document.createElement('canvas'),
+                        context = canvas.getContext('2d'),
+                        imageWidth = oldWidth / 2,    //压缩后图片的大小
+                        imageHeight = oldHeight / 2,
+                        data = ''
+                    canvas.width = imageWidth
+                    canvas.height = imageHeight
+                    context.drawImage(image, 0, 0, imageWidth, imageHeight)
+                    data = canvas.toDataURL('image/jpeg')  //这里是图片
+                    _imgData.filedata = data
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(imgData),
+                    success: function (data) {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify(_imgData),
+                            success: function (data) {
+                                let txtPath = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/pic.txt'
+                                let oldTxt = ''
+                                $.ajax({
+                                    type: 'GET',
+                                    cache: false,
+                                    async: false,
+                                    url: 'http://www.ihouse3d.com.cn/users/' + folder + '/' + name + '/pic.txt',
+                                    success: function (data) {
+                                        oldTxt = data
+                                    },
+                                    error: function () {
+                                        oldTxt = ''
+                                    }
+                                })
+                                let newTxt = ''
+                                if (oldTxt === '') {
+                                    newTxt = smallPicName
+                                } else {
+                                    newTxt = oldTxt + ',' + smallPicName
+                                }
+                                let txtData = '{"type":"string","pathfilename":"' + txtPath + '","filedata":"' + encode(newTxt) + '"}'
+                                $.ajax({
+                                    url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                                    type: 'POST',
+                                    dataType: "json",
+                                    async: false,
+                                    contentType: "application/json",
+                                    data: txtData,
+                                    success: function (data) {
+                                        if (data.code === '1') {
+
+                                            if (num === fileArr.length - 1) {
+                                                alert('添加成功！')
+                                                loadPic()
+                                            } else {
+                                                fileLoad(num + 1)
+                                            }
+
+                                        }
+                                    }
+                                })
+                            }
+                        })
+
+                    }
+                })
+
+            }
+            reader.readAsDataURL(file);
+        } else {
+            alert(file.name + '不是图片文件！')
+            return
+        }
+
+    }
+
+    function encode(str) {
+// 对字符串进行编码
+        var encode = encodeURI(str);
+// 对编码的字符串转化base64
+        var base64 = btoa(encode);
+        return base64;
+    }
+
+    function deletePic(obj) {
+        let id = obj.id
+        let delTxt = id.replace('del,', '')
+        if (confirm('确定要删除吗') === true) {
+            $.ajax({
+                type: 'GET',
+                cache: false,
+                url: 'http://www.ihouse3d.com.cn/users/' + folder + '/' + name + '/pic.txt',
+                success: function (data) {
+                    let dataArr = data.split(',')
+                    let num
+                    for (let i = 0; i < dataArr.length; i++) {
+                        if (dataArr[i] === delTxt) {
+                            num = i
+                        }
+                    }
+                    dataArr.splice(num, 1)
+                    let numTxt = ''
+                    for (let i = 0; i < dataArr.length; i++) {
+                        if (i === dataArr.length - 1) {
+                            numTxt = numTxt + dataArr[i]
+                        } else {
+                            numTxt = numTxt + dataArr[i] + ','
+                        }
+                    }
+                    let txtPath = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/pic.txt'
+                    let txtData = '{"type":"string","pathfilename":"' + txtPath + '","filedata":"' + encode(numTxt) + '"}'
+                    $.ajax({
+                        url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                        type: 'POST',
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: txtData,
+                        success: function (data) {
+                            if (data.code === '1') {
+                                alert('删除成功！')
+                                loadPic()
+                            }
+                        }
+                    })
+                },
+                error: function () {
+
+                }
+            })
+        }
+    }
+
+    function openPicDetail(obj) {
+        let father = obj.parentNode.parentNode.parentNode
+        let img = $(father).children('img')[0].src
+        img = img.replace('_icon', '')
+        $('#picBox', parent.document).css('display', 'block')
+        $('#bigPic', parent.document).attr('src', img)
+        $('#bigPic', parent.document).css('width', '60%')
+        $('#bigPic', parent.document).css('height', '')
+        $('#bigPic', parent.document).css('left', '0')
+        let height = $('#bigPic', parent.document).height()
+        console.log(height)
+        // $('#bigPic', parent.document).css('max-height',height*2)
+        // $('#bigPic', parent.document).css('min-height',height/2)
+        let boxHeight = $('.picDetail', parent.document).height()
+        console.log(height, boxHeight)
+        let imgTop = (boxHeight - height) / 2
+        if (imgTop < 0) {
+            imgTop = 0
+        }
+        $('#bigPic', parent.document).css('top', imgTop)
+    }
+
+    function copy(obj) {
+        let father = obj.parentNode.parentNode.parentNode
+        let img = $(father).children('img')[0].src
+        img = img.replace('_icon', '')
+        let transfer = document.getElementById('copy');
+        transfer.value = img;  // 这里表示想要复制的内容
+        transfer.focus();
+        transfer.select();
+        if (document.execCommand('copy')) {
+            document.execCommand('copy');
+        }
+        transfer.blur();
+        alert('已将图片链接复制到剪切板')
+    }
+</script>
+</html>

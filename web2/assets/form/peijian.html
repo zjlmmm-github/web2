@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>厂商管理</title>
+
+    <link rel="stylesheet" type="text/css" href="lib/ZCell.min.css"/>
+    <script src="../js/jquery.js"></script>
+    <script type="text/javascript" src="lib/ZCell.min.js"></script>
+    <script type="text/javascript" src="lib/ZCell.register.js"></script>
+    <script type="text/javascript" src="lib/Base.js"></script>
+    <script type="text/javascript" src="js/xlsx.core.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+</head>
+<body>
+<div id="order">
+    <div id="cellContainer">
+    </div>
+    <div class="bottom-btn">
+        <button class="Add" onclick="OnAdd()">新增</button>
+        <button class="save" onclick="OnSave()">保存</button>
+        <button class="Delete" onclick="OnDelete()">删除</button>
+    </div>
+</div>
+
+<script>
+    let zcell;
+    let mWebService = sessionStorage.getItem('webService')
+    let mWebService1 = mWebService.substring(0,mWebService.length-1);//不带最后一个/字符
+    //ZCellInit();
+
+
+    //设置自定义右键菜单
+
+
+    GetParameter();
+
+    function ZCellInit(rows) {
+        zcell = new ZCell(document.getElementById("cellContainer"));
+        //指定列、行
+        zcell.InserSheet(0, 17, rows);
+
+        let colWidth = [130, 100, 100, 200, 130, 100, 100, 150, 200, 130, 130, 130, 130, 130, 130,130,130];
+
+        //列宽度
+        for (let index = 0; index < 17; ++index) {
+            zcell.GetSheet(0).SetColWidth(index + 1, colWidth[index]);
+        }
+
+        //行高度
+        for (let index = 1; index <= rows; ++index) {
+            zcell.GetSheet(0).SetRowHeight(index, 40);
+        }
+
+        //设置列/行标签不显示
+        zcell.GetSheet(0).ShowColLab(0);
+        zcell.GetSheet(0).ShowRowLab(0);
+
+        //列、行、合并列数(从第1列开始算)、合并行数(从第1行开始算)
+        //zcell.GetSheet(0).MergeCells(1, 2, 1, 1);
+
+        zcell.GetSheet(0).SetCellValue(1, 1, "存货编码");
+        zcell.GetSheet(0).SetCellValue(2, 1, "存货名称");
+        zcell.GetSheet(0).SetCellValue(3, 1, "材质");
+        zcell.GetSheet(0).SetCellValue(4, 1, "规格");
+        zcell.GetSheet(0).SetCellValue(5, 1, "花色");
+        zcell.GetSheet(0).SetCellValue(6, 1, "供应商物料编码");
+        zcell.GetSheet(0).SetCellValue(7, 1, "品牌");
+        zcell.GetSheet(0).SetCellValue(8, 1, "数量");
+        zcell.GetSheet(0).SetCellValue(9, 1, "单位");
+        zcell.GetSheet(0).SetCellValue(10, 1, "单价");
+        zcell.GetSheet(0).SetCellValue(11, 1, "总价");
+        zcell.GetSheet(0).SetCellValue(12, 1, "加工");
+        zcell.GetSheet(0).SetCellValue(13, 1, "供应商");
+        zcell.GetSheet(0).SetCellValue(14, 1, "物流系数");
+        zcell.GetSheet(0).SetCellValue(15, 1, "是否库存");
+        zcell.GetSheet(0).SetCellValue(16, 1, "生产周期");
+        zcell.GetSheet(0).SetCellValue(17, 1, "备注");
+        $('#zfstatd').hide();
+
+        //zcell.GetSheet(0).Events(ZCell.Events.Cus .CustomContextMenu, {}, function (e) { setmenu(e); });
+
+
+    }
+
+    //隐藏右键菜单
+    $(document).click(function () {
+        $(".contextmenu").hide();
+    });
+
+    function GetParameter() {
+        $.ajax({
+            type: "GET",
+            url: mWebService + 'iHouse/data/jiaju/kz.csv?' + (new Date()).valueOf(),
+            success: function (data) {
+                    let jData = data.split(/[\n]/g);
+                    jData.splice(0, 1)
+                    console.log(jData)
+                    let rows = jData.length;
+                    ZCellInit(rows + 1);
+
+                    for (let index = 0; index < rows; ++index) {
+                        let item = jData[index].split(',');
+
+                        zcell.GetSheet(0).SetCellValue(1, 2 + index, item[0]);
+                        zcell.GetSheet(0).SetCellValue(2, 2 + index, item[1]);
+                        zcell.GetSheet(0).SetCellValue(3, 2 + index, item[2]);
+                        zcell.GetSheet(0).SetCellValue(4, 2 + index, item[3]);
+                        zcell.GetSheet(0).SetCellValue(5, 2 + index, item[4]);
+                        zcell.GetSheet(0).SetCellValue(6, 2 + index, item[5]);
+                        zcell.GetSheet(0).SetCellValue(7, 2 + index, item[6]);
+                        zcell.GetSheet(0).SetCellValue(8, 2 + index, item[7]);
+                        zcell.GetSheet(0).SetCellValue(9, 2 + index, item[8]);
+                        zcell.GetSheet(0).SetCellValue(10, 2 + index, item[9]);
+                        zcell.GetSheet(0).SetCellValue(11, 2 + index, item[10]);
+                        zcell.GetSheet(0).SetCellValue(12, 2 + index, item[11]);
+                        zcell.GetSheet(0).SetCellValue(13, 2 + index, item[12]);
+                        zcell.GetSheet(0).SetCellValue(14, 2 + index, item[13]);
+                        zcell.GetSheet(0).SetCellValue(15, 2 + index, item[14]);
+                        zcell.GetSheet(0).SetCellValue(16, 2 + index, item[15]);
+                        zcell.GetSheet(0).SetCellValue(17, 2 + index, item[16]);
+                    }
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function OnAdd() {
+        let nRow = zcell.GetSheet(0).GetRows();
+        zcell.GetSheet(0).AppendRow(1);
+        zcell.GetSheet(0).SetRowHeight(nRow + 1, 40);
+    }
+
+    function encodeBase64(str){
+        // 对字符串进行编码
+        var encode = encodeURI(str);
+        // 对编码的字符串转化base64
+        var base64 = btoa(encode);
+        return base64;
+    }
+
+    function OnSave() {
+        let nRow = zcell.GetSheet(0).GetRows();
+        let nCol = zcell.GetSheet(0).GetCols();
+        let insertData = "存货编码,存货名称,材质,规格,花色,供应商物料编码,品牌,数量,单位,单价,总价,加工,供应商,物流系数,是否库存,生产周期,备注\r\n";
+
+        for (let index = 2; index <= nRow; ++index) {
+            let rowValue = "";
+            for (let k = 1; k <= nCol; ++k) {
+                rowValue += `${zcell.GetSheet(0).GetCellValue(k, index)}`;
+                rowValue += ",";
+            }
+
+            //rowValue = rowValue.substring(0, rowValue.length - 1);
+            rowValue += "\r\n";
+
+            insertData += rowValue;
+        }
+
+        insertData = insertData.substring(0, insertData.length - 1);
+
+
+        let base64Data = encodeBase64(insertData);
+        let jData = {
+            "type": "string",
+            "pathfilename": "C:\\inetpub\\wwwroot\\iHouse\\data\\jiaju\\kz.csv",
+            "filedata": base64Data
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: mWebService1 + ':5001/api/uploadfile',
+            async: false,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(jData),
+            success: function (data) {
+                if(data.code == "1")
+                {
+                    alert("保存成功");
+                }
+                else
+                {
+                    alert("保存失败,失败原因=" + decodeURI(data.message));
+                }
+            }
+        })
+
+    }
+
+    //执行右键菜单事件
+    function OnDelete() {
+
+        let currentRowNo = zcell.GetSheet(0).GetCurrentRowNo();
+
+        if (1 == currentRowNo) {
+            alert('禁止删除表头数据');
+        } else if (-1 != currentRowNo) {
+            zcell.GetSheet(0).DeleteRow(currentRowNo, 1);
+            OnSave();
+        } else {
+            alert('请选择要删除的行');
+        }
+    }
+
+</script>
+
+</body>

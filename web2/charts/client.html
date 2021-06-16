@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>iHouse3D云设计端功能表</title>
+	<style type="text/css" media="screen">
+		.container{
+			width: 100%;
+			height: 4000px;
+		}
+	</style>
+
+		
+</head>
+<body>
+	<div class="container" id="container_1"></div>
+	<div style="background-color:#FF0000;width:40px;height:22px;left:70px;top:80px;position:absolute;border-radius:3px;"></div>
+	<div style="background-color:#000000;width:40px;height:22px;left:70px;top:130px;position:absolute;border-radius:3px;"></div>
+	<p style="left:125px;top:65px;position:absolute;color:#ff0000;">付费版功能</p>	
+	<p style="left:125px;top:115px;position:absolute;color:#000000;">免费版功能</p>
+    <script type="text/javascript" src="lib/echarts.min.js"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+	<script src="js/iconAnalysis.js"></script>
+	<script>
+
+		var dom_1 = document.getElementById("container_1");
+		var myChart_1 = echarts.init(dom_1);
+		option = null;
+
+		var data = {
+    "name": "iHouse3D设计端",
+    "children": [
+    	  {"name": "平面功能",
+		    "children": [
+		        {
+		            "name": "快速绘制墙体",
+		            "children": [
+		                {
+		                 "name": "画墙",
+		                 "children": [
+		                    {"name": "中线画墙"},
+		                    {"name": "内线画墙", "label": { "color": "#ff0000"}}
+		                   ]
+		                },
+			            {"name": "连续画墙"},
+			            {"name": "顶点吸附"},
+			            {"name": "墙体对齐"},
+			            {"name": "移动墙体"},
+			            {"name": "尺寸显示"},
+			            {"name": "输入尺寸"},
+			            {"name": "打断墙体"},
+			            {"name": "墙体厚度修改"},	            
+			            {"name": "生成墙角"},
+			            {"name": "生成地面"},
+			            {"name": "生成房间"},
+			            {"name": "斜墙"},
+			            {"name": "删除墙体"},
+			            {"name": "辅助线"}               
+		            ]
+		        },
+		        {
+		            "name": "CAD方式绘制墙体","label": { "color": "#ff0000"},
+		            "children": [
+		                {"name": "画墙线","label": { "color": "#ff0000"}},
+			            {"name": "连续画墙线","label": { "color": "#ff0000"}},
+			            {"name": "顶点吸附","label": { "color": "#ff0000"}},
+			            {"name": "墙体对齐","label": { "color": "#ff0000"}},
+			            {"name": "尺寸显示","label": { "color": "#ff0000"}},
+			            {"name": "输入尺寸","label": { "color": "#ff0000"}},
+			            {"name": "打断墙线","label": { "color": "#ff0000"}},	 
+			            {"name": "合并墙线","label": { "color": "#ff0000"}},
+			            {"name": "删除墙线","label": { "color": "#ff0000"}},
+			            {"name": "辅助线","label": { "color": "#ff0000"}}               
+		            ]
+		        },		        
+		        {
+		            "name": "图像识别","label": { "color": "#ff0000"},
+		            "children": [
+		                {"name": "生成墙体","label": { "color": "#ff0000"}},
+		                {"name": "生成地面","label": { "color": "#ff0000"}},
+		                {"name": "选择有用墙体","label": { "color": "#ff0000"}},
+		                {"name": "选择有用地面","label": { "color": "#ff0000"}},
+			            {"name": "设置识别精度","label": { "color": "#ff0000"}},
+			            {"name": "上传图片","label": { "color": "#ff0000"}}           
+		            ]
+		        },		        
+		        {
+		            "name": "窗户",
+		            "children": [
+		                {"name": "标准窗户",
+						 "children": [
+						                {
+						                    "name": "创建窗户",
+						                    "children": [
+						                        {"name": "拖拽窗户",},
+						                        {"name": "窗户遇墙体吸附"},
+						                        {"name": "窗户随墙自动旋转"},
+						                        {"name": "窗长>墙体长时适应墙体长度"}
+						                    ]
+						                },
+						                {
+						                    "name": "编辑窗户",
+						                    "children": [
+						                        {"name": "修改长",},
+						                        {"name": "修改离地高"},
+						                        {"name": "修改高"},
+						                        {"name": "回复默认长高离地高"},
+						                        {"name": "替换窗户"}
+						                    ]				                    
+						                }
+						            ]               
+		                },
+		                {"name": "外飘窗"},
+		                {"name": "落地窗"},
+		                {"name": "窗洞"}
+		            ]
+		        },
+		        {
+		            "name": "门",
+		            "children": [
+		                {"name": "标准门"},
+		                {"name": "双开门"},
+		                {"name": "移门"},
+		                {"name": "子母门"},
+		            ]
+		        },
+		        {
+		            "name": "房间模板",
+		            "children": [
+		                {"name": "5种房间模板"}
+		            ]
+		        },
+		        { "name": "文字",
+		          "children": [
+		                {"name": "创建文字"},
+		                {"name": "修改文字"},
+		                {"name": "删除文字"},
+		                {"name": "3D下显示文字"},
+		                {"name": "隐藏文字"}
+		            ]
+		        },
+		        { "name": "烟道",
+		 		  "children": [
+		                {"name": "创建烟道"},
+		                {"name": "修改烟道"},
+		                {"name": "删除烟道"},
+		                {"name": "3D下显示烟道"},
+		                {"name": "3D下替换烟道材质"}
+		            ]        
+		        },
+		        { "name": "柱子",
+		  		  "children": [
+		                {"name": "创建柱子"},
+		                {"name": "修改柱子"},
+		                {"name": "删除柱子"},
+		                {"name": "3D下显示柱子"},
+		                {"name": "3D下替换柱子材质"}
+		            ]        
+		        },
+		        { "name": "梁",
+		  		  "children": [
+		                {"name": "创建梁"},
+		                {"name": "修改梁"},
+		                {"name": "删除梁"},
+		                {"name": "3D下显示梁"},
+		                {"name": "3D下替换梁材质"}
+		            ] 
+		       },
+		        { "name": "测量",
+				  "children": [
+		            {"name": "创建"},
+		            {"name": "删除"}
+		        	] 
+		       },
+		        { "name": "CAD户型图导入",
+		          "label": { "color": "#ff0000"},
+				  "children": [
+			            {"name": "CAD墙体导入",
+			             "label": { "color": "#ff0000"},
+			            },
+			            {"name": "CAD门导入",
+			             "label": { "color": "#ff0000"},
+			            },
+			            {"name": "CAD窗导入",
+			             "label": { "color": "#ff0000"},
+			            }
+		        	] 
+		       },
+		        { "name": "背景图临摹",
+		          "label": { "color": "#ff0000"},
+				  "children": [
+			            {"name": "背景图是否显示",
+			             "label": { "color": "#ff0000"},
+			            },
+			            {"name": "背景图透明度",
+			             "label": { "color": "#ff0000"},
+			            },
+			            {"name": "背景图大小",
+			             "label": { "color": "#ff0000"},
+			            }
+		        	] 
+		       },		       
+		       
+		    ]    	  
+    	  },
+          {
+          	"name": "3D功能",
+          	"children": [
+          				{ "name": "模型功能",
+						  "children": [
+				            {"name": "创建模型"},
+				            {"name": "鼠标操控",
+							  "children": [
+						            {"name": "移动模型"},
+						            {"name": "删除模型"},
+						            {"name": "旋转模型"},
+						            {"name": "复制模型", "label": { "color": "#ff0000"}},
+						            {"name": "隐藏/显示模型", "label": { "color": "#ff0000"}},
+						            {"name": "模型成组/解组", "label": { "color": "#ff0000"}},
+						            {"name": "模型换贴图", "label": { "color": "#ff0000"},
+									  "children": [
+							            {"name": "显示替换贴图窗口", "label": { "color": "#ff0000"}},
+							            {"name": "显示可替换贴图内容", "label": { "color": "#ff0000"}},
+							            {"name": "模型局部替换贴图", "label": { "color": "#ff0000"}},
+							            {"name": "查看用环境光调整", "label": { "color": "#ff0000"}},
+							            {"name": "查看用光颜色调整", "label": { "color": "#ff0000"}},
+							            {"name": "查看用光强度调整", "label": { "color": "#ff0000"}}
+							        	] 						            
+						            },
+					        	]				            
+				            },
+				            {"name": "界面编辑模型"},
+				            {"name": "模型库",
+							  "children": [
+					            {"name": "模型分类展示"},
+					            {"name": "模型内容分页显示"},
+					            {"name": "模型收藏功能"},
+					            {"name": "模型3D查看"},
+					            {"name": "查找模型功能"},
+					        	] 				            
+				            },
+				        	]           				
+          				},
+          		        { "name": "房间一键布置功能","label": { "color": "#ff0000"}},
+          		        { "name": "参数化设计护墙板","label": { "color": "#ff0000"}},  
+          		    
+          		        { "name": "地面铺贴功能"},
+          		        { "name": "墙面铺贴功能"},          				
+          		        { "name": "鸟瞰图",
+						  "children": [
+					            {
+					            	"name": "显示模式",
+									  "children": [
+							            {"name": "材质模式"},
+							            {"name": "线框模式"},
+							            {"name": "材质+线框模式"}
+							        	]					            	
+					            },
+					            {"name": "鸟瞰浏览方式"},
+				        	]         		        
+          		       },
+		        		{ "name": "漫游"},		        		
+		    ]
+          },
+          {
+          	"name": "材料库",
+          	"children": [
+          			{"name": "平台提供的模型库","label": { "color": "#ff0000"}},
+		            {"name": "平台提供的贴图库","label": { "color": "#ff0000"}},
+		            {"name": "品牌库","label": { "color": "#ff0000"},
+		             "children": [
+      		        		{ "name": "品牌模型库",
+      		        		  "label": { "color": "#ff0000"},
+      		        		},
+			          		{ "name": "品牌材料库",
+			          		  "label": { "color": "#ff0000"},
+			          		},
+					    ]},
+		            {"name": "个性化库",
+      		        	"children": [
+      		        		{ "name": "收藏的模型库"},
+			          		{ "name": "当前被隐藏的模型"},
+					    ]},
+					{"name": "企业账号共享的库",
+					 "children": [
+      		        		{ "name": "模型库"},
+			          		{ "name": "贴图库"},
+					    ],
+          			},
+					{"name": "个人账号的库",
+					 "children": [
+      		        		{ "name": "模型库"},
+			          		{ "name": "贴图库"},
+					    ],
+					},
+					{"name": "一键布置",
+					 "label": { "color": "#ff0000"},
+					 "children": [
+      		        		{ "name": "一键布置场景列表展示",
+      		        		  "label": { "color": "#ff0000"},
+      		        		},
+			          		{ "name": "每个场景效果图展示",
+			          		  "label": { "color": "#ff0000"},
+			          		},
+			          		{ "name": "每个场景所用材料列表",
+			          		  "label": { "color": "#ff0000"},
+			          		},
+					    ]},
+				] 
+          },
+          {
+          	"name": "渲染","label": { "color": "#ff0000"},
+          	"children": [
+      		        { "name": "效果图功能","label": { "color": "#ff0000"},
+      		        	"children": [
+      		        		{ "name": "渲染效果图","label": { "color": "#ff0000"}},
+			          		{ "name": "保存效果图","label": { "color": "#ff0000"}},
+					        { "name": "删除效果图","label": { "color": "#ff0000"}},
+					        { "name": "效果图二维码","label": { "color": "#ff0000"}},
+					    ]
+      		        },
+	        		{ 
+	        			"name": "全景图功能","label": { "color": "#ff0000"},
+			          	"children": [
+			          		{ "name": "渲染全景图","label": { "color": "#ff0000"}},
+					        { 
+					        	"name": "全景展示","label": { "color": "#ff0000"},
+					          	"children": [
+			          		        { "name": "生成全景二维码","label": { "color": "#ff0000"}},
+					        		{ "name": "生成全景链接","label": { "color": "#ff0000"}},
+					        		{ "name": "全景背景音乐","label": { "color": "#ff0000"}},
+					        		{ "name": "全景内产品信息","label": { "color": "#ff0000"}},
+					        		{ "name": "全景自动旋转","label": { "color": "#ff0000"}},
+					        		{ "name": "全景眼镜应用","label": { "color": "#ff0000"}},
+							    ]					        	
+					        },
+					    ]	        			
+	        		},
+	        		{ "name": "渲染动画","label": { "color": "#ff0000"}},
+	        		{ "name": "渲染效果实时显示","label": { "color": "#ff0000"}},
+	        		{ "name": "停止渲染","label": { "color": "#ff0000"}},
+	        		{ "name": "渲染外景图","label": { "color": "#ff0000"}},
+	        		{ "name": "选择灯光模板","label": { "color": "#ff0000"}},
+	        		{ "name": "环境光强度设置","label": { "color": "#ff0000"}},
+	        		{ "name": "渲染云币功能","label": { "color": "#ff0000"}},
+	        		{ "name": "选择渲染图尺寸","label": { "color": "#ff0000"}}
+		    ]          	
+          },
+          {
+          	"name": "通用功能",
+          	"children": [
+	          	{ "name": "文件",
+				  "children": [
+				            {"name": "开始设计"},
+				            {"name": "保存"},
+				            {"name": "另存"},
+				            {"name": "分享设计", "label": { "color": "#ff0000"}},
+				            {"name": "保存户型", "label": { "color": "#ff0000"}},
+				            {"name": "户型库", "label": { "color": "#ff0000"},
+					            "children": [
+					            {"name": "户型库分类", "label": { "color": "#ff0000"}},
+					            {"name": "户型库查找", "label": { "color": "#ff0000"}}
+					        	] 
+				            }
+				        ]       
+			    },
+		        { "name": "清空",
+				  "children": [
+				            {"name": "清空视图"},
+				            {"name": "清空家具"}
+				        ]       
+		        },
+		        { "name": "语言",
+				  "children": [
+				            {"name": "中文"},
+				            {"name": "英文"},
+				            {"name": "越南文"}
+				        ]        
+		        },
+		        
+		        { "name": "图册",
+		          "label": { "color": "#ff0000"},
+		  		  "children": [
+		                {"name": "效果图册"},
+		                {"name": "全景图册",
+						  "children": [
+						            {"name": "全景PC端链接显示"},
+						            {"name": "全景二维码生成"},
+						            {"name": "全景移动端显示"}
+						        ] 		                
+		                },
+		                {"name": "视频动画", "label": { "color": "#ff0000"}},
+		            ] 		        
+		        },
+		        { "name": "全屏模式"},
+		        { "name": "预算报表"},
+		        { "name": "视图导航",
+				  "children": [
+				            {"name": "分房间显示"},
+				            {"name": "全部显示"},
+				            {"name": "隐藏视图导航"}
+				        ]		        
+		        },
+		        { "name": "背景网格显示/隐藏"},
+		        { "name": "启动画面"},
+		        { "name": "登录画面"},
+		        { "name": "账号登录",
+		          "children": [
+		            {"name": "账号登录"},
+		            {"name": "账号唯一登录"},
+		            {"name": "账号地域显示"},
+		            {"name": "网站账号统一登录"}
+		        	] 
+		        },
+		    ]
+         },
+   	]
+
+};
+
+var option = {
+	title: {
+	        subtext: 'iHouse3D云设计端功能表',
+	        subtextStyle:{
+				color: '#666' ,
+	        	fontSize: 24 ,
+	        },
+	        left: 'center'
+	},	
+    tooltip: {
+        trigger: 'item',
+        triggerOn: 'mousemove'
+    },
+    series:[
+        {
+            type: 'tree',
+            name: '红色字体为付费版功能',
+            data: [data],
+
+            top: '2%',
+            left: '10%',
+            bottom: '1%',
+            right: '15%',
+
+            symbolSize: 11,
+			
+            edgeShape: 'polyline',
+            edgeForkPosition: '63%',
+            initialTreeDepth: 7,
+
+            lineStyle: {width: 2},
+
+            label: {
+                backgroundColor: '#fff',
+                position: 'left',
+                fontSize:16,
+                verticalAlign: 'middle',
+                align: 'right'
+            },
+
+            leaves: {
+                label: {
+                    position: 'right',
+                    verticalAlign: 'middle',
+                    align: 'left'
+                }
+            },
+            expandAndCollapse: true,
+            animationDuration: 550,
+            animationDurationUpdate: 550
+        }     
+    ]
+};
+		myChart_1.setOption(option, true);
+
+	</script>
+</body>
+</html>

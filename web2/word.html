@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>word</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/ui.css">
+    <link rel="stylesheet" href="assets/css/3dyun.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+    <style>
+        .floating_ck {
+            display: none;
+        }
+
+        tr {
+            cursor: pointer;
+        }
+
+        .wordIcon {
+            display: flex;
+            justify-content: center;
+        }
+
+        .wordIcon > i {
+            margin: 0 10px;
+        }
+
+        .wordIcon > i:hover {
+            color: #2d98e6;
+        }
+        .title-box{
+            padding: 10px;
+            color: red;
+            display: none;
+        }
+        .title-box>p{
+            margin: 5px 0;
+        }
+        #word{
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="shareBox" id="saveBox" style="z-index: 99999;top: 150px">
+        <p class="shareTitle">保存文档</p>
+        <p class="shareUser">文档名：
+            <el-input v-model="wordName" id="wordName"></el-input>
+        </p>
+        <div class="shareBtn">
+            <el-button type="success" onclick="_saveWord()">确定</el-button>
+            <el-button type="danger" onclick="closeWord()">取消</el-button>
+        </div>
+    </div>
+    <div class="shareBox" id="codeBox" style="z-index: 99999;top: 150px;width: 350px;height: 400px">
+        <img src="assets/img/model/关闭.png" onclick="closeShare()"
+             style="position: absolute;right: -15px;top: -15px;width: 28px;height: 28px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer;border-radius: 30px">
+        <div id="shareCode" style="width: 256px;height: 256px;margin: 20px auto"></div>
+        <p id="shareTxt"
+           style="width: 256px;margin: 0 auto;word-break: break-all;word-wrap: break-word;overflow: hidden"></p>
+    </div>
+    <div class="shareBox" id="_saveBox" style="z-index: 99999;top: 150px">
+        <p class="shareTitle">文档另存为</p>
+        <p class="shareUser">文档名：
+            <el-input v-model="wordName1" id="_wordName"></el-input>
+        </p>
+        <div class="shareBtn">
+            <el-button type="success" onclick="_otherSave()">确定</el-button>
+            <el-button type="danger" onclick="closeOther()">取消</el-button>
+        </div>
+    </div>
+    <div class="detail-class" style="padding: 0 10px">
+        <div class="class-title-box">
+            <!--            <p class="class-title active-class" onclick="changePage('js',this)">-->
+            <!--                介绍</p>-->
+            <p class="class-title active-class" onclick="changePage('wd',this)">
+                我的文档</p>
+            <p class="class-title" onclick="changePage('bj',this)" id="bjBtn">
+                在线编辑</p>
+
+        </div>
+
+        <p class="upload-btn" onclick="saveWord()" style="border-radius: 4px;display: none">保存</p>
+    </div>
+    <div class="my-table" style="padding: 0 10px">
+        <table class="rechargeRecord">
+            <thead class="my-table-header">
+            <tr>
+                <td>序号</td>
+                <td colspan="3">文档名称</td>
+                <td>创建时间</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody id="wordList" class="my-table-body">
+            <tr>
+                <td colspan="6">暂无文档</td>
+            </tr>
+            </tbody>
+        </table>
+        <p style="text-align: center;margin-top: 20px">http://www.ihouse3d.com/word.html</p>
+    </div>
+</div>
+<div class="title-box"><p>注意事项</p>
+<p>1.单张图片大小不可超过5M</p></div>
+<div id="word" style="padding: 10px;display: none">
+</div>
+
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/wangEditor.js"></script>
+<script src="headfooter.js"></script>
+<script type="text/javascript" src="assets/js/jquery.qrcode.js"></script>
+<script src="assets/js/word.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                wordName: '',
+                wordName1: ''
+            }
+        }
+    })
+</script>
+</html>

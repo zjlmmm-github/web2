@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>iHouse3D云渲染端功能表</title>
+	<style type="text/css" media="screen">
+		.container{
+			width: 100%;
+			height: 700px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="container_1"></div>
+    <script type="text/javascript" src="lib/echarts.min.js"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+	<script src="js/iconAnalysis.js"></script>
+	<script>
+
+		var dom_1 = document.getElementById("container_1");
+		var myChart_1 = echarts.init(dom_1);
+		option = null;
+
+		var data = {
+    "name": "iHouse3D云渲染端",
+    "children": [
+    	  {"name": "效果图渲染功能",   	  
+    	  },
+          {
+          	"name": "全景图渲染功能",
+          	"children": [
+          		{ "name": "渲染全景图"},
+		        { 
+		        	"name": "生成全景展示",
+		          	"children": [
+          		        { "name": "生成全景二维码"},
+		        		{ "name": "生成全景链接"},
+		        		{ "name": "全景背景音乐"},
+		        		{ "name": "全景内产品信息"},
+		        		{ "name": "全景自动旋转"},
+		        		{ "name": "全景眼镜应用"},
+				    ]					        	
+		        },
+		    ]          	
+          },
+          
+          {"name": "动画渲染功能",
+          	"children": [
+          		{ "name": "动画帧渲染" },
+		        { "name": "生成视频动画" },
+		    ]          
+          },
+          { "name": "实时返回渲染画面" },
+          { "name": "自动更新资源" },  
+          { "name": "实时停止渲染功能" }, 
+          { "name": "渲染图尺寸配置" },
+          { "name": "渲染灯光模板配置" }, 
+          { "name": "多机渲染排队功能" },  
+          { "name": "渲染出错自动重启功能" }, 
+          { "name": "渲染信息列表提示" }, 
+          { "name": "渲染内容脚本方式" },
+   	]
+
+};
+
+var option = {
+	title: {
+	        subtext: 'iHouse3D云渲染功能表',
+	        subtextStyle:{
+				color: '#666' ,
+	        	fontSize: 18 ,
+	        },
+	        left: 'center'
+	},	
+    tooltip: {
+        trigger: 'item',
+        triggerOn: 'mousemove'
+    },
+    series:[
+        {
+            type: 'tree',
+            name: 'tree1',
+            data: [data],
+
+            top: '1%',
+            left: '20%',
+            bottom: '1%',
+            right: '25%',
+
+            symbolSize: 9,
+			
+            edgeShape: 'polyline',
+            edgeForkPosition: '43%',
+            initialTreeDepth: 7,
+
+            lineStyle: {width: 2},
+
+            label: {
+                backgroundColor: '#fff',
+                position: 'left',
+                fontSize:15,
+                verticalAlign: 'middle',
+                align: 'right'
+            },
+
+            leaves: {
+                label: {
+                    position: 'right',
+                    verticalAlign: 'middle',
+                    align: 'left'
+                }
+            },
+            expandAndCollapse: true,
+            animationDuration: 550,
+            animationDurationUpdate: 550
+        }
+    ]
+};
+		myChart_1.setOption(option, true);
+
+	</script>
+</body>
+</html>

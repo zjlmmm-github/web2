@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html">
+		
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="layui/css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="style/admin.css" media="all">
+		<link rel="stylesheet" type="text/css" href="iconfont/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<div class="layui-fluid">
+			<div class="layui-card console_con">
+				<div class="layui-card-body">
+					<div class="layadmin-backlog">
+						<ul class="layui-row layui-col-space1">
+							<li class="layui-col-xs2">
+								<a href="javascript:;" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_dfk_m.png"></h3>
+									<p>待付款 <span class="text-red">20</span></p>
+								</a>
+							</li>
+							<li class="layui-col-xs2">
+								<a href="grab_center.html" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_dsg_m.png"></h3>
+									<p>待施工 <span class="text-yellow">20</span></p>
+								</a>
+							</li>
+							<li class="layui-col-xs2">
+								<a href="javascript:;" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_sgz_m.png"></h3>
+									<p>施工中 <span class="text-green">20</span></p>
+								</a>
+							</li>
+							<li class="layui-col-xs2">
+								<a href="shouyi_det.html" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_dys_m.png"></h3>
+									<p>待验收 <span class="text-cyan">20</span></p>
+								</a>
+							</li>
+							<li class="layui-col-xs2">
+								<a href="shouyi_det.html" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_djs_m.png"></h3>
+									<p>待结算 <span class="text-purple">20</span></p>
+								</a>
+							</li>
+							<li class="layui-col-xs2">
+								<a href="shouyi_det.html" class="layadmin-backlog-body console_grid">
+									<h3><img class="img" src="images/icon_ywc_m.png"></h3>
+									<p>已完成 <span class="text-red">20</span></p>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="layui-row gant">
+				<div style="height: 450px;" id="progress"></div>
+			</div>
+		</div>
+		<script src="layui/layui.all.js"></script>
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/highcharts-gantt.js"></script>
+		<script src="js/stock.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/highcharts-zh_CN.js"></script>
+		<script type="text/javascript">
+			Highcharts.ganttChart('progress', {
+				title: {
+					text: '项目进度一览'
+				},
+				xAxis : {
+					type: 'datetime',
+					currentDateIndicator: true,
+					dateTimeLabelFormats: { 
+						day: '%m-%d',
+					}
+				},
+				colors: ['#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999'],
+				credits : { enabled : false }, // 版权信息
+				navigator: {
+					enabled: true,
+					liveRedraw: false,
+					series: {
+						type: 'gantt',
+						pointPlacement: 0.5,
+						pointPadding: 0.25
+					},
+					yAxis: {
+						min: 0,
+						max: 10,
+						reversed: true,
+						categories: []
+					}
+				},
+				scrollbar: {
+					enabled: true
+				},
+				/* 左侧日期切换 */
+				rangeSelector: {
+					enabled: true,
+					selected: 0,
+					buttonSpacing: 10,
+					buttons: [{
+						type: 'month',
+						count: 1,
+						text: '一个月'
+					}, {
+						type: 'month',
+						count: 3,
+						text: '三个月'
+					}, {
+						type: 'month',
+						count: 6,
+						text: '半年'
+					}, {
+						type: 'year',
+						count: 1,
+						text: '一年'
+					}, {
+						type: 'all',
+						text: '全部'
+					}]
+				},
+				tooltip: {
+					// dateTimeLabelFormats: {
+					// 	day: '%Y/%m/%d'
+					// },
+					formatter: function () { 
+						console.log(this);
+						return '<b>' + this.series.name + '</b><br/><br/>' + Highcharts.dateFormat('%Y/%m/%d',this.x)+' - ' + Highcharts.dateFormat('%Y/%m/%d',this.x2);  
+					},
+				},
+				/* 已逾期： #0FB19A  进行中: #FFC174  已完成： #FC6986 */
+				/* Date.UTC 的月份按0-11来算，日期正常月份取的时候月份记得-1 */
+				series: [{
+					name: '已逾期',
+					data: [{
+						name: '项目一',
+						start: Date.UTC(2021, 1, 1),
+						end: Date.UTC(2021, 2, 9),
+						completed: {
+							amount: .95,
+							fill: '#0FB19A'
+						},
+						dataLabels: [{
+								format: '<span style="color: #fff">20人</span>',
+								useHTML: true,
+								align: 'left'
+							}, {
+								format: '<p style="color: #fff">已完成95% <span style="color: #f00">(已逾期2天)</span></p>',
+								useHTML: true,
+								align: 'center'
+							}, {
+							format: '<div style="width: 20px; height: 20px; overflow: hidden; border-radius: 50%; position: relative; right: -30px">' +
+							'<img src="./images/icon_dfk_m.png" ' +
+							'style="width: 20px; height: 20px;"></div>',
+							useHTML: true,
+							align: 'right'
+						}]
+					}]
+				}, {
+					name: '已完成',
+					data: [{
+						name: '项目二',
+						start: Date.UTC(2021, 1, 2),
+						end: Date.UTC(2021,3, 9),
+						completed: {
+							amount: 1,
+							fill: '#FC6986'
+						},
+						dataLabels: [{
+								format: '<span style="color: #fff">20人</span>',
+								useHTML: true,
+								align: 'left'
+							}, {
+								format: '<p style="color: #fff">已完成100%</p>',
+								useHTML: true,
+								align: 'center'
+							}, {
+							format: '<div style="width: 20px; height: 20px; overflow: hidden; border-radius: 50%; position: relative; right: -30px">' +
+							'<img src="./images/icon_dsg_m.png" ' +
+							'style="width: 20px; height: 20px;"></div>',
+							useHTML: true,
+							align: 'right'
+						}]
+					}]
+				}, {
+					name: '进行中',
+					data: [{
+						name: '项目三',
+						start: Date.UTC(2021, 3, 5),
+						end: Date.UTC(2021, 4, 2),
+						completed: {
+							amount: .3,
+							fill: '#FFC174'
+						},
+						dataLabels: [{
+								format: '<span style="color: #fff">20人</span>',
+								useHTML: true,
+								align: 'left'
+							}, {
+								format: '<p style="color: #fff">已完成30%</p>',
+								useHTML: true,
+								align: 'center'
+							}, {
+							format: '<div style="width: 20px; height: 20px; overflow: hidden; border-radius: 50%; position: relative; right: -30px">' +
+							'<img src="./images/icon_djs_m.png" ' +
+							'style="width: 20px; height: 20px;"></div>',
+							useHTML: true,
+							align: 'right'
+						}]
+					}]
+				}],
+			});
+		</script>
+	</body>
+</html>

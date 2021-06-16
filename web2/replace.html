@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线换装</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/information.css">
+</head>
+<body>
+<div class="detail-box" style="position: relative" id="hcode">
+    <div id="codeBox" style="display: flex;padding: 180px 200px 0;justify-content: space-around">
+
+        <iframe src="http://www.ihouse3d.com.cn/replace/index.html" frameborder="0" width="375" height="667"
+                style="
+    box-shadow: 0 0 20px 1px rgba(0,0,0,0.5);" id="hzBox"></iframe>
+        <div style="" id="hzItemBox">
+
+        </div>
+    </div>
+    <p style="text-align: center;margin-top: 20px">http://www.ihouse3d.com.cn/replace/index.html</p>
+</div>
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script>
+    loadHZ()
+    function loadHZ() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://www.ihouse3d.com.cn/replace/replace.txt?time=' + guid(),
+            success: function (data) {
+                $('#hzItemBox').html('')
+                data = data.split(/[(\r\n)\r\n]+/)
+                for (let i = 0; i < data.length; i++) {
+                    let item = data[i].split(',')
+                    let num = i + 1
+                    let info = `<div class="hzItem">
+                        <div class="hzItem-icon">
+                            <div class="hzItem-icon-info">
+                                    <div class="hzicon-item1" onclick="changeHZ(${item[0]})">
+                                        <img src="assets/img/查看.png" alt="" width="30">
+                                        <p>查看</p>
+                                    </div>
+                                <div class="hzicon-item2">
+                                    <img src="assets/img/code${num}.png" alt="" width="80">
+                                </div>
+                            </div>
+                        </div>
+                        <img src="http://www.ihouse3d.com.cn/replace/img/${item[0]}/1.png" alt="" width="100%">
+                    </div>`
+                    $('#hzItemBox').append(info)
+                }
+                $('.hzItem').hover(function () {
+                    $(this).children('.hzItem-icon').show()
+                }, function () {
+                    $(this).children('.hzItem-icon').hide()
+                })
+            },
+            error: function () {
+
+            }
+        })
+    }
+
+    function changeHZ(id) {
+        document.getElementById('hzBox').src = 'http://www.ihouse3d.com.cn/replace/index.html?id=' + id
+    }
+    function guid() {
+        return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+</script>
+</html>

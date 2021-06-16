@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>充值记录</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/information.css">
+    <link rel="stylesheet" href="assets/css/jquery.sPage.css">
+    <link rel="stylesheet" href="assets/css/ui.css">
+</head>
+<body>
+<div id="clickMenu"><p class="Menu-item" onclick="openAdminRecord()">充值记录</p>
+    <p class="Menu-item" onclick="openAdminConsumer()">消费记录</p>
+    <p class="Menu-item" onclick="openAdminRecharge()">云币操作</p></div>
+<div class="admin-rechargeRecord" id="admin-rechargeRecord">
+    <div class="admin-rechargeRecord-box my-table">
+        <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x" onclick="closeAdminRecord()">
+        <p class="admin-title">充值记录</p>
+        <table class="_rechargeRecord">
+            <thead class="my-table-header">
+            <tr>
+                <td>时间</td>
+                <td>账号</td>
+                <td>类型</td>
+                <td>价格</td>
+                <td>支付方式</td>
+            </tr>
+            </thead>
+            <tbody class="my-table-body">
+            <tr>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="admin-rechargeRecord" id="admin-consumerRecords">
+    <div class="admin-rechargeRecord-box my-table">
+        <p class="admin-title">消费记录</p>
+        <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x" onclick="closeAdminConsumer()">
+        <table class="_consumerRecords">
+            <thead class="my-table-header">
+            <tr>
+                <td>时间</td>
+                <td>账号</td>
+                <td>交易</td>
+                <td>详情</td>
+                <td>类型</td>
+            </tr>
+            </thead>
+            <tbody class="my-table-body">
+            <tr>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="myInfor" style="display: block;width: 100%" >
+    <div class="admin" id="admin">
+        <div class="admin-box">
+            <img src="assets/img/information/x.png" alt="" class="admin-x" onclick="closeAdmin()">
+            <p><span>用户名：</span><span id="admin-user"></span></p>
+            <p><span>云币：</span><span id="admin-bi"></span></p>
+            <br>
+            <el-input onkeyup="this.value=this.value.replace(/\D/g,'')" v-model="input4" placeholder="请输入云币数"
+                      id="biNum"></el-input>
+            <el-button type="primary" onclick="handleAdminClick('add')">充值</el-button>
+            <el-button type="danger" onclick="handleAdminClick('delete')">扣除</el-button>
+        </div>
+    </div>
+    <div class="mHeaderTab" style="display: flex;">
+        <div class="mTab-item mTab-active">
+            <p>充值记录</p>
+        </div>
+        <div class="mTab-item">
+            <p>消费记录</p>
+        </div>
+        <div class="mTab-item" style="display: none" id="adminBtn">
+            <p>充值管理</p>
+        </div>
+
+    </div>
+    <div style="display: none" id="seacher">
+        <el-input v-model="input5" placeholder="输入姓名" style="width: 200px;padding-top: 20px"></el-input>
+        <el-button type="primary">搜索</el-button>
+    </div>
+    <div class="my-table">
+        <div style="display: none" id="userSearch">
+            <el-input
+                    placeholder="请输入内容"
+                    prefix-icon="el-icon-search"
+                    v-model="search" style="width: 200px;margin-bottom: 10px;" id="searchTxt">
+            </el-input>
+            <el-button type="primary" onclick="searchUser()">搜索</el-button>
+            <el-button type="primary" onclick="allUser()">还原</el-button>
+        </div>
+        <table class="rechargeRecord">
+            <thead class="my-table-header">
+            <tr>
+                <td>时间</td>
+                <td>账号</td>
+                <td>类型</td>
+                <td>价格</td>
+                <td>支付方式</td>
+            </tr>
+            </thead>
+            <tbody class="my-table-body">
+            </tbody>
+        </table>
+        <table class="consumerRecords">
+            <thead class="my-table-header">
+            <tr>
+                <td>时间</td>
+                <td>账号</td>
+                <td>交易</td>
+                <td>详情</td>
+                <td>类型</td>
+            </tr>
+            </thead>
+            <tbody class="my-table-body">
+
+            </tbody>
+        </table>
+        <table class="personalRecords">
+            <thead class="my-table-header">
+            <tr>
+                <td>账号</td>
+                <td>用户名（微信qq名）</td>
+                <td>云币</td>
+                <td>手机号</td>
+                <td>创建时间</td>
+            </tr>
+            </thead>
+            <tbody class="my-table-body">
+
+            </tbody>
+
+        </table>
+        <div id="myPage"></div>
+    </div>
+</div>
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.sPage.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/cookie.js"></script>
+<script>
+    new Vue({
+        el: '#myInfor',
+        data: function () {
+            return {
+                search:'',
+                input5:'',
+                input4:''
+            }
+        }
+    })
+    document.onclick = function () {
+        document.getElementById("clickMenu").style.display = 'none'
+    }
+    $(function () {
+        if (ut==='11'){
+            $('#adminBtn').show()
+        }
+        QueryPayInfo()
+        $('#myInfor .mHeaderTab div').click(function () {
+
+            $(this).siblings().removeClass('mTab-active');
+            $(this).addClass('mTab-active');
+
+            var int = $(this).index();
+            if (int === 0) {
+                document.getElementById('userSearch').style.display = 'none'
+                document.getElementById('myPage').style.display = 'none'
+                QueryPayInfo()
+                let type = $('.rechargeRecord').attr('data');
+                if (type == 'false') {
+
+                }
+                $('.rechargeRecord').hide();
+                $('.consumerRecords,.personalRecords').fadeOut(300, function () {
+                    $('.rechargeRecord').fadeIn();
+                });
+            } else if (int === 1) {
+                document.getElementById('userSearch').style.display = 'none'
+                document.getElementById('myPage').style.display = 'none'
+                handleConsumption()
+
+                let type = $('.consumerRecords').attr('data');
+
+
+                if (type == 'false') {
+
+
+                }
+
+                $('.consumerRecords,.personalRecords').hide();
+                $('.rechargeRecord').fadeOut(300, function () {
+                    $('.consumerRecords').fadeIn();
+                });
+            } else if (int === 2) {
+                // document.getElementById('seacher').style.display='block'
+                document.getElementById('myPage').style.display = 'block'
+                document.getElementById('userSearch').style.display = 'block'
+
+                userBalance()
+                $('.personalRecords').hide()
+                $('.rechargeRecord,.consumerRecords').fadeOut(300, function () {
+                    $('.personalRecords').fadeIn();
+                });
+
+            }
+        });
+    })
+    function QueryPayInfo() {
+        $('.rechargeRecord>.my-table-body').html('');
+        $.ajax({
+            url: "http://www.ihouse3d.com.cn/PayWebService.asmx/QueryPayInfo",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            data: {
+                "UserAccount": name
+            },
+            success: function (data) {
+                //成功
+                if ("1" == data.code) {
+                    var dataList = $.parseJSON(data.dataList);
+
+                    var item_html = '';
+                    if (dataList.length == 0) {
+                        item_html = '<tr><td colspan=5>暂无充值信息~</td></tr>'
+                    } else {
+                        dataList.reverse()
+                        for (var i = 0; i < dataList.length; i++) {
+                            item_html += `<tr>
+                            <td>${dataList[i].timestamp}</td>
+                            <td>${dataList[i].user_account}</td>
+                            <td>云币充值</td>
+                            <td>${dataList[i].description}</td>
+                            <td>${dataList[i].pay_way}</td>
+                        </tr>`;
+                        }
+                    }
+
+                    $('.rechargeRecord>.my-table-body').html(item_html);
+                }
+                //失败信息
+                else {
+
+                }
+            },
+            error: function (err) {
+
+            }
+        })
+    }
+    function handleConsumption() {
+        $('.consumerRecords>.my-table-body').html('')
+        let payData = {
+            type: 4,
+            user_account: name
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'http://www.ihouse3d.com.cn/PayWebService.asmx/Payment',
+            data: {
+                payData: JSON.stringify(payData)
+            },
+            success: function (data) {
+                data = JSON.parse(data)
+                if (data.code === '0') {
+                    let item_html = '<tr><td colspan=5>暂无消费记录~</td></tr>'
+                    $('.consumerRecords>.my-table-body').append(item_html)
+                } else if (data.code === '1') {
+                    let itemArr = JSON.parse(data.dataList)
+
+                    let consumptionInfo = []
+                    itemArr.reverse()
+                    for (let i = 0; i < itemArr.length; i++) {
+                        if (itemArr[i].count > 0) {
+                            itemArr[i].count = 0 - itemArr[i].count
+                        }
+                        consumptionInfo[i] = `<tr>
+                            <td>${itemArr[i].date}</td>
+                            <td>${itemArr[i].user_account}</td>
+                            <td>${itemArr[i].count}</td>
+                            <td>${itemArr[i].description}</td>
+                            <td>云币消费</td>
+                        </tr>`
+                        $('.consumerRecords>.my-table-body').append(consumptionInfo[i])
+
+                    }
+                }
+            }
+        })
+    }
+    function userBalance() {
+        let url = 'http://www.ihouse3d.com.cn/service1.asmx/GetUserList'
+        if (name === 'chenx' || name === 'zhouqj' || name === 'hah') {
+            url = 'http://www.ihouse3d.com.cn/service1.asmx/GetAllUserList_SJS'
+        }
+        $('.personalRecords>.my-table-body').html('')
+        $.ajax({
+            type: 'POST',
+            url: url,
+            async: false,
+            data: {
+                strCompanyID: '2'
+            },
+            success: function (data) {
+                nameArr.length = 0
+                let str = $(data).find("string").html();
+                let strs = str.split('#')
+                let autoArr = []
+                for (let i = 1; i < strs.length; i++) {
+                    let name = strs[i].split('~')[0]
+                    autoArr.push(strs[i].split('~'))
+                    let strName = '/'
+                    if (strs[i].split('~')[13] !== '') {
+                        strName = strs[i].split('~')[13]
+                    }
+                    let strTel = '/'
+                    if (strs[i].split('~')[2] !== '') {
+                        strTel = strs[i].split('~')[2]
+                    }
+                    let time = '/'
+                    if (strs[i].split('~')[14] !== '') {
+                        time = strs[i].split('~')[14]
+                    }
+                    let obj = {
+                        name: name,
+                        bi: 0,
+                        strName: strName,
+                        tel: strTel,
+                        time: time
+                    }
+                    nameArr.push(obj)
+                }
+
+
+            }
+        })
+        $.ajax({
+            type: 'POST',
+            url: 'http://www.ihouse3d.com.cn/PayWebService.asmx/Payment',
+            async: false,
+            data: {
+                PayData: "{type:'3',user_account:''}"
+            },
+            success: function (data) {
+                let indexArr = []
+                data = JSON.parse(data)
+                let list = JSON.parse(data.dataList)
+
+                for (let i = 0; i < list.length; i++) {
+                    for (let a = 0; a < nameArr.length; a++) {
+                        if (nameArr[a].name === list[i].user_account) {
+                            let item = {
+                                name: nameArr[a].name,
+                                index: a,
+                                bi: list[i].total_money
+                            }
+                            indexArr.push(item)
+                        }
+                    }
+                }
+
+                for (let i = 0; i < indexArr.length; i++) {
+                    nameArr[indexArr[i].index].bi = indexArr[i].bi
+                }
+                nameArr.reverse()
+                pushName(nameArr)
+            }
+        })
+    }
+var nameArr=[]
+    function pushName(Arr) {
+        $('.personalRecords>.my-table-body').html('')
+        let nameInfo = []
+        let num = 15
+        if (Arr.length < num) {
+            num = Arr.length
+        }
+        for (let i = 0; i < num; i++) {
+            nameInfo[i] = `<tr>
+                            <td class="tdName" id='tdName${i}'>${Arr[i].name}</td>
+                            <td>${Arr[i].strName}</td>
+                            <td id='bi${i}'>${Arr[i].bi}</td>
+                            <td>${Arr[i].tel}</td>
+                            <td>${Arr[i].time}</td>
+                        </tr>`
+            $('.personalRecords>.my-table-body').append(nameInfo[i])
+        }
+        for (let i = 0; i < num; i++) {
+            let id = 'tdName' + i
+            let obj = document.getElementById(id)
+            let father = obj.parentNode
+            father.oncontextmenu = function (env) {
+                let e = env || window.event;
+                userName = Arr[i].name
+                userNameId = id
+                // 获取菜单，让菜单显示出来
+                let context = document.getElementById("clickMenu");
+                context.style.display = "none";
+                context.style.display = "block";
+
+                //  让菜单随着鼠标的移动而移动
+                //  获取鼠标的坐标
+                let x = e.clientX;
+                let y = e.clientY;
+
+                //  获取窗口的宽度和高度
+                let w = window.innerWidth;
+                let h = window.innerHeight;
+
+                //  调整宽度和高度
+                context.style.left = Math.min(w - 202, x) + "px";
+                context.style.top = Math.min(h - 230, y) + "px";
+                return false;
+            }
+        }
+        $("#myPage").sPage({
+            page: 1,//当前页码，必填
+            total: Arr.length,//数据总条数，必填
+            pageSize: 15,//每页显示多少条数据，默认10条
+            totalTxt: "共{total}条",//数据总条数文字描述，{total}为占位符，默认"共{total}条"
+            showTotal: true,//是否显示总条数，默认关闭：false
+            showSkip: true,//是否显示跳页，默认关闭：false
+            showPN: true,//是否显示上下翻页，默认开启：true
+            prevPage: "上一页",//上翻页文字描述，默认“上一页”
+            nextPage: "下一页",//下翻页文字描述，默认“下一页”
+            backFun: function (page) {
+                $('.personalRecords>.my-table-body').html('');
+                let firstNum = page * 15 - 15
+                let lastNum = firstNum + 15
+                if (lastNum > Arr.length) {
+                    for (let i = firstNum; i < Arr.length; i++) {
+                        let nameInfo = `<tr>
+                            <td class="tdName" id='tdName${i}'>${Arr[i].name}</td>
+                            <td>${Arr[i].strName}</td>
+                            <td id='bi${i}'>${Arr[i].bi}</td>
+                            <td>${Arr[i].tel}</td>
+                            <td>${Arr[i].time}</td>
+                        </tr>`
+                        $('.personalRecords>.my-table-body').append(nameInfo)
+                        let id = 'tdName' + i
+                        let obj = document.getElementById(id)
+                        let father = obj.parentNode
+                        father.oncontextmenu = function (env) {
+                            let e = env || window.event;
+                            userName = Arr[i].name
+                            userNameId = id
+                            // 获取菜单，让菜单显示出来
+                            let context = document.getElementById("clickMenu");
+                            context.style.display = "none";
+                            context.style.display = "block";
+
+                            //  让菜单随着鼠标的移动而移动
+                            //  获取鼠标的坐标
+                            let x = e.clientX;
+                            let y = e.clientY;
+
+                            //  获取窗口的宽度和高度
+                            let w = window.innerWidth;
+                            let h = window.innerHeight;
+
+                            //  调整宽度和高度
+                            context.style.left = Math.min(w - 202, x) + "px";
+                            context.style.top = Math.min(h - 230, y) + "px";
+                            return false;
+                        }
+                    }
+                } else {
+                    for (let i = firstNum; i < lastNum; i++) {
+                        let nameInfo = `<tr>
+                            <td class="tdName" id='tdName${i}'>${Arr[i].name}</td>
+                            <td>${Arr[i].strName}</td>
+                            <td id='bi${i}'>${Arr[i].bi}</td>
+                            <td>${Arr[i].tel}</td>
+                            <td>${Arr[i].time}</td>
+                        </tr>`
+                        $('.personalRecords>.my-table-body').append(nameInfo)
+                        let id = 'tdName' + i
+                        let obj = document.getElementById(id)
+                        let father = obj.parentNode
+                        father.oncontextmenu = function (env) {
+                            let e = env || window.event;
+                            userName = Arr[i].name
+                            userNameId = id
+                            // 获取菜单，让菜单显示出来
+                            let context = document.getElementById("clickMenu");
+                            context.style.display = "none";
+                            context.style.display = "block";
+
+                            //  让菜单随着鼠标的移动而移动
+                            //  获取鼠标的坐标
+                            let x = e.clientX;
+                            let y = e.clientY;
+
+                            //  获取窗口的宽度和高度
+                            let w = window.innerWidth;
+                            let h = window.innerHeight;
+
+                            //  调整宽度和高度
+                            context.style.left = Math.min(w - 202, x) + "px";
+                            context.style.top = Math.min(h - 230, y) + "px";
+                            return false;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function searchUser() {
+        let txt = document.getElementById('searchTxt').value
+        let newArr = nameArr.filter(function (ele) {
+            return ele.name.includes(txt)
+        })
+
+        pushName(newArr)
+    }
+
+    function allUser() {
+        pushName(nameArr)
+    }
+    function openAdminRecord() {
+        let name = userName
+        $('._rechargeRecord>.my-table-body').html('');
+        $.ajax({
+            url: "http://www.ihouse3d.com.cn/PayWebService.asmx/QueryPayInfo",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            data: {
+                "UserAccount": name
+            },
+            success: function (data) {
+                //成功
+
+                if ("1" === data.code) {
+                    let dataList = $.parseJSON(data.dataList);
+                    let item_html = '';
+                    if (dataList.length === 0) {
+                        item_html = '<tr><td colspan=5>暂无充值信息~</td></tr>'
+                    } else {
+                        for (var i = 0; i < dataList.length; i++) {
+                            item_html += `<tr>
+                            <td>${dataList[i].timestamp}</td>
+                            <td>${dataList[i].user_account}</td>
+                            <td>云币充值</td>
+                            <td>${dataList[i].description}</td>
+                            <td>${dataList[i].pay_way}</td>
+                        </tr>`;
+                        }
+                    }
+
+                    $('._rechargeRecord>.my-table-body').html(item_html);
+                } else if ("0" === data.code) {
+                    let _item_html = ''
+                    _item_html = '<tr><td colspan=5>暂无充值信息~</td></tr>'
+                    $('._rechargeRecord>.my-table-body').html(_item_html);
+                }
+                //失败信息
+
+            },
+            error: function (err) {
+
+            }
+        })
+        document.getElementById('admin-rechargeRecord').style.display = 'block'
+    }
+    function closeAdmin() {
+        document.getElementById('admin').style.display = 'none'
+    }
+
+    function closeAdminRecord() {
+        document.getElementById('admin-rechargeRecord').style.display = 'none'
+    }
+
+    function closeAdminConsumer() {
+        document.getElementById('admin-consumerRecords').style.display = 'none'
+    }
+    function openAdminConsumer() {
+        let name = userName
+        let payData = {
+            type: 4,
+            user_account: name
+        }
+        $('._consumerRecords>.my-table-body').html('');
+        $.ajax({
+            type: 'POST',
+            url: 'http://www.ihouse3d.com.cn/PayWebService.asmx/Payment',
+            data: {
+                payData: JSON.stringify(payData)
+            },
+            success: function (data) {
+                data = JSON.parse(data)
+                if (data.code === '0') {
+                    let item_html = '<tr><td colspan=5>暂无消费记录~</td></tr>'
+                    $('._consumerRecords>.my-table-body').append(item_html)
+                } else if (data.code === '1') {
+                    let itemArr = JSON.parse(data.dataList)
+
+                    let consumptionInfo = []
+                    for (let i = 0; i < itemArr.length; i++) {
+                        if (itemArr[i].count > 0) {
+                            itemArr[i].count = 0 - itemArr[i].count
+                        }
+                        consumptionInfo[i] = `<tr>
+                            <td>${itemArr[i].date}</td>
+                            <td>${itemArr[i].user_account}</td>
+                            <td>${itemArr[i].count}</td>
+                            <td>${itemArr[i].description}</td>
+                            <td>云币消费</td>
+                        </tr>`
+                        $('._consumerRecords>.my-table-body').append(consumptionInfo[i])
+
+                    }
+                }
+                document.getElementById('admin-consumerRecords').style.display = 'block'
+            }
+        })
+    }
+    function openAdminRecharge() {
+        let name = userName
+        let id = userNameId
+        let num = id.replace('tdName', '')
+        let biId = 'bi' + num
+        let biNum = document.getElementById(biId).innerHTML
+        document.getElementById('admin-user').innerHTML = name
+        document.getElementById('admin-bi').innerHTML = biNum
+        document.getElementById('admin').style.display = 'block'
+
+    }
+    function handleAdminClick(txt) {
+        let num = document.getElementById('biNum').value
+        let name = document.getElementById('admin-user').innerHTML
+        if (txt === 'add') {
+            let PayData = {
+                type: 0,
+                user_account: name,
+                count: num,
+                description: "管理员充值"
+            }
+            $.ajax({
+                type: 'POST',
+                url: 'http://www.ihouse3d.com.cn/PayWebService.asmx/Payment',
+                data: {
+                    PayData: JSON.stringify(PayData)
+                },
+                success: function (data) {
+                    data = JSON.parse(data)
+                    if (data.code === '1') {
+                        alert('充值成功')
+                        document.getElementById('admin').style.display = 'none'
+                        userBalance()
+                    }
+                }
+            })
+        } else if (txt === 'delete') {
+            let PayData = {
+                type: 1,
+                user_account: name,
+                count: num,
+                description: "管理员扣费"
+            }
+            $.ajax({
+                type: 'POST',
+                url: 'http://www.ihouse3d.com.cn/PayWebService.asmx/Payment',
+                data: {
+                    PayData: JSON.stringify(PayData)
+                },
+                success: function (data) {
+                    data = JSON.parse(data)
+                    if (data.code === '1') {
+                        alert('扣除成功')
+                        document.getElementById('admin').style.display = 'none'
+                        userBalance()
+                    }
+                }
+            })
+        }
+    }
+</script>
+</html>

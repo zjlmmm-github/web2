@@ -1,0 +1,37 @@
+.terrain_gradient_preview{
+	position: relative;
+	margin: 5px 10px 0px 10px;
+	display: block;  /*forces max width*/
+	background-color: gray;
+	height:15px;
+	width: 256px;
+	border: 1px solid;
+}
+
+.slider_area_terrain{
+	position: relative;
+	margin: 0px 10px 5px 10px;
+	display: block;  /*forces max width*/
+	height: 50px;
+	width: 256px;
+	border: 0px solid;
+	z-index: 0; /* below */
+}
+
+.slider_terrain{
+	position: relative;
+	float:left;
+	left:0px;
+	width:10px;
+	height:10px;
+	border: 1px solid;
+	margin: 5px -6px 0px -6px;
+	z-index: 2; /* above */
+}
+
+.slider_line_terrain{
+	display:inline-block; 
+	margin-top: 10px; 
+	margin-bottom:-15px; 
+	width:256px;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>壁纸贴图处理和上传</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .bg{
+            width: 100%;
+            background: #f6f6f6;
+        }
+        .box{
+            min-height: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding-bottom: 50px;
+        }
+        .title{
+            font-size: 28px;
+            line-height: 20px;
+            text-align: center;
+            font-weight: bold;
+            padding: 20px 0;
+        }
+        .list-title{
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+            padding-bottom: 20px;
+        }
+        .pic{
+            width: 800px;
+            margin-left: 20px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="bg">
+    <div class="box">
+        <p class="title">壁纸贴图处理和上传</p>
+        <div style="margin: 0 auto;width: 800px">
+            <p class="list-title">一、找到需要处理的壁纸贴图格式为JPG 尺寸为600*435mm</p>
+            <img src="image/bi1.png" class="pic">
+            <p class="list-title">二、放入到adobe photoshop做相应的处理</p>
+            <img src="image/bi2.png" class="pic">
+            <p class="list-title">三、查看贴图尺寸</p>
+            <img src="image/bi3.png" alt="" class="pic">
+            <p class="list-title">四、修改完成后，新建空白文档，将贴图拖入新建文档里做处理</p>
+            <img src="image/bi4.png" alt="" class="pic">
+            <img src="image/bi5.png" alt="" class="pic">
+            <p class="list-title">1.1、复制贴图，右边和下边拼合出现不吻合缝迹</p>
+            <img src="image/bi6.png" alt="" class="pic">
+            <p class="list-title">1.2、需要将右边的贴图往左边的方向移动，一直找到吻合痕迹，建立选区将主贴图裁剪，下面也是一样，得到（如下图）</p>
+            <img src="image/bi7.png" alt="" class="pic">
+            <p class="list-title">1.3、由于裁剪，尺寸也变得小了一点，这时候再将它拖入原图文档里（如下图）</p>
+            <img src="image/bi8.png" alt="" class="pic">
+            <p class="list-title">1.4原图文档之后，左上角对齐，建立选取，将多余的布纹裁减掉，这时候查看它的修改后尺寸（如下图）</p>
+            <img src="image/bi9.png" alt="" class="pic">
+            <p class="list-title">查看或修改像素（不超过3M,分辨率不大于1024*1024）</p>
+            <img src="image/bi10.png" alt="" class="pic">
+            <img src="image/bi11.png" alt="" class="pic">
+            <p class="list-title">五、后台上传贴图</p>
+            <img src="image/bi12.png" alt="" class="pic">
+            <p class="list-title">登录后台之后，找到材料库/墙纸/小花，输入贴图信息</p>
+            <img src="image/bi13.png" alt="" class="pic">
+            <p class="list-title">输入名称或中文名名称，再输入裁剪后的尺寸（单位毫米），然后是选择渲染效果为普通（注：瓷砖为高光，地板为平光，墙纸为普通，地毯为哑光） 放置类型为墙面，最后选择贴图文件，点击确定完成</p>
+            <img src="image/bi14.png" alt="" class="pic">
+            <p class="list-title">前端系统查看</p>
+            <img src="image/bi15.png" alt="" class="pic">
+            <p class="list-title">尺寸：壁纸、瓷砖、地板、地毯贴图后台以实际尺寸输入、单位为毫米</p>
+            <p class="list-title">渲染类型：壁纸为普通、瓷砖为高光、地板为平光、地毯为哑光</p>
+            <p class="list-title">放置位置：根据贴图类型放置，也可选择通用</p>
+            <p class="list-title">文件上传：文件不得超过3M分辨率不大于1024*1024</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

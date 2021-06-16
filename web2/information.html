@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>开发者中心</title>
+    <link rel="shortcun icon" href="assets/img/favicon.ico">
+    <link rel="bookmark" href="assets/img/favicon.ico">
+    <!--    <link rel="stylesheet" href="assets/css/reset.css">-->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="assets/css/awesome.css">
+    <!--<link rel="stylesheet" href="assets/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="assets/fonts/themify-icons.css">
+
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.css">
+
+    <link rel="stylesheet" href="assets/css/animate.css">
+
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="assets/css/slick.css"/>
+    <link rel="stylesheet" href="assets/css/slick-theme.css"/>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!--    <link rel="stylesheet" href="assets/css/login.css">-->
+    <link rel="stylesheet" href="assets/css/information.css">
+    <link rel="stylesheet" href="assets/css/ui.css">
+    <link rel="stylesheet" href="assets/css/jquery.sPage.css">
+    <link rel="stylesheet" href="assets/css/public.css">
+    <!-- 引入组件库 -->
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/base64-binary.js"></script>
+    <style>
+        input, textarea, button, select, a, button {
+            outline: 0 none;
+            border: none;
+        }
+
+        #myPage {
+            text-align: center;
+            padding: 20px 0;
+            display: none;
+        }
+
+        .floating_ck {
+            display: none;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- START NAVBAR -->
+<div id="navigation" class="fixed-top navbar-light bg-faded site-navigation">
+</div>
+<!-- END NAVBAR -->
+
+<!-- START HOME -->
+<section id="home" class="home_bg"
+         style="background-image: url(assets/img/bg/home-bg1.png);  background-size:cover; background-position: center center;height: 75px;">
+    <div class="container">
+    </div><!--- END CONTAINER -->
+</section>
+<div class="bar-bg" id="tbox">
+    <div class="bar">
+        <div class="bar-box">
+            <div class="ok">上传中..</div>
+            <div class="tbox">
+                <div class="tiao"></div>
+            </div>
+            <p class="bar-btn" onclick="cancelClick()" id="bar-btn">取消</p>
+        </div>
+    </div>
+</div>
+
+<div id="clickMenu"><p class="Menu-item" onclick="openAdminRecord()">充值记录</p>
+    <p class="Menu-item" onclick="openAdminConsumer()">消费记录</p>
+    <p class="Menu-item" onclick="openAdminRecharge()">云币操作</p>
+    <p class="Menu-item">关闭开通</p></div>
+<div class="admin-rechargeRecord" id="admin-rechargeRecord">
+    <div class="admin-rechargeRecord-box my-table">
+        <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x" onclick="closeAdminRecord()">
+        <p class="admin-title">充值记录</p>
+        <table class="_rechargeRecord">
+            <thead class="my-table-header">
+            <tr>
+                <td>时间</td>
+                <td>账号</td>
+                <td>类型</td>
+                <td>价格</td>
+                <td>支付方式</td>
+            </tr>
+            </thead>
+            <tbody class="my-table-body">
+            <tr>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="admin-rechargeRecord" id="admin-consumerRecords">
+    <div class="admin-rechargeRecord-box my-table">
+        <p class="admin-title">消费记录</p>
+        <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x" onclick="closeAdminConsumer()">
+        <table class="_consumerRecords">
+            <thead class="my-table-header">
+            <tr>
+                <td>时间</td>
+                <td>账号</td>
+                <td>交易</td>
+                <td>详情</td>
+                <td>类型</td>
+            </tr>
+            </thead>
+            <tbody class="my-table-body">
+            <tr>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="app" style="height: 950px">
+    <iframe src="houtai/Index.html" frameborder="0" style="width: 100%;height: 950px"></iframe>
+</div>
+<div class="footer-top section-padding">
+</div>
+
+<div class="footer">
+</div>
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.sPage.js"></script>
+<script src="assets/js/top.js"></script>
+
+<!-- Latest compiled and minified Bootstrap -->
+<script src="assets/js/bootstrap.js"></script>
+<!-- modernizer JS -->
+<script src="assets/js/modernizr-2.8.3.min.js"></script>
+<!-- owl-carousel min js  -->
+<script src="assets/owlcarousel/js/owl.carousel.min.js"></script>
+<!-- jquery nav -->
+<script src="assets/js/jquery.nav.js"></script>
+<!-- jquery.slicknav -->
+<script src="assets/js/jquery.slicknav.js"></script>
+<!-- jquery smooth-scroll JS -->
+<script src="assets/js/smooth-scroll.js"></script>
+<!-- scrolltopcontrol js -->
+<script src="assets/js/scrolltopcontrol.js"></script>
+<!-- countTo js -->
+<script src="assets/js/jquery.inview.min.js"></script>
+<!-- Slick js -->
+<script src="assets/js/slick.min.js"></script>
+<!-- WOW - Reveal Animations When You Scroll -->
+<script src="assets/js/wow.min.js"></script>
+<!-- MAGNIFICANT JS -->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!-- form-contact js -->
+<script src="assets/js/form-contact.js"></script>
+<!-- scripts js -->
+<script src="assets/js/scripts.js"></script>
+<script src="headfooter.js"></script>
+<script src="assets/js/_information.js"></script>
+<!--二维码-->
+<script type="text/javascript" src="assets/js/jquery.qrcode.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                search: '',
+                input: '',
+                input1: '',
+                input2: '',
+                input4: '',
+                input5: '',
+                options1: [{
+                    value: '选项1',
+                    label: '名师模型'
+                }, {
+                    value: '选项2',
+                    label: '家具软装'
+                }, {
+                    value: '选项3',
+                    label: '家居场景'
+                }, {
+                    value: '选项4',
+                    label: '工装场景'
+                }, {
+                    value: '选项5',
+                    label: '其他模型'
+                }],
+                value1: '名师模型',
+                options2: [{
+                    value: '选项1',
+                    label: '2012'
+                }, {
+                    value: '选项2',
+                    label: '2013'
+                }, {
+                    value: '选项3',
+                    label: '2014'
+                }, {
+                    value: '选项4',
+                    label: '2016'
+                }],
+                value2: '2013'
+            }
+        }
+    })
+</script>
+</html>

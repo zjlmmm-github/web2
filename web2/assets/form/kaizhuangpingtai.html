@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>装配式装修全产业链赋能平台</title>
+	<link rel="stylesheet" href="css/config.css">
+	<link rel="stylesheet" href="css/kz_pingtai.css">
+</head>
+<body>
+	<div id="app">
+		<div class="kz_header">
+			<div class="kz_left">
+				<img src="img/logo.png" class="logo_img" alt="">
+				<p class="logo_title">装配式装修全产业链赋能平台</p>
+			</div>
+			<div class="kz_right">
+				<span class="kz-user-title">用户管理</span>
+				<p class="kz-line"></p>
+				<div class="kz-user">
+					<img src="img/user.png" alt="">
+					<div class="user-conters">
+						<p class="user-name">Administrators</p>
+						<p class="user-jurisdiction">系统管理员</p>
+					</div>
+				</div>
+				<p class="kz-line"></p>
+				<img src="img/1.png" class="kz-close" alt="">
+			</div>
+		</div>
+		<div class="kz-body">
+			<div class="kz-body-left">
+				<ul class="kz-left-conter">
+					<li class="kz-left-item">
+						<img src="img/11.png" alt="">
+						<p>项目名称：{{gProjectInfo.name}}</p>
+					</li>
+					<li class="kz-left-item">
+						<img src="img/22.png" alt="">
+						<p>项目地址：{{gProjectInfo.address}}</p>
+					</li>
+					<li class="kz-left-item">
+						<img src="img/33.png" alt="">
+						<p>项目面积：{{gProjectInfo.area}}</p>
+					</li>
+					<li class="kz-left-item">
+						<img src="img/44.png" alt="">
+						<p>总价：{{sum}}</p>
+					</li>
+					<li class="kz-left-item">
+						<img src="img/55.png" alt="">
+						<p>单价：{{dan_jia}}</p>
+					</li>
+					<li class="kz-left-item">
+						<img src="img/66.png" alt="">
+						<p>生产周期：{{product_cyle}}天</p>
+					</li>
+					<li class="kz-left-item">
+						<img src="img/77.png" alt="">
+						<p>工期：{{install_cyle}}天</p>
+					</li>
+                    <button type="button" onclick="OnBaoJiaExport()" style="position:absolute;left:20px;top:500px;width:100px;height:40px;background-color:#424458;border:none">导出</button>
+				</ul>
+			</div>
+			<div class="kz-body-right">
+				<div class="kz-right-header">
+					<p class="kz-right-bg"></p>
+					<span>与传统装修对比</span>
+				</div>
+				<div class="kz-right-record">
+					<div class="huanxing-item">
+						<div id="dom_1"></div>
+						<p>造价节省</p>
+					</div>
+					<div class="huanxing-item">
+						<div id="dom_2"></div>
+						<p>工期减少</p>
+					</div>
+					<div class="huanxing-item">
+						<div id="dom_3"></div>
+						<p>环保提升</p>
+					</div>
+					<div class="huanxing-item">
+						<div id="dom_4"></div>
+						<p>损耗降低</p>
+					</div>
+					<div class="xiantiao-item">
+						<p>变更率降低</p>
+						<div class="xiahuaxian">
+							<div class="xiabiao-img_1" style="left:86.2%;"></div>
+							<div class="xiahuaxian-bg_1" style="width:86.2%;"></div>
+							<p style="left:86.2%;">86.2%</p>
+						</div>
+						<p>总体流程效率提升</p>
+						<div class="xiahuaxian">
+							<div class="xiabiao-img_2" style="left:79.7%;"></div>
+							<div class="xiahuaxian-bg_2" style="width:79.7%;"></div>
+							<p style="left:79.7%;">79.7%</p>
+						</div>
+					</div>
+				</div>
+				<div class="kz-right-header">
+					<p class="kz-right-bg"></p>
+					<span>概算汇总表</span>
+				</div>
+				<div class="table-conter">
+					<div class="table-header clearfloat">
+                        <div class="table-td width_1">
+                            <span>序号</span>
+                        </div>
+                        <div class="table-td width_2">
+                            <span>项目名称</span>
+                        </div>
+                        <div class="table-td width_3">
+                            <span>单位</span>
+                        </div>
+                        <div class="table-td width_4">
+                            <span>数量</span>
+                        </div>
+                        <div class="table-td width_5">
+                            <span>合计</span>
+                        </div>
+                        <div class="table-td width_6">
+                            <span>备注</span>
+                        </div>
+                    </div>
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_1"></div>
+                        <div class="table-td width_2">
+                            <span>墙面硬装</span>
+                        </div>
+                    </div>
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_1 table-bold">
+                            <span>ONE</span>
+                        </div>
+                        <div class="table-td width_2 pos_rel ondown">
+                            <span>材料</span>
+                            <p class="kailong_1"></p>
+                        </div>
+                        <div class="table-td width_3">
+                            <span>项</span>
+                        </div>
+                        <div class="table-td width_4">
+                            <span>1</span>
+                        </div>
+                        <div class="table-td width_5">
+                            <span>{{wuliaoSum}}</span>
+                        </div>
+
+                        <div class="data-table clearfloat">
+                            <p class="kailong_2"></p>
+                            <div class="data-table-conter">
+                                <div class="data-table-header">
+                                    <div class="data-table-td data-width-1">
+                                        <span>物料编码</span>
+                                    </div>
+                                    <div class="data-table-td data-width-2">
+                                        <span>物料名称</span>
+                                    </div>
+                                    <div class="data-table-td data-width-1">
+                                        <span>材质</span>
+                                    </div>
+                                    <div class="data-table-td data-width-1">
+                                        <span>规格</span>
+                                    </div>
+                                    <div class="data-table-td data-width-3">
+                                        <span>颜色</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span>品牌</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span>数量</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span>单位</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span>单价</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span>小计</span>
+                                    </div>
+                                    <div class="data-table-td data-width-3">
+                                        <span>选择</span>
+                                    </div>
+                                </div>
+                                <div class="data-table-tr clearfloat" v-for="(item,index) in wuliaoList">
+                                    <div class="data-table-td data-width-1">
+                                        <span>{{item[0]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-2">
+                                        <span>{{item[1]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-1">
+                                        <span>{{item[2]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-1">
+                                        <span>{{item[3]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-3">
+                                        <span>{{item[4]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span v-if="item[5]=='鲁泰'" ><a href="http://www.ltjzcyh.com/" target="_blank" title="点击打开网站">{{item[5]}}</a></span>
+                                        <span v-else-if="item[5]=='金强'"><a href="http://www.jinqiangjc.com/index.html" target="_blank" title="点击打开网站">{{item[5]}}</a></span>
+                                        <span v-else-if="item[5]=='开装'" ><a href="http://www.kaizhuang.com/" target="_blank" title="点击打开网站">{{item[5]}}</a></span>
+                                        <span v-else>{{item[5]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span>{{item[6]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span>{{item[7]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span>{{item[8]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-4">
+                                        <span>{{item[9]}}</span>
+                                    </div>
+                                    <div class="data-table-td data-width-3">
+                                        <!-- <span>选择</span> -->
+                                        <input type="checkbox" class="table_check" :value="item" @click="updataItem(0,item)" v-if="item[0]=='C51441-1121'" @change="changeDate" v-model="model_zhu"></input>
+                                        <input type="checkbox" class="table_check" :value="item" v-model="model_cai" @change="changeDate" v-else></input>
+
+                                    </div>
+                                </div>
+                                <div class="data-table-tr clearfloat">
+                                    <div class="data-table-td data-width-1"></div>
+                                    <div class="data-table-td data-width-2"></div>
+                                    <div class="data-table-td data-width-1"></div>
+                                    <div class="data-table-td data-width-1"></div>
+                                    <div class="data-table-td data-width-3"> </div>
+                                    <div class="data-table-td data-width-4"></div>
+                                    <div class="data-table-td data-width-4"></div>
+                                    <div class="data-table-td data-width-4"></div>
+                                    <div class="data-table-td data-width-2 table-bold">
+                                        <span>合计:{{wuliaoSum}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_1"></div>
+                    </div>
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_1 table-bold">
+                            <span>TWO</span>
+                        </div>
+                        <div class="table-td width_2 table-bold">
+                            <span>其他费用</span>
+                        </div>
+                        <div class="table-td width_3">
+                            <span>项</span>
+                        </div>
+                        <div class="table-td width_4">
+                            <span>1</span>
+                        </div>
+                        <div class="table-td width_5">
+                            <span>0.00</span>
+                        </div>
+                        <div class="table-td width_6 table-bold">
+                            <span>仅供参考按实际结算</span>
+                        </div>
+                    </div>
+                    <div class="table-tr clearfloat" v-for="(item,index) in kz_data.two">
+                        <div class="table-td width_1">
+                            <span>{{index+1}}</span>
+                        </div>
+                        <div class="table-td width_2">
+                            <span>{{item.cost}}</span>
+                        </div>
+                        <div class="table-td width_3">
+                            <span>{{item.item}}</span>
+                        </div>
+                        <div class="table-td width_4">
+                            <span>{{item.rate}}%</span>
+                        </div>
+                        <div class="table-td width_5">
+                            <span>{{parseInt(wuliaoSum*(parseFloat(item.rate)/100))}}</span>
+                        </div>
+                        <div class="table-td width_6 table-bold">
+                            <span>{{item.description}}</span>
+                        </div>
+                    </div>
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_1"></div>
+                        <div class="table-td width_2">
+                            <span>小计</span>
+                        </div>
+                        <div class="table-td width_3"></div>
+                        <div class="table-td width_4"></div>
+                        <div class="table-td width_5 table-bold">
+                            <span>{{this.sum_two}}</span>
+                        </div>
+                    </div>
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_1 table-bold"></div>
+                    </div>
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_1 table-bold">
+                            <span>THREE</span>
+                        </div>
+                        <div class="table-td width_2">
+                            <span>{{kz_data.three[0].cost}}</span>
+                        </div>
+                        <div class="table-td width_3">
+                            <span>{{kz_data.three[0].item}}</span>
+                        </div>
+                        <div class="table-td width_4">
+                            <span>{{kz_data.three[0].rate}}%</span>
+                        </div>
+                        <div class="table-td width_5 table-bold">
+                            <span>{{parseInt(wuliaoSum*(parseFloat(kz_data.three[0].rate)/100))}}</span>
+                        </div>
+                        <div class="table-td width_6 table-bold">
+                            <span>{{kz_data.three[0].description}}</span>
+                        </div>
+                    </div>
+                    <div class="table-tr clearfloat"><div class="table-td width_1 table-bold"></div></div>
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_1 table-bold">
+                            <span>FOUR</span>
+                        </div>
+                        <div class="table-td width_2">
+                            <span>{{kz_data.four[0].cost}}</span>
+                        </div>
+                        <div class="table-td width_3">
+                            <span>{{kz_data.four[0].item}}</span>
+                        </div>
+                        <div class="table-td width_4">
+                            <span>{{kz_data.four[0].rate}}%</span>
+                        </div>
+                        <div class="table-td width_5 table-bold">
+                            <span>{{parseInt(wuliaoSum*(parseFloat(kz_data.four[0].rate)/100))}}</span>
+                        </div>
+                        <div class="table-td width_6 table-bold"></div>
+                    </div>
+                    <div class="table-tr clearfloat"><div class="table-td width_1"></div></div>
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_1"></div>
+                        <div class="table-td width_2 table-bold">
+                            <span>合计</span>
+                        </div>
+                        <div class="table-td width_3"></div>
+                        <div class="table-td width_4"></div>
+                        <div class="table-td width_5 table-bold">
+                            <span>{{sum}}</span>
+                        </div>
+                        <div class="table-td width_6 table-bold">
+                            <span>批量价</span>
+                        </div>
+                    </div>
+                    <div class="table-tr clearfloat"><div class="table-td width_1"></div></div>
+                    <div class="table-tr clearfloat"><div class="table-td width_1"></div></div>
+                    <div class="table-tr clearfloat">
+                        <div class="table-td width_5">
+                            <span>报价说明</span>
+                        </div>
+                    </div>
+                    <div class="table-tr clearfloat" v-for="(item,index) in kz_data.five">
+                        <div class="table-td width_1">
+                            <span>{{index+1}}</span>
+                        </div>
+                        <div class="table-td width_7">
+                            <span>{{item.part}}</span>
+                        </div>
+                        <div class="table-td width_7">
+                            <span>{{item.description}}</span>
+                        </div>
+                    </div>
+				</div>
+				<div class="table-btn" style="display:none">
+					<button onclick="OnShowList()">一键下单</button>
+					<!-- <button onclick="window.open('./index.html','_self')">一键下单</button> -->
+					<span>主材下单后可查看加工料单和安装图</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script src="../js/jquery.js"></script>
+<script src="lib/vue.min.js"></script>
+<script src="js/circleChart.min.js"></script>
+<script src="lib/base64-binary.js"></script>
+<script type="text/javascript" src="js/xlsx.core.min.js"></script>
+<script src="js/kz_pingtai.js"></script>
+</html>

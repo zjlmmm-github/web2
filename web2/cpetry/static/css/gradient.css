@@ -1,0 +1,37 @@
+.gradient_gradient_preview{
+	position: relative;
+	margin: 5px 10px 0px 10px;
+	display: block;  /*forces max width*/
+	background-color: gray;
+	height:30px;
+	width: 256px;
+	border: 1px solid;
+}
+
+.slider_area_gradient{
+	position: relative;
+	margin: 0px 10px 5px 10px;
+	display: block;  /*forces max width*/
+	height: 50px;
+	width: 256px;
+	border: 0px solid;
+	z-index: 0; /* below */
+}
+
+.slider_gradient{
+	position: relative;
+	float:left;
+	left:0px;
+	width:10px;
+	height:10px;
+	border: 1px solid;
+	margin: 5px -6px 0px -6px;
+	z-index: 2; /* above */
+}
+
+.slider_line_gradient{
+	display:inline-block; 
+	margin-top: 10px; 
+	margin-bottom:-15px; 
+	width:256px;
+}

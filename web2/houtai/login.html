@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+
+    <title>iHouse3D后台登录</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!--		<link id="layuicss-laydate" rel="stylesheet" href="https://kzcloud.cqdtx.com/worker/layui/css/modules/laydate/default/laydate.css?v=5.0.9" media="all">-->
+    <!--		<link id="layuicss-layer" rel="stylesheet" href="https://kzcloud.cqdtx.com/worker/layui/css/modules/layer/default/layer.css?v=3.1.1" media="all">-->
+    <!--		<link id="layuicss-skincodecss" rel="stylesheet" href="https://kzcloud.cqdtx.com/worker/layui/css/modules/code.css" media="all">-->
+</head>
+
+<body class="bg_login">
+<div class="loginwrap">
+    <div class="hd" style="color: #ffffff">iHouse3D后台登录</div>
+    <div class="bd">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" placeholder="输入帐号" id="name">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i></label>
+            <div class="layui-input-block">
+                <input type="password" class="layui-input" placeholder="输入密码" id="password">
+            </div>
+        </div>
+        <!--					<div class="layui-form-item">-->
+        <!--						<label class="layui-form-label"><i class="layui-icon layui-icon-vercode"></i></label>-->
+        <!--						<div class="layui-input-block vscode">-->
+        <!--							<input type="text" class="layui-input" placeholder="输入验证码">-->
+        <!--							<img src="../action/user/captcha.jpg">-->
+        <!--						</div>-->
+        <!--					</div>-->
+        <!--					<div class="layui-form-item" style="margin-bottom: 20px;">-->
+        <!--			          <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">-->
+        <!--			          &lt;!&ndash;<a href="forget.html" class="pull-right color-primary" style="margin-top: 10px;">忘记密码？</a>&ndash;&gt;-->
+        <!--			        </div>-->
+        <div class="layui-form-item">
+
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn layui-btn-fluid" onclick="handleLoginClick()">立即登录</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script src="layui/layui.all.js"></script>
+<script>
+    layui.config({
+        base: '' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+
+    function openChat() {
+        layer.open({
+            type: 2,
+            title: false,
+            area: ['800px', '600px'],
+            content: 'chat.html',
+            yes: function (e, t) {
+                layer.close(e)
+            },
+        });
+    }
+
+    function handleLoginClick() {
+        let name = document.getElementById('name').value
+        let passWord = document.getElementById('password').value
+
+        let password = document.getElementById('password').value
+        let code = '123456'
+        let xmlhttp = new XMLHttpRequest();
+        let ip = ''
+        xmlhttp.open('POST', 'http://www.ihouse3d.com.cn/service1.asmx', true);
+        var sr =
+            '<?xml version="1.0" encoding="utf-8"?>' +
+            '<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">' +
+            '  <soap12:Body>' +
+            '    <Login xmlns="http://tempuri.org/">' +
+            '      <strName>' + name + '</strName>' +
+            '      <strPSW>' + password + '</strPSW>' +
+            '      <strAuthcode>' + code + '</strAuthcode>' +
+            '      <strIP>' + ip + '</strIP>' +
+            '    </Login>' +
+            '  </soap12:Body>' +
+            '</soap12:Envelope>';
+
+        xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+        xmlhttp.send(sr);
+
+        xmlhttp.onreadystatechange = function () {
+            console.log(1)
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200) {
+                    // console.log(xmlhttp.responseXML);
+
+                    var value = xmlhttp.responseXML.getElementsByTagName("soap:Body")[0].childNodes[0].childNodes[0].textContent
+                    // console.log(value.slice(0,1))
+                    let txt = value.split('~')
+                    if (value.slice(0, 1) === '1') {
+                        let thisTime = txt[7]
+                        let year = new Date().getFullYear(); //得到年份
+                        let month = new Date().getMonth() + 1;//得到月份
+                        let date = new Date().getDate();//得到日期
+                        let time = year + '-' + month + '-' + date
+                        let duibi = timeDis(thisTime, time)
+                        if (duibi === 'false') {
+                            let companyId = txt[5]
+                            // console.log(txt)
+                            document.cookie = 'name=' + name
+                            document.cookie = 'passWord=' + passWord
+                            document.cookie = 'gsID=' + companyId
+                            document.cookie = 'fold=' + txt[2]
+                            document.cookie = 'ut=' + txt[9]
+                            document.cookie = 'uid=' + txt[8]
+                            window.location = 'index.html'
+                        } else {
+                            alert('账号已到期！')
+                        }
+
+
+                    } else {
+                        alert('账号或者密码错误！')
+                    }
+
+
+                }
+            }
+        }
+
+    }
+    function timeDis(a, b) {
+        var arr = a.split("-");
+        var starttime = new Date(arr[0], arr[1], arr[2]);
+        var starttimes = starttime.getTime();
+        var arrs = b.split("-");
+        var endTime = new Date(arrs[0], arrs[1], arrs[2]);
+        var endTimes = endTime.getTime();
+        // 进行日期比较
+        if (endTimes >= starttimes) {
+            let flag = "true";
+            return flag;
+        } else {
+            let flag = "false";
+            return flag;
+        }
+    }
+</script>
+<style id="LAY_layadmin_theme">.layui-side-menu, .layadmin-pagetabs .layui-tab-title li:after, .layadmin-pagetabs .layui-tab-title li.layui-this:after, .layui-layer-admin .layui-layer-title, .layadmin-side-shrink .layui-side-menu .layui-nav > .layui-nav-item > .layui-nav-child {
+    background-color: #2A7368 !important;
+}
+
+.layui-nav-tree .layui-this, .layui-nav-tree .layui-this > a, .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a {
+    background-color: #2BAC8E !important;
+}
+
+.layui-layout-admin .layui-logo {
+    background-color: #2A7368 !important;
+}</style>
+</body>
+
+</html>

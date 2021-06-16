@@ -1,0 +1,72 @@
+{
+	"one": [{
+		"cost": "人工",
+		"item": "㎡",
+		"rate": "1",
+		"description": ""
+	}],
+	"two": [{
+		"cost": "材料运输费",
+		"item": "项",
+		"rate": "1.00",
+		"description": "不含外运"
+	}, {
+		"cost": "成品保护费",
+		"item": "项",
+		"rate": "0.30",
+		"description": "批量价"
+	}, {
+		"cost": "二次搬运费",
+		"item": "项",
+		"rate": "0.30",
+		"description": "批量价"
+	}, {
+		"cost": "施工过程中垃圾清运",
+		"item": "项",
+		"rate": "0.80",
+		"description": "批量价"
+	}, {
+		"cost": "文明施工费",
+		"item": "项",
+		"rate": "1.00",
+		"description": "批量价"
+	}, {
+		"cost": "临时设施费",
+		"item": "项",
+		"rate": "1.00",
+		"description": "批量价"
+	}, {
+		"cost": "远程施工费",
+		"item": "项",
+		"rate": "0",
+		"description": "批量价"
+	}],
+	"three": [{
+		"cost": "项目管理费",
+		"item": "项",
+		"rate": "5.00",
+		"description": "批量价"
+	}],
+	"four": [{
+		"cost": "税金(一+二+三)*9%",
+		"item": "项",
+		"rate": "9",
+		"description": "批量价"
+	}],
+	"five": [{
+		"part": "墙面",
+		"description": "饰面板,含必需之龙骨"
+	}, {
+		"part": "地面",
+		"description": "不包含"
+	}, {
+		"part": "顶面",
+		"description": "不包含"
+	}, {
+		"part": "洁具",
+		"description": "不包含"
+	}, {
+		"part": "水电管路施工",
+		"description": "不包含"
+	}]
+}

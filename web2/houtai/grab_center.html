@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html">
+		
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+		<link rel="stylesheet" type="text/css" href="style/admin.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	</head>
+	<body>
+		<div class="layui-fluid">
+			<fieldset class="layui-elem-field layui-field-title">
+				<span class="layui-breadcrumb" lay-separator=">">
+					<a href="javascript:;">抢单中心</a>
+					<a><cite>待抢单</cite></a>
+				</span>
+			</fieldset>
+			 
+			<div class="grab_con">
+				<form class="layui-form" lay-filter="layuiadmin-form-role">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+						  <label class="layui-form-label before-primary">选择状态</label>
+						  <div class="layui-input-inline">
+							<select name="interest">
+								<option value=""></option>
+								<option value="0">待抢单</option>
+								<option value="1">抢单中</option>
+								<option value="2">竞标成功</option>
+								<option value="3">竞标失败</option>
+							 </select>
+						  </div>
+						</div>
+						<div class="layui-inline">
+						  <label class="layui-form-label">搜索</label>
+						  <div class="layui-input-inline">
+							<input type="text" name="email" placeholder="请输入订单名称或项目名称" autocomplete="off" class="layui-input">
+						  </div>
+						  <button type="button" class="layui-btn layui-btn"><i class="layui-icon layui-icon-search"></i>搜索</button>
+						</div>
+					</div>
+				</form>
+				<div class="grab_wrap">
+					<div class="layui-row grab_list layui-col-space10">
+					    <div class="layui-col-md6 grab_item">
+					      <div class="layui-card">
+					        <div class="layui-card-header clearfix">
+								<div class="pull-left"><img class="avater" src="images/icon_dqye.png"></div>
+								<div class="pull-left item_info">
+									<p class="name">夏日</p>
+									<p class="date">2020.310.23</p>
+								</div>
+								<div class="status status_btn dqd">待抢单</div>
+							</div>
+					        <div class="layui-card-body item_con">
+								<p>项目名称：<span>家装沙发采购</span></p>
+								<p>项目地址：<span>家装沙发采购</span></p>
+								<p>下单时间：<span>家装沙发采购</span></p>
+								<p>订单金额：<span class="color-red">家装沙发采购</span></p>
+								<p>希望价格：<span>家装沙发采购</span></p>
+								<p>希望付款方式：<span>家装沙发采购</span></p>
+								<p>预期施工周期：<span>家装沙发采购</span></p>
+								<div class="item_opre">
+									<div class="opre_btn" onclick="grab_info()">抢单</div>
+									<p class="layui-btn layui-btn-primary" onclick="refuse()">拒绝</p>
+								</div>
+					        </div>
+					      </div>
+					    </div>
+					    <div class="layui-col-md6 grab_item">
+					      <div class="layui-card">
+					        <div class="layui-card-header clearfix">
+					    		<div class="pull-left"><img class="avater" src="images/icon_dqye.png"></div>
+					    		<div class="pull-left item_info">
+					    			<p class="name">夏日</p>
+					    			<p class="date">2020.310.23</p>
+					    		</div>
+					    		<div class="status status_btn qdz">抢单中</div>
+					    	</div>
+					        <div class="layui-card-body item_con">
+					    		<p>项目名称：<span>家装沙发采购</span></p>
+					    		<p>项目地址：<span>家装沙发采购</span></p>
+					    		<p>下单时间：<span>家装沙发采购</span></p>
+					    		<p>订单金额：<span>家装沙发采购</span></p>
+					    		<p>希望价格：<span class="color-red">家装沙发采购</span></p>
+					    		<p>希望付款方式：<span>家装沙发采购</span></p>
+					    		<p>预期施工周期：<span>家装沙发采购</span></p>
+					    		<div class="item_opre">
+					    			<p class="layui-btn"><i class="layui-icon layui-icon-dialogue"></i> 在线沟通</p>
+					    		</div>
+					        </div>
+					      </div>
+					    </div>
+					</div>
+					<div class="layui-row grab_list layui-col-space10">
+					    <div class="layui-col-md6 grab_item">
+					      <div class="layui-card">
+					        <div class="layui-card-header clearfix">
+								<div class="pull-left"><img class="avater" src="images/icon_dqye.png"></div>
+								<div class="pull-left item_info">
+									<p class="name">夏日</p>
+									<p class="date">2020.310.23</p>
+								</div>
+								<div class="status status_btn jbcg">竞标成功</div>
+							</div>
+					        <div class="layui-card-body item_con">
+					        	<p>项目名称：<span>家装沙发采购</span></p>
+					        	<p>项目地址：<span>家装沙发采购</span></p>
+					        	<p>下单时间：<span>家装沙发采购</span></p>
+					        	<p>订单金额：<span>家装沙发采购</span></p>
+					        	<p>希望价格：<span class="color-red">家装沙发采购</span></p>
+					        	<p>希望付款方式：<span>家装沙发采购</span></p>
+					        	<p>预期施工周期：<span>家装沙发采购</span></p>
+					        	<div class="item_opre">
+					        		<img src="images/icon_jbcg.png" class="success_img">
+					        	</div>
+					        </div>
+					      </div>
+					    </div>
+					    <div class="layui-col-md6 grab_item">
+					      <div class="layui-card">
+					        <div class="layui-card-header clearfix">
+					    		<div class="pull-left"><img class="avater" src="images/icon_dqye.png"></div>
+					    		<div class="pull-left item_info">
+					    			<p class="name">夏日</p>
+					    			<p class="date">2020.310.23</p>
+					    		</div>
+					    		<div class="status status_btn jbsb">竞标失败</div>
+					    	</div>
+					        <div class="layui-card-body item_con">
+					        	<p>项目名称：<span>家装沙发采购</span></p>
+					        	<p>项目地址：<span>家装沙发采购</span></p>
+					        	<p>下单时间：<span>家装沙发采购</span></p>
+					        	<p>订单金额：<span>家装沙发采购</span></p>
+					        	<p>希望价格：<span class="color-red">家装沙发采购</span></p>
+					        	<p>希望付款方式：<span>家装沙发采购</span></p>
+					        	<p>预期施工周期：<span>家装沙发采购</span></p>
+					        	<div class="item_opre">
+					        		<img src="images/icon_qdsb.png" class="success_img">
+					        	</div>
+					        </div>
+					      </div>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="js/jquery-1.10.2.min.js"></script>
+		<script src="layui/layui.all.js"></script>
+		<script>
+			function grab_info() {
+				layer.open({
+					type: 2,
+					title:'填写抢单信息',
+					area: ['600px','400px'],
+					btn: ["确定", "取消"],
+					content:'grab_info.html',
+					yes: function(e, t) {
+						layer.close(e)
+					},
+				});
+			}
+			function refuse() {
+				layer.open({
+					type: 2,
+					title:'拒绝原因',
+					area: ['600px','300px'],
+					btn: ["确定"],
+					content:'refuse_reason.html',
+					yes: function(e, t) {
+						layer.close(e)
+					},
+				});
+			}
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>参数设置</title>
+
+    <link rel="stylesheet" type="text/css" href="lib/ZCell.min.css" />
+    <script src="../js/jquery.js"></script>
+    <script type="text/javascript" src="lib/ZCell.min.js"></script>
+    <script type="text/javascript" src="lib/ZCell.register.js"></script>
+    <script type="text/javascript" src="lib/Base.js"></script>
+    <script type="text/javascript" src="js/xlsx.core.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+<div id="order">
+    <div id="cellContainer"></div>
+    <div class="bottom-btn">
+        <button class="save" onclick="OnSave()">保存</button>
+    </div>
+</div>
+
+<script>
+    let zcell;
+    let mWebService = sessionStorage.getItem('webService')
+    ZCellInit();
+
+
+
+    function ZCellInit()
+    {
+        zcell = new ZCell(document.getElementById("cellContainer"));
+        //指定列、行
+        zcell.InserSheet(0, 10, 3);
+
+        //列宽度
+        zcell.GetSheet(0).SetColWidth(1, 130);
+        for(let index = 2; index <= 10; ++index)
+        {
+            zcell.GetSheet(0).SetColWidth(index, 170);
+        }
+
+        //行高度
+        for (let index = 1; index <= 3; ++index) {
+            zcell.GetSheet(0).SetRowHeight(index, 40);
+        }
+
+        //设置列/行标签不显示
+        zcell.GetSheet(0).ShowColLab(0);
+        zcell.GetSheet(0).ShowRowLab(0);
+
+        //列、行、合并列数(从第1列开始算)、合并行数(从第1行开始算)
+        zcell.GetSheet(0).MergeCells(1, 2, 1, 1);
+
+        zcell.GetSheet(0).SetCellValue(1, 1, "传统装修信息(单方)");
+        zcell.GetSheet(0).SetCellValue(2, 1, "乳胶漆墙面造价");
+        zcell.GetSheet(0).SetCellValue(3, 1, "乳胶漆墙面工时");
+        zcell.GetSheet(0).SetCellValue(4, 1, "瓷砖墙面造价");
+        zcell.GetSheet(0).SetCellValue(5, 1, "瓷砖墙面工时");
+        zcell.GetSheet(0).SetCellValue(6, 1, "壁纸墙面造价");
+        zcell.GetSheet(0).SetCellValue(7, 1, "壁纸墙面工时");
+        zcell.GetSheet(0).SetCellValue(8, 1, "墙面湿作业找平造价");
+        zcell.GetSheet(0).SetCellValue(9, 1, "墙面湿作业找平工时");
+        zcell.GetSheet(0).SetCellValue(10, 1, "吊顶");
+
+        zcell.GetSheet(0).SetCellValue(1, 3, "物流信息(1吨1KM/元)");
+
+        /*
+        //var dropRoomType = {"code": "dropdown","source":["物流费用50","物流费用100","物流费用200","物流费用300"]};
+        var dropRoomType = {
+            "code": "dropdown",
+            "source": { '001': '物流费用50', '002': '物流费用100', '003': '物流费用200', '004': '物流费用300'}
+        };
+
+        zcell.GetSheet(0).SetCellType(2, 3, dropRoomType);
+        //zcell1.GetSheet(0).SetCellValue(2,3, "物流费用50");
+
+        zcell.GetSheet(0).SetCellType(3, 3, dropRoomType);
+        zcell.GetSheet(0).SetCellType(4, 3, dropRoomType);
+        zcell.GetSheet(0).SetCellType(5, 3, dropRoomType);
+        zcell.GetSheet(0).SetCellType(6, 3, dropRoomType);
+        zcell.GetSheet(0).SetCellType(7, 3, dropRoomType);
+        zcell.GetSheet(0).SetCellType(8, 3, dropRoomType);
+        zcell.GetSheet(0).SetCellType(9, 3, dropRoomType);
+        zcell.GetSheet(0).SetCellType(10, 3, dropRoomType);
+        */
+
+
+        $('#zfstatd').hide();
+
+        GetParameter();
+
+    }
+
+    function GetParameter()
+    {
+        $.ajax({
+            url: mWebService + 'Service1.asmx/ExecuteQuery',
+            type: "post",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            data:
+                {
+                    Database: "kaizhuang",
+                    Sql:"select * from parameters"
+                },
+            success: function (data){
+
+                if ("1" == data.code) {
+                    let tData = JSON.parse(data.data);
+
+                    if (true == tData.ok){
+                        let baseinfo = tData.Table[0].baseinfo;
+                        let logisticsinfo = tData.Table[0].logisticsinfo
+
+                        SetParameterInfo(baseinfo,logisticsinfo);
+                    }
+                } else {
+                    console.log(data.msg);
+                }
+            }
+        });
+    }
+
+    function SetParameterInfo(baseinfo,logisticsinfo)
+    {
+        let arrBaseInfo = baseinfo.split(',');
+
+        for(let index  = 0; index < arrBaseInfo.length; ++index)
+        {
+            zcell.GetSheet(0).SetCellValue(index+2,2,arrBaseInfo[index]);
+        }
+
+        let arrLogisticsinfo = logisticsinfo.split(',');
+        for(let index  = 0; index < arrLogisticsinfo.length; ++index )
+        {
+            zcell.GetSheet(0).SetCellValue(index+2,3,arrLogisticsinfo[index])
+        }
+    }
+
+    function OnSave()
+    {
+        let baseInfo = '';
+        let logisticsInfo = "";
+        for(let index = 2; index <= 10; ++index)
+        {
+            baseInfo += zcell.GetSheet(0).GetCellValue(index,2);
+            baseInfo += ",";
+
+            logisticsInfo += zcell.GetSheet(0).GetCellValue(index,3);
+            logisticsInfo += ",";
+        }
+
+        baseInfo = baseInfo.substring(0,baseInfo.length-1);
+        logisticsInfo = logisticsInfo.substring(0,logisticsInfo.length-1);
+
+        $.ajax({
+            url: mWebService + 'Service1.asmx/ExecuteNonQuery',
+            type: "post",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            data:
+                {
+                    Database: "kaizhuang",
+                    Sql:`delete from parameters;insert into parameters(baseinfo,logisticsinfo)values('${baseInfo}','${logisticsInfo}')`
+                },
+            success: function (data){
+                if("0" == data.code)
+                {
+                    alert(data.msg);
+                }
+                else {
+                   alert('保存成功!');
+                }
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

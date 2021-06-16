@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3d云后台</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/3dyun.css">
+    <link rel="stylesheet" href="assets/css/ui.css">
+    <link rel="stylesheet" href="assets/css/jquery.sPage.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+
+    <style>
+        #myPage {
+            text-align: center;
+            margin: 10px auto;
+        }
+
+        .userinputBox {
+            margin-top: 10px;
+            margin-left: 30px;
+        }
+
+        ._userinputBox {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .userinputBox-txt {
+            display: inline-block;
+            width: 70px;
+        }
+
+        .floating_ck {
+            display: none;
+        }
+
+        .id-input {
+            width: 321px;
+            height: 47px;
+            background: #e8f0fe;
+            padding: 0 0 0 34px;
+            margin-left: 76px;
+            margin-top: 20px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="bg" id="app" v-loading="loading" id="app" element-loading-text="加载中，请稍后"
+     element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
+    <div class="admin" id="admin">
+        <div class="admin-box">
+            <img src="assets/img/information/x.png" alt="" class="admin-x" onclick="closeAdmin()">
+            <p><span>用户名：</span><span id="admin-user"></span></p>
+            <p><span>云币：</span><span id="admin-bi"></span></p>
+            <br>
+            <el-input onkeyup="this.value=this.value.replace(/\D/g,'')" v-model="yubi" placeholder="请输入云币数"
+                      id="biNum"></el-input>
+            <el-button type="primary" onclick="handleAdminClick('add')">充值</el-button>
+            <el-button type="danger" onclick="handleAdminClick('delete')">扣除</el-button>
+        </div>
+    </div>
+    <div class="hide kzTitle">
+        <p>开装3D云后台管理系统</p>
+    </div>
+    <div class="newBox">
+        <img src="assets/img/kz/关闭.png" alt="" class="newBox-close">
+        <div class="newBox-info">
+            <div class="newBox-img-box">
+                <div class="img-border">
+                    <img src="" alt="" width="200" height="200">
+                </div>
+            </div>
+            <div class="newBox-txtBox">
+                <p class="newBox-txtItem"><span>物料名称：</span>
+                    <input type="text" id="wlName">
+                </p>
+                <p class="newBox-txtItem"><span>物料编码：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>供应方式：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>厂  商：</span>
+                    <input type="text" style="display: none">
+                    <el-select v-model="factoryName" placeholder="请选择" style="width: 170px" id="csName">
+                        <el-option
+                                v-for="item in factoryNames"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                </p>
+                <p class="newBox-txtItem"><span>品  牌：</span>
+                    <input type="text">
+                </p>
+                <p class="newBox-txtItem"><span>系  列：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>规  格：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>型  号：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>材  质：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>颜  色：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>厚  度：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>标准长度：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>标准宽度：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>工艺特征：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>技术参数：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>所属系统：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>主计量单位：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>辅计量单位：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>辅计量系数：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>计价基数：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>单价：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>损耗率：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>重量：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>物流费率：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>包装标准：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>包装费率：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>常备库存：</span><input type="text"></p>
+                <p class="newBox-txtItem"><span>生产效率：</span><input type="text"></p>
+            </div>
+        </div>
+        <div class="newBox-btn"><p onclick="holdClick()" style="display: none">保存</p>
+            <p onclick="_holdClick()" style="display: none">保存</p></div>
+    </div>
+    <div class="addMaps" id="GXmodel">
+        <div class="addMaps-box" style="width: 80%;padding: 30px;position: relative">
+            <div class="GXmodel-item-box"></div>
+            <div class="GXbtn-box">
+                <p class="gxBtn1" onclick="saveGXClick()">保 存</p>
+                <p class="gxBtn2" onclick="closeGXmodel()">关 闭</p>
+            </div>
+        </div>
+    </div>
+    <input type="file" style="position: absolute;top: -100px" id="changeGx">
+    <div id="clickMenu"><p class="Menu-item" onclick="openNewUser()" @click="_openNewUser()">新增用户</p>
+        <p class="Menu-item" onclick="openModifyUser()" @click="_openModifyUser()">修改用户</p>
+        <p class="Menu-item" onclick="openDeleteUser()">删除用户</p>
+        <p class="Menu-item" onclick="GNClick()">功能管理</p>
+    <p class="Menu-item hide" onclick="openAdminRecharge()" id="adminYB">云币操作</p></div>
+    <div id="changeClass">
+        <p class="Menu-item" onclick="openChangeClass()">修改名称</p>
+    </div>
+    <div id="3dAdv" class="hide">
+        <img src="assets/img/information/3dyun-adv.jpg" alt="" width="100%">
+    </div>
+    <div class="box" id="box">
+        <div class="admin-rechargeRecord" id="changeClassBox" style="display:none;">
+            <div class="admin-rechargeRecord-box">
+                <p class="classTitle"><span>原分类名：</span>
+                    <el-input v-model="ocn" :disabled="true" class="twoWidth" id="ocn"></el-input>
+                </p>
+                <p class="classTitle"><span>新分类名：</span>
+                    <el-input v-model="ncn" placeholder="请输入分类名" class="twoWidth" id="ncn"></el-input>
+                </p>
+                <div class="changeClassBtn">
+                    <el-button type="primary" onclick="changeClassLoad()">确定</el-button>
+                    <el-button type="danger" onclick="closeChangeClass()">取消</el-button>
+                </div>
+            </div>
+        </div>
+        <!--        <div class="newUserBox" id="newUserBox">-->
+        <!--                <p class="newUserTitle">添加类型</p>-->
+        <!--        </div>-->
+        <div class="admin-rechargeRecord" id="gnBox" style="display:none;">
+            <div class="_admin-rechargeRecord-box">
+                <div class="admin-title">功能管理</div>
+                <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x" onclick="closeGn()">
+
+                <p><input type="checkbox" class="check" id="ch0"><span>方案设计功能</span></p>
+                <p><input type="checkbox" class="check" id="ch1"><span>可受托代理设计方案</span></p>
+                <p><input type="checkbox" class="check" id="ch2"><span>可委托设计方案</span></p>
+                <p><input type="checkbox" class="check" id="ch3"><span>上传素材(我的)</span></p>
+                <p><input type="checkbox" class="check" id="ch4"><span>上传素材(公共库)</span></p>
+                <p><input type="checkbox" class="check" id="ch5"><span>上传材质替换界面贴图(公共库)</span></p>
+                <p><input type="checkbox" class="check" id="ch6"><span>上传设计方案(公共库)</span></p>
+                <p><input type="checkbox" class="check" id="ch7"><span>上传户型图(公共库)</span></p>
+                <p><input type="checkbox" class="check" id="ch8"><span>上传智能间(公共库)</span></p>
+                <p><input type="checkbox" class="check" id="ch9"><span>子账号管理</span></p>
+                <p><input type="checkbox" class="check" id="ch10"><span>账号的管理(如入驻、审核、停用、操作数据查询等)</span></p>
+                <p><input type="checkbox" class="check" id="ch11"><span>数据的审批及管理(如上传的公共素材、公共设计方案、公共智能间、户型图等)</span></p>
+                <p><input type="checkbox" class="check" id="ch12"><span>系统的基础数据管理(如素材目录管理、筛选字段管理、角色权限管理)</span></p>
+                <div class="qxBtn" onclick="qxClick()">保存</div>
+            </div>
+        </div>
+        <div class="admin-rechargeRecord" id="newUser" style="display:none;">
+            <div class="admin-rechargeRecord-box">
+                <p class="admin-title">新增用户</p>
+                <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x" onclick="closeANewUser()">
+                <p class="name-box userinputBox"><span class="userinputBox-txt"><i class="red">*</i>用户名:</span>
+                    <el-input v-model="name" placeholder="输入英文或数字"
+                              id="userName"></el-input>
+                </p>
+                <p class="name-box userinputBox"><span class="userinputBox-txt"><i class="red">*</i>密 码 :</span>
+                    <el-input v-model="password" placeholder="请输入密码"
+                              id="userPass" show-password></el-input>
+                </p>
+                <p class="name-box userinputBox">
+                    <span class="userinputBox-txt"><i class="red">*</i>重复密码:</span>
+                    <el-input v-model="password1" placeholder="请再次输入密码"
+                              id="_userPass" show-password></el-input>
+                </p>
+                <p class="name-box userinputBox"><span class="userinputBox-txt"><i class="red">*</i>账号类型:</span>
+                    <el-select v-model="value1" id="userType" placeholder="请选择">
+                        <el-option
+                                v-for="item in options1"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </p>
+                <p class="name-box userinputBox"><span class="userinputBox-txt">电话:</span>
+                    <el-input onkeyup="this.value=this.value.replace(/\D/g,'')" v-model="tel" placeholder="请输入电话号码"
+                              id="tel"></el-input>
+                </p>
+                <p class="name-box userinputBox"><span class="userinputBox-txt">QQ:</span>
+                    <el-input onkeyup="this.value=this.value.replace(/\D/g,'')" v-model="qqNum" placeholder="请输入qq号码"
+                              id="qq"></el-input>
+                </p>
+                <p class="name-box userinputBox"><span class="userinputBox-txt"><i class="red">*</i>截止时间:</span>
+                    <el-date-picker
+                            v-model="date1"
+                            type="date"
+                            placeholder="选择日期" class="twoWidth" id="date1">
+                    </el-date-picker>
+                </p>
+                <el-button type="primary" class="newUser" onclick="CreateUser()">创建用户</el-button>
+            </div>
+        </div>
+        <div class="admin-rechargeRecord" id="modifyUser" style="display:none;">
+            <div class="admin-rechargeRecord-box">
+                <p class="admin-title">修改信息</p>
+                <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x"
+                     onclick="closeModifyUser()">
+                <p class="name-box _userinputBox"><span class="userinputBox-txt">用户名:</span>
+                    <el-input v-model="name1" placeholder="输入英文或数字"
+                              id="userName1" :disabled="true"></el-input>
+                </p>
+                <p class="name-box _userinputBox"><span class="userinputBox-txt">密 码 :</span>
+                    <el-input v-model="password0" placeholder="请输入密码"
+                              id="userPass1" show-password :disabled="change" ref="change"></el-input>
+                    <el-checkbox v-model="checked">修改密码</el-checkbox>
+                </p>
+                <p class="name-box _userinputBox">
+                    <span class="userinputBox-txt">重复密码:</span>
+                    <el-input v-model="password2" placeholder="请再次输入密码"
+                              id="_userPass1" show-password :disabled="change" ref="change1"></el-input>
+                </p>
+                <p class="name-box _userinputBox"><span class="userinputBox-txt">账号类型:</span>
+                    <el-select v-model="value3" id="userType1" placeholder="请选择" :disabled="disType">
+                        <el-option
+                                v-for="item in options2"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </p>
+                <p class="name-box _userinputBox"><span class="userinputBox-txt">电话:</span>
+                    <el-input onkeyup="this.value=this.value.replace(/\D/g,'')" v-model="tel1" placeholder="请输入电话号码"
+                              id="tel1"></el-input>
+                </p>
+                <p class="name-box _userinputBox"><span class="userinputBox-txt">QQ:</span>
+                    <el-input onkeyup="this.value=this.value.replace(/\D/g,'')" v-model="qqNum1" placeholder="请输入qq号码"
+                              id="qq1"></el-input>
+                </p>
+                <p class="name-box _userinputBox"><span class="userinputBox-tx">截止时间:</span>
+                    <el-date-picker
+                            v-model="date2"
+                            type="date"
+                            placeholder="选择日期" id="date2" :disabled="disDate">
+                    </el-date-picker>
+                </p>
+                <el-button type="primary" class="newUser" onclick="modifyUser()">确认修改</el-button>
+            </div>
+        </div>
+
+        <div class="detail-class">
+            <div class="class-title-box">
+                <p class="class-title  hide" onclick="changePage('js',this)" id="jsBtn">
+                    介绍</p>
+                <!--                <p class="class-title hide" onclick="changePage('txt',this)" id="zizhuBtn">自助开通</p>-->
+                <p class="class-title hide" onclick="changePage('my',this)" id="mmBtn">我的方案</p>
+                <!--                <p class="class-title" onclick="changePage('model',this)">企业模型库</p>-->
+                <p class="class-title hide" onclick="changePage('maps',this)" id="modelBtn"
+                   @click="handleLoadingClick()">平台共享库</p>
+                <p class="class-title hide" onclick="changePage('pinpai',this)" id="pinpai"
+                   @click="handleLoadingClick()">企业共享库</p>
+                <p class="class-title hide" onclick="changePage('mzy',this)" id="mzy" @click="handleLoadingClick()">个人库</p>
+                <p class="class-title hide" onclick="changePage('gongxiang',this)" id="gongxiang">共享方案库</p>
+                <!--                <p class="class-title hide" onclick="changePage('onload',this)" id="loadPageBtn">-->
+                <!--                    界面管理</p>-->
+                <p class="class-title" onclick="changePage('user',this)" id="myModelBtn">用户管理</p>
+<!--                                <p class="class-title" id="adminModel" onclick="changePage('custom', this)">-->
+<!--                                    自定义功能</p>-->
+                <p class="class-title hide" onclick="changePage('wj',this)" id="wjBtn">外景图片</p>
+                <p class="class-title hide" onclick="changePage('zip',this)" @click="loadMzyClass()">压缩包</p>
+                <p class="class-title hide" onclick="changePage('ls',this)" id="csgl">厂商管理</p>
+                <p class="class-title hide" onclick="changePage('ls',this)" id="ddgl">订单管理</p>
+                <p class="class-title hide" onclick="changePage('ls',this)" id="cssz">参数设置</p>
+<!--                <p class="class-title hide" onclick="changePage('ls',this)" id="bpxt">部品系统</p>-->
+                <p class="class-title hide" onclick="changePage('ls',this)" id="cppj">产品配件</p>
+                <p class="class-title hide" onclick="changePage('qb',this)" id="qb">墙板</p>
+            </div>
+            <p class="userName hide"><span id="tcName"></span>，<span class="tuichu" onclick="tuichu()">退出</span></p>
+            <p class="upload-btn hide" @click="customLoad()" id="zidingyiBtn">更新设置</p>
+            <p class="upload-btn" onclick="openHoutai()">独立打开</p>
+        </div>
+
+        <div id="jieshao" class="">
+            <!--<img src="assets/img/information/jieshao.jpg" alt="" width="100%" id="jieshaoPic">-->
+
+        </div>
+
+        <div id="myFn" class="my-model" style="display:none;">
+            <div class="shareBox" id="shareBox">
+                <p class="shareTitle">分享给他人</p>
+                <p class="shareUser">用户名：
+                    <el-input v-model="shareName" id="shareName"></el-input>
+                </p>
+                <div class="shareBtn">
+                    <el-button type="success" onclick="shareClick()">确定</el-button>
+                    <el-button type="danger" onclick="shareClose()">取消</el-button>
+                </div>
+            </div>
+            <div class="picLinkBox" id="picLinkBox">
+                <img src="assets/img/information/x.png" class="linkClose" onclick="closeLink()">
+                <iframe src="" frameborder="0" width="1100" height="700" id="picLink"></iframe>
+            </div>
+            <div id="myFn-box">
+                <div id="type0">
+
+                </div>
+                <div id="myPage0"></div>
+            </div>
+        </div>
+        <div id="wjBox" class="my-model" style="display:none;">
+            <div class="wjInfo">
+                <p class="addBtn">上传图片</p>
+                <input type="file" id="wjFile">
+            </div>
+            <div class="wjItem-box">
+
+            </div>
+        </div>
+        <div class="my-model" id="zip" style="display:none;">
+            <div class="clearfix">
+                <div class="cFrame center-block">
+                    <div class="cUploadFile">
+                        <div>
+                            <p id="file-title">
+                                请选择本地文件上传</p>
+                            <p id="file-detail"><i class="el-icon-document"></i><br>
+                                <span id="file-detail-name"></span></p>
+                            <p class="maxTxt">
+                                上传文件要求:3dsmax模型的rar或zip压缩包，压缩包中的单个模型文件大小都小于100M，详细要求参考"查看上传教程"</p>
+                            <div align="center">
+                                <a href="javascript:;" class="upload">选择文件
+                                    <input class="change" id="zfiles" type="file"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cThumbnail">
+                        <div align="center">
+                            <image class="Show_Thumbnail" src=""></image>
+                        </div>
+                    </div>
+                    <div class="cClassInfo">
+                        <p><span>素材名称：</span>
+                            <el-input id="fname" style="width: 250px" v-model="fname"></el-input>
+                        </p>
+                        </br></br>
+
+                        <p><span>渲染分类：</span>
+                            <el-cascader
+                                    v-model="mzyType"
+                                    :options="mzyTypeArr"
+                                    :props="{ expandTrigger: 'hover' }"
+                                    separator="-"
+                                    style="width: 250px" id="mzyModelClass"></el-cascader>
+                        </p>
+                        </br></br>
+
+                        <p><span>位置选择：</span>
+                            <el-select v-model="wzType" placeholder="请选择" style="width: 250px" id="Power">
+                                <el-option
+                                        v-for="item in fzArr"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </p>
+                        </br>
+                        </br>
+                        <div>
+                            <button type="button" onclick="OnOK()" class="btn-update">完成上传</button>
+                            <button type="button" onclick="OnHelp()" class="btn-update">查看上传教程</button>
+                            <a href="download/THCTct44.rar" target="_blank" download="" style="color: #ffffff">
+                                <button type="button" class="btn-update">下载例子</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="gxBox" class="my-model" style="position:relative;display:none;">
+            <div class="shareBox" id="gxChangeName">
+                <p class="shareTitle">修改场景名称</p>
+                <p class="shareUser">新名称：
+                    <el-input v-model="gxName" id="gxName"></el-input>
+                </p>
+                <div class="shareBtn">
+                    <el-button type="success" onclick="changeNameClick()">确定</el-button>
+                    <el-button type="danger" onclick="closeChangeName()">取消</el-button>
+                </div>
+            </div>
+            <div id="gxInfo">
+            </div>
+            <div id="myPage3"></div>
+        </div>
+        <div id="myModelPage" style="display:none;">
+            <div id="mzyBox" class="hide">
+                <div id="mzy-detail">
+                    <div><p class="table-item _active-table-item" id="mzyMap" onclick="changeMzyPage('map',this)"
+                    >上传的贴图</p>
+                        <p class="table-item" onclick="changeMzyPage('model',this)" id="mzyModel"
+                           @click="loadModelClass()">上传的模型</p>
+                        <p class="table-item" onclick="changeMzyPage('buyMap',this)" id="mzyBuyMap">收藏的贴图</p>
+                        <p class="table-item" onclick="changeMzyPage('buyModel',this)" id="mzyBuyModel">收藏的模型</p>
+                    </div>
+                    <div class="sort-wrapper" id="mzyClassBox">
+                        <div class="sort-filter-box">
+                            <ul class="sort-filter-one-class " id="mzyClass1">
+                                <li>一级：</li>
+                            </ul>
+                        </div>
+                        <div class="sort-filter-box">
+                            <ul class="sort-filter-one-class " id="mzyClass2">
+                                <li>二级：</li>
+                            </ul>
+                        </div>
+                        <div class="sort-filter-box">
+                            <ul class="sort-filter-one-class " id="mzyClass3">
+                                <li>三级：</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mzyLoadBox">
+                        <p class="addBtn" @click="openAddBox('mzy')" id="mzyMapBtn">上传贴图</p>
+                        <p class="addBtn hide" @click="openAddModel('mzy')"
+                           id="mzyModelBtn">上传模型</p>
+                        <a href="assets/video/贴图上传.mp4" target="_blank"><p class="addBtn"
+                                                                           style="right: 105px;width: 70px" id="mzyjc1">
+                            教程</p></a>
+                        <a href="assets/demo/贴图.zip" target="_blank"><p class="addBtn" style="right: 180px;width: 70px"
+                                                                        id="mzylz1">例子</p></a>
+                        <a href="assets/video/模型上传.mp4" target="_blank"><p class="addBtn hide"
+                                                                           style="right: 105px;width: 70px" id="mzyjc2">
+                            教程</p></a>
+                        <a href="assets/demo/模型.zip" target="_blank"><p class="addBtn hide"
+                                                                        style="right: 180px;width: 70px" id="mzylz2">
+                            例子</p></a>
+                    </div>
+                    <div id="myModel">
+
+                    </div>
+                    <div id="mzyPage" style="text-align: center;padding:20px"></div>
+                </div>
+            </div>
+            <div id="addMaps" class="addMaps">
+                <div class="addMaps-box">
+                    <div class="addMaps-box-info">
+                        <div>
+                            <div class="addMaps-img" onmouseover="_changeOver(this)" onmouseout="_changeOut(this)">
+                                <img src="" id="bigMaps" class="hide">
+                                <img src="assets/img/information/添加.png" class="addPic" id="mapAdd">
+                                <p class="addTxt" id="maps-txt">添加贴图</p>
+                                <img src="assets/img/information/替换.png" alt="" class="changePic">
+                                <input type="file" id="_changeMaps">
+                                <input type="file" class="addFile" id="mapFile">
+                            </div>
+                            <p class="redTxt">图片为jpg、png格式,
+                                文件大小不超过3M,长宽尺寸不大于1024*1024</p>
+                        </div>
+                        <div class="addInput-box">
+                            <p class="addInput-item"><span class="red">*</span><span>名称：</span>
+                                <el-input v-model="addName" style="width: 200px" id="mapName"></el-input>
+                            </p>
+                            <p class="addInput-item"><span class="red">*</span><span>长：</span>
+                                <el-input v-model="addchang" style="width: 150px;margin-right: 20px"
+                                          id="mapChang" onkeyup="this.value=this.value.replace(/\D/g,'')"></el-input>
+                                <span class="red">*</span><span>宽：</span>
+                                <el-input v-model="addkuan" style="width: 150px;" id="mapKuan"
+                                          onkeyup="this.value=this.value.replace(/\D/g,'')">
+                                </el-input>
+                            </p>
+                            <p class="addInput-item"><span class="red">*</span><span>分类：</span>
+                                <el-select v-model="addType" placeholder="请选择" style="width: 100px" id="firstType">
+                                    <el-option
+                                            v-for="item in typeArr"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                                <el-select v-model="addType2" placeholder="请选择" style="width: 100px" id="secondType">
+                                    <el-option
+                                            v-for="item in typeArr2"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                                <span class="see-btn" @click="newClass2()">管理</span></p>
+                            <p class="addInput-item"><span class="red">*</span><span>放置类型：</span>
+                                <el-select v-model="fztype" placeholder="请选择" style="width: 100px" id="fzType">
+                                    <el-option
+                                            v-for="item in fzArr"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                                <span class="red">*</span><span>渲染效果：</span>
+                                <el-select v-model="xrtype" placeholder="请选择" style="width: 100px" id="xrType">
+                                    <el-option
+                                            v-for="item in xrArr"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </p>
+                            <!--                            <p class="addInput-item">-->
+                            <!--                                <span class="red">*</span><span>搜索属性：</span>-->
+                            <!--                                <el-input v-model="sx" style="width: 200px" id="sx"></el-input>-->
+                            <!--                            </p>-->
+                        </div>
+                    </div>
+                    <div class="add-btn-box">
+                        <el-button type="success" onclick="handleAddMaps()">上传</el-button>
+                        <el-button type="danger" onclick="closeAddBox()">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div class="addMaps" id="newClass1" style="display:none;">
+                <div class="addMaps-box">
+                    <p class="addClassTitle">添加一级分类</p>
+                    <span class="red">*</span><span>一级分类：</span>
+                    <el-input v-model="newclass11"></el-input>
+                    <span class="redClass">*</span><span>二级分类：</span>
+                    <el-input v-model="newclass12"></el-input>
+                    <p class="addClassTxt">若新添加的分类下无贴图数据，该分类将在下次加载时删除。</p>
+
+                    <div class="add-btn-box">
+                        <el-button type="success" @click="loadNewClass1()">确定</el-button>
+                        <el-button type="danger" @click="closeNewClass1()">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div class="addMaps" id="newClass2" style="display:none;">
+                <div class="addMaps-box">
+                    <p class="addClassTitle">添加二级分类</p>
+                    <span class="red">*</span><span>一级分类：</span>
+                    <el-select v-model="newclass21" placeholder="请选择" style="width: 200px">
+                        <el-option
+                                v-for="item in typeArr"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <span class="redClass">*</span><span>二级分类：</span>
+                    <el-input v-model="newclass22" style="width: 200px"></el-input>
+                    <p class="addClassTxt">若新添加的分类下无贴图数据，该分类将在下次加载时删除。</p>
+                    <div class="add-btn-box">
+                        <el-button type="success" @click="loadNewClass2()">确定</el-button>
+                        <el-button type="danger" @click="closeNewClass2()">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div class="addMaps" id="newClassm1" style="display:none;">
+                <div class="addMaps-box">
+                    <p class="addClassTitle">分类管理</p>
+                    <!--                    <span class="red">*</span><span>一级分类：</span>-->
+                    <!--                    <el-input v-model="newclassm11"></el-input>-->
+                    <!--                    <span class="redClass">*</span><span>二级分类：</span>-->
+                    <!--                    <el-input v-model="newclassm12"></el-input>-->
+                    <!--                    <span class="redClass">*</span><span>三级分类：</span>-->
+                    <!--                    <el-input v-model="newclassm13"></el-input>-->
+                    <!--                    <p class="addClassTxt">添加一级分类时该分类下最少要有一个二级分类跟三级分类。</p>-->
+                    <el-tree
+                            :data="modelClassArr"
+                            :props="defaultProps" @node-click="handleNodeClick" style="height: 300px;overflow: auto">
+      <span class="custom-tree-node" slot-scope="{ node, data }">
+        <span>{{ node.label }}</span>
+        <span>
+          <el-button
+                  type="text"
+                  size="mini"
+                  @click="append(node,data)">
+            <i class="el-icon-circle-plus-outline"></i>
+          </el-button>
+        </span>
+          <el-button
+                  type="text"
+                  size="mini"
+                  @click="deleteClass(node,data)">
+            <i class="el-icon-delete"></i>
+          </el-button>
+        </span>
+      </span>
+                    </el-tree>
+                    <div class="add-btn-box">
+                        <el-button type="success" @click="adminClass()">确定</el-button>
+                        <el-button type="danger" @click="adminClass()">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div class="addMaps" id="mapNewClass" style="display:none;">
+                <div class="addMaps-box">
+                    <p class="addClassTitle">分类管理</p>
+                    <!--                    <span class="red">*</span><span>一级分类：</span>-->
+                    <!--                    <el-input v-model="newclassm11"></el-input>-->
+                    <!--                    <span class="redClass">*</span><span>二级分类：</span>-->
+                    <!--                    <el-input v-model="newclassm12"></el-input>-->
+                    <!--                    <span class="redClass">*</span><span>三级分类：</span>-->
+                    <!--                    <el-input v-model="newclassm13"></el-input>-->
+                    <!--                    <p class="addClassTxt">添加一级分类时该分类下最少要有一个二级分类跟三级分类。</p>-->
+                    <el-tree
+                            :data="mapClassArr"
+                            :props="defaultProps1" @node-click="handleNodeClick" style="height: 300px;overflow: auto">
+      <span class="custom-tree-node" slot-scope="{ node, data }">
+        <span>{{ node.label }}</span>
+        <span>
+          <el-button
+                  type="text"
+                  size="mini"
+                  @click="appendMap(node,data)">
+            <i class="el-icon-circle-plus-outline"></i>
+          </el-button>
+        </span>
+          <el-button
+                  type="text"
+                  size="mini"
+                  @click="deleteMapClass(node,data)">
+            <i class="el-icon-delete"></i>
+          </el-button>
+        </span>
+                        </span>
+                    </el-tree>
+                    <div class="add-btn-box">
+                        <el-button type="success" @click="adminClass()">确定</el-button>
+                        <el-button type="danger" @click="adminClass()">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div class="addMaps" id="addModelClass1">
+                <div class="addMaps-box">
+                    <p class="addClassTitle">添加一级分类</p>
+                    <p><span class="red">*</span><span>一级分类：</span>
+                        <el-input v-model="newclassm11"></el-input>
+                    </p>
+                    <p><span class="redClass">*</span><span>二级分类：</span>
+                        <el-input v-model="newclassm12"></el-input>
+                    </p>
+                    <p><span class="redClass">*</span><span>三级分类：</span>
+                        <el-input v-model="newclassm13"></el-input>
+                    </p>
+                    <p class="addClassTxt">添加一级分类时该分类下最少要有一个二级分类跟三级分类。</p>
+                    <div class="add-btn-box">
+                        <el-button type="success" @click="newModelClass1()">确定</el-button>
+                        <el-button type="danger" @click="closeModelClass1()">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div class="addMaps" id="addModelClass2">
+                <div class="addMaps-box">
+                    <p class="addClassTitle">添加二级分类</p>
+                    <p><span class="red">*</span><span>一级分类：</span>
+                        <el-input v-model="newclassm21" :disabled="true"></el-input>
+                    </p>
+                    <p><span class="redClass">*</span><span>二级分类：</span>
+                        <el-input v-model="newclassm22"></el-input>
+                    </p>
+                    <p><span class="redClass">*</span><span>三级分类：</span>
+                        <el-input v-model="newclassm23"></el-input>
+                    </p>
+                    <p class="addClassTxt"></p>
+                    <div class="add-btn-box">
+                        <el-button type="success" @click="newModelClass2()">确定</el-button>
+                        <el-button type="danger" @click="closeModelClass2()">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div class="addMaps" id="addModelClass3">
+                <div class="addMaps-box">
+                    <p class="addClassTitle">添加三级分类</p>
+                    <p><span class="red">*</span><span>一级分类：</span>
+                        <el-input v-model="newclassm31" :disabled="true"></el-input>
+                    </p>
+                    <p><span class="redClass">*</span><span>二级分类：</span>
+                        <el-input v-model="newclassm32" :disabled="true"></el-input>
+                    </p>
+                    <p><span class="redClass">*</span><span>三级分类：</span>
+                        <el-input v-model="newclassm33"></el-input>
+                    </p>
+                    <p class="addClassTxt"></p>
+                    <div class="add-btn-box">
+                        <el-button type="success" @click="newModelClass3()">确定</el-button>
+                        <el-button type="danger" @click="closeModelClass3()">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div id="jindu">
+                <div id="jindu-box">
+                    <p class="jindu-title">文件上传中，请稍等...</p>
+                </div>
+                <p class="backBtn" onclick="closeJindu()">确定</p>
+            </div>
+            <div class="addMaps" id="newModel">
+                <div class="addMaps-box">
+                    <p style="margin-left:300px;margin-top:-40px;font-size:20px;font-weight:bolder;position: absolute;">
+                        上传模型文件</p>
+                    <p class="addInput-item">
+                        <span class="red">*</span><span>名称：</span>
+                        <el-input v-model="mName" id="newModelName" disabled="disabled"></el-input>
+                        <span class="redClass">*</span><span>长 - 宽 - 高：</span>
+                        <el-input style="width:85px" v-model="mchang" id="mchang"
+                                  onkeyup="this.value=this.value.replace(/\D/g,'')"></el-input>
+                        <el-input style="width:85px" v-model="mkuan" id="mkuan"
+                                  onkeyup="this.value=this.value.replace(/\D/g,'')"></el-input>
+                        <el-input style="width:85px" v-model="mgao" id="mgao"
+                                  onkeyup="this.value=this.value.replace(/\D/g,'')"></el-input>
+                        <span class="red">&nbsp;&nbsp;*</span>
+                        <span>放置类型：</span>
+                        <el-select v-model="fztype2" placeholder="请选择" id="mfz">
+                            <el-option
+                                    v-for="item in fzArr"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </p>
+
+                    <p class="addInput-item">
+                        <span class="red">*</span>
+                        <span>分类：</span>
+                        <el-cascader
+                                v-model="modelClass"
+                                :options="modelClassArr"
+                                id="modelClassTxt"
+                        ></el-cascader>
+                        <span class="see-btn" @click="_newClass1()">管理</span>
+<!--                    <p style="color:#dddddd" style="margin-bottom: 10px">如无分类信息请刷新页面</p>-->
+                    </p>
+
+                    <p class="addInput-item">
+
+                                                <span>淘宝链接：</span>
+                                                <el-input v-model="taobaoLink" placeholder="请输入" style="width: 500px;"></el-input>
+                    </p>
+                    <el-tabs type="border-card">
+                        <el-tab-pane label="素材库">
+                            <div id="model-sucai">
+                            </div>
+                        </el-tab-pane>
+                        <el-tab-pane label="渲染库">
+                            <div id="model-xuanran">
+                            </div>
+                        </el-tab-pane>
+                    </el-tabs>
+                    <div class="uploadModelTxt">
+                        <p>1.模型名称英文+数字，不能有符号; 2.3DS文件小于3万面; 3.上传的贴图名称英文+数字.</p>
+                        <p>4.素材库里的3ds文件、缩略图及渲染库里的文件名称必须相同</p>
+                        <el-button type="primary" style="position: absolute;right: 95px" onclick="deleteAllFile()">清空
+                        </el-button>
+                        <el-button type="primary">上传文件</el-button>
+                        <input type="file" multiple="multiple" id="modelFile">
+                    </div>
+                    <div class="add-btn-box">
+                        <el-button type="success" onclick="loadModel()">确定</el-button>
+                        <el-button type="danger" @click="closeNewModel()">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div id="_addMaps" class="addMaps">
+                <div class="addMaps-box">
+                    <div class="class-title-box ">
+                        <div class="addMaps-img" onmouseover="changeOver(this)" onmouseout="changeOut(this)">
+                            <img src="assets/img/information/添加.png" id="_bigMaps">
+                            <img src="assets/img/information/替换.png" alt="" class="changePic">
+                            <input type="file" id="changeMaps">
+                        </div>
+                        <div class="addInput-box">
+                            <p class="addInput-item"><span class="red">*</span><span>名称：</span>
+                                <el-input v-model="addName1" style="width: 200px" id="_mapName"></el-input>
+                            </p>
+                            <p class="addInput-item"><span class="red">*</span><span>长：</span>
+                                <el-input v-model="addchang1" style="width: 150px;margin-right: 20px"
+                                          id="_mapChang" onkeyup="this.value=this.value.replace(/\D/g,'')"></el-input>
+                                <span class="red">*</span><span>宽：</span>
+                                <el-input v-model="addkuan1" style="width: 150px;" id="_mapKuan"
+                                          onkeyup="this.value=this.value.replace(/\D/g,'')">
+                                </el-input>
+                            </p>
+                            <p class="addInput-item"><span class="red">*</span><span>分类：</span>
+                                <el-select v-model="addType" placeholder="请选择" style="width: 100px" id="_firstType">
+                                    <el-option
+                                            v-for="item in typeArr"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+
+                                <el-select v-model="addType2" placeholder="请选择" style="width: 100px;margin-left: 10px"
+                                           id="_secondType">
+                                    <el-option
+                                            v-for="item in typeArr2"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </p>
+                            <p class="addInput-item"><span style="color: red">*</span><span>放置类型：</span>
+                                <el-select v-model="fztype1" placeholder="请选择" style="width: 100px" id="_fzType">
+                                    <el-option
+                                            v-for="item in fzArr"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                                <span style="color: red;margin-left: 5px">*</span><span>渲染效果：</span>
+                                <el-select v-model="xrtype1" placeholder="请选择" style="width: 100px" id="_xrType">
+                                    <el-option
+                                            v-for="item in xrArr"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </p>
+                            <!--                            <p class="addInput-item">-->
+                            <!--                                <span class="red">*</span><span>搜索属性：</span>-->
+                            <!--                                <el-input v-model="sx1" style="width: 200px" id="_sx"></el-input>-->
+                            <!--                            </p>-->
+                        </div>
+                    </div>
+                    <div class="add-btn-box">
+                        <el-button type="success" onclick="changeMapsLoad()" style="padding: 20px 35px">修改</el-button>
+                        <el-button type="danger" onclick="closeChange()" style="padding: 20px 35px">取消</el-button>
+                    </div>
+                </div>
+            </div>
+            <div id="myModelPage-box">
+                <div style="padding: 10px;display: none" id="ppLogo">
+
+                    <div class="pp-file-box" onmouseout="ppFileOut()" onmouseover="ppFileOver()">
+                        <img src="assets/img/information/添加.png" class="pp-pic" id="pp-pic">
+                        <input type="file" class="pp-file" id="pp-file">
+                        <img src="assets/img/information/替换.png" class="pp-btn" id="pp-btn">
+                    </div>
+                </div>
+                <div class="class-search">
+                    <div id="gxTitle" class="hide"><p class="table-item active-table-item" id="map"
+                                                      onclick="changeInfoPage('map',this)"
+                    >贴图资源</p>
+                        <p class="table-item" onclick="changeInfoPage('model',this)" id="model"
+                           @click="loadModelClass()">模型资源</p>
+                    </div>
+                    <div id="qyTitle" class="hide">
+                        <p class="table-item active-table-item" id="_map" onclick="changeInfoPage('map',this)">上传的贴图</p>
+                        <p class="table-item" onclick="changeInfoPage('model',this)" id="qyload"
+                           @click="loadModelClass()">上传的模型</p>
+                        <p class="table-item" onclick="changeInfoPage('buyMap',this)" id="buyMap">收藏的贴图</p>
+                        <p class="table-item" onclick="changeInfoPage('buyModel',this)" id="qybuy">收藏的模型</p>
+                    </div>
+                    <div class="search-input">
+                        <input type="text" placeholder="搜索ID、关键词、以图搜图" class="input-item" id="keyTxt">
+                        <p class="icon-pic">
+                            <span class="pic-in"></span>
+                        </p>
+                        <span class="search-btn" onclick="searchMaps()">
+                        <span class="search-btn-in"></span>
+                    </span>
+                    </div>
+                </div>
+                <div class="addBtn-box">
+                    <p class="addBtn" @click="openAddBox('qiye')" id="mapBtn" onclick="mapType()">增加贴图</p>
+                    <p class="addBtn" @click="openAddModel('qiye')" style="display:none;" id="_modelBtn">增加模型</p>
+                    <a href="assets/video/贴图上传.mp4" target="_blank"><p class="addBtn" style="right: 105px;width: 70px"
+                                                                       id="qiyejc1">教程</p></a>
+                    <a href="assets/demo/贴图.zip" target="_blank"><p class="addBtn" style="right: 180px;width: 70px"
+                                                                    id="qiyelz1">例子</p></a>
+                    <a href="assets/video/模型上传.mp4" target="_blank"><p class="addBtn hide"
+                                                                       style="right: 105px;width: 70px" id="qiyejc2">
+                        教程</p></a>
+                    <a href="assets/demo/模型.zip" target="_blank"><p class="addBtn hide" style="right: 180px;width: 70px"
+                                                                    id="qiyelz2">例子</p></a>
+                    <p class="addBtn hide" id="buyMapBtn"><a href="maps.html" target="_blank" style="color: #ffffff">收藏贴图</a>
+                    </p>
+                    <p class="addBtn hide" id="buyModelBtn"><a href="model.html" target="_blank" style="color: #ffffff">收藏模型</a>
+                    </p>
+                </div>
+                <div class="sort-wrapper container" style="width: 100%" id="zyClass">
+                    <div class="sort-filter-box">
+                        <ul class="sort-filter-one-class " id="firstMenu">
+
+                        </ul>
+                    </div>
+                    <div class="sort-style">
+                        <ul class="sort-filter-one-class " id="secondMenu">
+
+                        </ul>
+                    </div>
+                    <div class="sort-style">
+                        <ul class="sort-filter-one-class hide" id="threeMenu">
+                        </ul>
+                    </div>
+                </div>
+                <div class="" id="item-box">
+                </div>
+                <div id="myPage1" style=""></div>
+            </div>
+        </div>
+
+        <div id="load">
+            <div id="load-box">
+                <div class="img-box">
+                    <p id="tishi">提示：启动画面、登录画面显示为当前画面</p>
+                    <div class="big-img">
+                        <img src="assets/img/information/添加.png" id="big-pic" class="big-pic">
+                        <p class="big-img-txt" id="big-img-txt"><span>图片预览</span><br>
+                            <span style="font-size: 14px">（推荐尺寸1100*675）</span></p>
+                        <iframe src="" frameborder="0" width="802" height="492" id="qjBox" class="qjBox"></iframe>
+                        <video src="" controls="controls" width="802" height="492" class="qjBox" id="video"></video>
+                    </div>
+                    <div class="small-img">
+                        <div class="small-item" onclick="changeBigPic(1)" onmouseover="changeSmallIcon(this)"
+                             onmouseout="changeSmallIconOut(this)">
+                            <img src="assets/img/information/添加.png" id="small-pic1" class="small-pic hide">
+                            <img src="assets/img/information/添加.png" alt="" width="50" class="small-add"
+                                 id="small-add1">
+                            <img src="assets/img/information/关闭白.png" alt="" width="15" class="small-img-delete"
+                                 onclick="clearImg(this)">
+                            <img src="assets/img/information/替换.png" alt="" width="15" class="small-img-change">
+                            <input type="file" class="changeFile" id="changeFile1"
+                            >
+                            <p class="small-add-txt" id="small-add-txt1">启动画面</p>
+                            <input type="file" class="btn-file" id="file1"
+                            >
+                        </div>
+                        <div class="small-item" style="border: none">
+                            推荐尺寸 1920*900，格式jpg
+                        </div>
+                        <div class="small-item" onclick="changeBigPic(2)" onmouseover="changeSmallIcon(this)"
+                             onmouseout="changeSmallIconOut(this)">
+                            <img src="assets/img/information/添加.png" id="small-pic2" class="small-pic hide">
+                            <img src="assets/img/information/添加.png" alt="" width="50" class="small-add"
+                                 id="small-add2">
+                            <img src="assets/img/information/关闭白.png" alt="" width="15" class="small-img-delete"
+                                 onclick="clearImg(this)">
+                            <img src="assets/img/information/替换.png" alt="" width="15" class="small-img-change">
+                            <input type="file" class="changeFile" id="changeFile2"
+                            >
+                            <p class="small-add-txt" id="small-add-txt2">登录画面</p>
+                            <input type="file" class="btn-file" id="file2"
+                            >
+                        </div>
+                        <div class="small-item" style="border: none">
+                            推荐尺寸 1280*690，格式jpg
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <p class="upload-btn" onclick="TestUploadFile()" style="width: 100px;margin: 50px">更新设置</p>
+                </div>
+            </div>
+        </div>
+        <div id="txtLoad" class="hide">
+            <div>
+                <div class="txt-box">
+                    <!--                <p class="name-box"><span>软件名称：</span>-->
+                    <!--                    <el-input v-model="input" placeholder="请输入内容" style="width: 200px"-->
+                    <!--                              id="modelName"></el-input>-->
+                    <!--                </p>-->
+                    <div class="ztBox">
+                        <p>当前状态：</p>
+                        <p class="time-box" id="ksTime"></p>
+                        <p>至</p>
+                        <p class="time-box" id="dqTime"></p>
+                    </div>
+                    <p class="zz-title"><span id="kttxt">开通</span></p>
+                    <div class="zz-item-box">
+                        <div class="zz-item">
+                            <p class="zz-item-title">一个月</p>
+                            <p class="zz-item-jiage">￥300<span style="font-size: 22px">云币</span></p>
+                            <p class="zz-item-tishi">省￥300云币</p>
+                            <p class="zz-item-tishi">仅售5台</p>
+                            <p class="zz-item-tishi">约5折</p>
+                            <p style="text-align: center;margin: 10px 0;"><span class="item-gg">限时促销</span></p>
+                            <p style="text-align: center;margin: 10px 0;"><span class="item-btn"
+                                                                                onclick="handleOpenClick('一个月',300)"
+                                                                                id="uploadBtn1">确认开通</span></p>
+                        </div>
+                        <div class="zz-item">
+                            <p class="zz-item-title">一年</p>
+                            <p class="zz-item-jiage">￥3240<span style="font-size: 22px">云币</span></p>
+                            <p class="zz-item-tishi">省￥3960云币</p>
+                            <p class="zz-item-tishi">仅售5台</p>
+                            <p class="zz-item-tishi">约4.5折</p>
+                            <p style="text-align: center;margin: 10px 0;"><span class="item-gg">限时促销</span></p>
+                            <p style="text-align: center;margin: 10px 0;"><span class="item-btn"
+                                                                                onclick="handleOpenClick('一年',3240)"
+                                                                                id="uploadBtn2">确认开通</span></p>
+                        </div>
+                        <div class="zz-item">
+                            <p class="zz-item-title">二年</p>
+                            <p class="zz-item-jiage">￥6000<span style="font-size: 22px">云币</span></p>
+                            <p class="zz-item-tishi">省￥8400云币</p>
+                            <p class="zz-item-tishi">仅售5台</p>
+                            <p class="zz-item-tishi">约4.1折</p>
+                            <p style="text-align: center;margin: 10px 0;"><span class="item-gg">限时促销</span></p>
+                            <p style="text-align: center;margin: 10px 0;"><span class="item-btn"
+                                                                                onclick="handleOpenClick('两年',6000)"
+                                                                                id="uploadBtn3">确认开通</span></p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;text-align: center">若需开通请<a
+                            href="tencent://message/?uin=2723450986&amp;Site=www.ihouse3d.com&amp;Menu=yes"
+                            rel="nofollow"><span class="lianxi-btn">联系客服</span></a></p>
+                    <div class="link-box">
+                        <div class="link-txt-box">
+                            <p>软件地址</p>
+                            <p style="font-weight: bolder;color: #29c2e1">|</p>
+                            <p style="width: 500px" id="linkTxt">尚未开通</p>
+                        </div>
+                        <p class="link-btn" onclick="openLink()">查看</p>
+                    </div>
+                    <p style="text-align: center;margin-top: 20px;color: red;font-size: 14px">提示：复制当前链接到自己的网站上</p>
+                    <div class="zz-bottom">
+                        <div style="height: 30px"></div>
+                        <div class="zz-bottom-item-box">
+                            <p style="font-size: 20px;font-weight: bold;text-align: center;margin-bottom: 20px">说明</p>
+                            <p class="zz-bottom-item">*.开通后拥有自己的3D云设计，链接可放置到自己网站使用</p>
+                            <p class="zz-bottom-item">*.可以自由创建管理账号（账号数量不限）</p>
+                            <p class="zz-bottom-item">*.可以设置自己的启动画面、登录画面</p>
+                            <p class="zz-bottom-item">*.可设置自己系统功能</p>
+                            <p class="zz-bottom-item">*.可上传管理模型、贴图等素材（开发中，敬请期待）</p>
+                            <p class="zz-bottom-item">*.可管理，分享自己的方案</p>
+                            <p class="zz-bottom-item">*.开通时间内，默认提供一台渲染服务器<span
+                                    style="color: red">（如需更多渲染服务器请联系客服）</span>
+                            </p>
+                            <p class="zz-bottom-item" style="color: red">*.如需定制开发请联系客服</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="user" class="my-table" style="display: none;position: relative">
+            <div id="user-box" class="">
+                <div class="userDetail">
+                    <el-input
+                            placeholder="请输入内容"
+                            prefix-icon="el-icon-search"
+                            v-model="search" style="width: 200px;margin-bottom: 10px;" id="searchTxt">
+                    </el-input>
+                    <el-button type="primary" onclick="searchUser()">搜索</el-button>
+                    <el-button type="primary" class="userChange hide" onclick="openUserChange()" id="makeUserType">
+                        编辑账号类型
+                    </el-button>
+                    <table class="rechargeRecord">
+                        <thead class="my-table-header">
+                        <tr>
+                            <td>用户ID</td>
+                            <td>昵称</td>
+                            <td>账号类型<i class="el-icon-question utIcon" onclick="openUtDetail()"></i></td>
+                            <td>有效日期</td>
+                            <td>电话</td>
+                            <td >最近登录时间<i class="el-icon-d-caret utIcon" onclick="_userClick()" ></i></td>
+                            <td>最近登录IP</td>
+                            <td >创建时间 <i class="el-icon-d-caret utIcon" onclick="userClick()"></i></td>
+                        </tr>
+                        </thead>
+                        <tbody class="my-table-body" id="userList">
+
+                        </tbody>
+                    </table>
+                    <div id="myPage"></div>
+                </div>
+                <div class="changeBox">
+                    <div>
+                        <div>
+                            <p class="addUser" onclick="_openNewBox()">新增账号类型</p>
+                            <div class="utList">
+                                <p class="user-item active-user" onclick="changeUserType(this)">普通用户<span><i
+                                        class="el-icon-edit"></i> <i class="el-icon-delete"></i></span></p>
+
+                                <p class="user-item" onclick="changeUserType(this)">设计师<span class="hide"><i
+                                        class="el-icon-edit"></i> <i class="el-icon-delete"></i></span></p>
+                            </div>
+                        </div>
+                        <div class="qxBox">
+                            <div id="userQx">
+                                <div class="qxTitle">账号权限</div>
+                                <p><input type="checkbox" class="check" id="_ch0"><span>方案设计功能</span></p>
+                                <p><input type="checkbox" class="check" id="_ch1"><span>可受托代理设计方案</span></p>
+                                <p><input type="checkbox" class="check" id="_ch2"><span>可委托设计方案</span></p>
+                                <p><input type="checkbox" class="check" id="_ch3"><span>上传素材(我的)</span></p>
+                                <p><input type="checkbox" class="check" id="_ch4"><span>上传素材(公共库)</span></p>
+                                <p><input type="checkbox" class="check" id="_ch5"><span>上传材质替换界面贴图(公共库)</span></p>
+                                <p><input type="checkbox" class="check" id="_ch6"><span>上传设计方案(公共库)</span></p>
+                                <p><input type="checkbox" class="check" id="_ch7"><span>上传户型图(公共库)</span></p>
+                                <p><input type="checkbox" class="check" id="_ch8"><span>上传智能间(公共库)</span></p>
+                                <p><input type="checkbox" class="check" id="_ch9"><span>子账号管理</span></p>
+                                <p><input type="checkbox" class="check" id="_ch10"><span>账号的管理(如入驻、审核、停用、操作数据查询等)</span>
+                                </p>
+                                <p><input type="checkbox" class="check" id="_ch11"><span>数据的审批及管理(如上传的公共素材、公共设计方案、公共智能间、户型图等)</span>
+                                </p>
+                                <p><input type="checkbox" class="check"
+                                          id="_ch12"><span>系统的基础数据管理(如素材目录管理、筛选字段管理、角色权限管理)</span></p>
+                                <div class="qxBtn" onclick="qxSaveClick()">保存</div>
+                            </div>
+                            <div id="addUserType">
+                                <div class="qxTitle">新增类型</div>
+                                <p><span>类型名称:</span>
+                                    <el-input v-model="typeName" id="typeName"></el-input>
+                                </p>
+                                <div class="_qxBtn" onclick="addClick()">保存</div>
+                            </div>
+                            <div id="changeUserType">
+                                <div class="qxTitle">修改类型</div>
+                                <p><span>原类型名称:</span>
+                                    <el-input v-model="typeName1" id="typeName1" :disabled="true"></el-input>
+                                </p>
+                                <p><span>新类型名称:</span>
+                                    <el-input v-model="typeName2" id="typeName2"></el-input>
+                                </p>
+                                <div class="_qxBtn" onclick="changeClick()()">保存</div>
+                            </div>
+                        </div>
+                        <div class="qxBtn-box">
+                            <p onclick="changeBack()">返回</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="custom" style="position: relative;display: none;">
+            <div style="position: absolute;width: 100%;height:100% ;top: 0;bottom: 0;z-index: 222"
+                 id="custom-mo">
+                <div style="width: 300px;height: 100px;background: #ffffff;box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 4px;margin: 20% auto">
+                    <p style="font-size: 16px;text-align: center;line-height: 100px">自助开通后，使用此功能</p>
+                </div>
+            </div>
+            <div id="custom-box" class="">
+                <div class="gongneng-item">
+
+                    <img src="assets/img/information/gongneng.jpg" alt="" class="gongneng-img">
+
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">房间形状模板</p>
+                        <el-switch
+                                v-model="guan1"
+                                id="guan1" ref="g1">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai1"
+                                id="kai1">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+
+                    <img src="assets/img/information/gongneng2.jpg" alt="" class="gongneng-img">
+
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">门窗</p>
+                        <el-switch
+                                v-model="guan2"
+                                id="guan2">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai2"
+                                id="kai2">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+
+                    <img src="assets/img/information/gongneng3.jpg" alt="" class="gongneng-img">
+
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">结构</p>
+                        <el-switch
+                                v-model="guan3"
+                                id="guan3">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai3"
+                                id="kai3">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+
+                    <img src="assets/img/information/gongneng4.jpg" alt="" class="gongneng-img">
+
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">画墙</p>
+                        <el-switch
+                                v-model="guan4"
+                                id="guan4">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai4"
+                                id="kai4">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+
+                    <img src="assets/img/information/gongneng5.jpg" alt="" class="gongneng-img">
+
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">产品清单</p>
+                        <el-switch
+                                v-model="guan5"
+                                id="guan5">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai5"
+                                id="kai5">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+
+                    <img src="assets/img/information/gongneng6.jpg" alt="" class="gongneng-img">
+
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">快速预算</p>
+                        <el-switch
+                                v-model="guan6"
+                                id="guan6">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai6"
+                                id="kai6">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+
+                    <img src="assets/img/information/gongneng7.jpg" alt="" class="gongneng-img">
+
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">展台舞台</p>
+                        <el-switch
+                                v-model="guan7"
+                                id="guan7">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai7"
+                                id="kai7">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+
+                    <img src="assets/img/information/gongneng8.jpg" alt="" class="gongneng-img">
+
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">上传我的产品</p>
+                        <el-switch
+                                v-model="guan8"
+                                id="guan8">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai8"
+                                id="kai8">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item" class="hide" id="ybzf">
+
+                    <img src="assets/img/information/gongneng9.jpg" alt="" class="gongneng-img">
+
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">云币支付</p>
+                        <el-switch
+                                v-model="guan9"
+                                id="guan9">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai9"
+                                id="kai9">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+
+                    <img src="assets/img/information/gongneng15.jpg" alt="" class="gongneng-img">
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">渲染模块</p>
+                        <el-switch
+                                v-model="guan15"
+                                id="guan15">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai15"
+                                id="kai15">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+                    <img src="assets/img/information/gongneng16.jpg" alt="" class="gongneng-img">
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">效果图册</p>
+                        <el-switch
+                                v-model="guan16"
+                                id="guan16">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai16"
+                                id="kai16">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <div class="gongneng-item">
+                    <img src="assets/img/information/gongneng17.jpg" alt="" class="gongneng-img">
+                    <div class="gongneng-detail">
+                        <p class="gongneng-item-title">品牌专区</p>
+                        <el-switch
+                                v-model="guan17"
+                                id="guan17">
+                        </el-switch>
+                        <el-switch
+                                v-model="kai17"
+                                id="kai17">
+                        </el-switch>
+                        <span>开关</span>
+                    </div>
+                </div>
+                <!--                <div class="gongneng-item"-->
+                <!--                     style=";background: #f3f3f3;border-radius: 5px;cursor: pointer"-->
+                <!--                     onclick="opendingzhi()">-->
+                <!--                    <img src="assets/img/information/jia.png" alt="" style="">-->
+                <!--                    <p style="text-align: center;color: red;font-size: 22px;margin-top: 10px">定制开发</p>-->
+                <!--                </div>-->
+            </div>
+        </div>
+        <div id="lsBox" class="hide">
+            <iframe src="" frameborder="0" id="fBox"></iframe>
+        </div>
+        <div class="admin-rechargeRecord" id="dingzhi">
+
+            <div class="admin-rechargeRecord-box">
+                <img src="assets/img/information/x.png" alt="" class="admin-rechargeRecord-x" onclick="closedingzhi()">
+                <p>定制开发请联系13123910766</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.sPage.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/axios.js"></script>
+<script src="headfooter.js"></script>
+<script src="assets/js/3dyun.js"></script>
+<script src="assets/js/outdoorPic.js"></script>
+<script src="assets/js/3dyunVue.js"></script>
+<script>
+
+</script>
+<script type="text/javascript" src="assets/lib/echarts.min.js"></script>
+
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>厂商管理</title>
+
+    <link rel="stylesheet" type="text/css" href="lib/ZCell.min.css" />
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="lib/ZCell.min.js"></script>
+    <script type="text/javascript" src="lib/ZCell.register.js"></script>
+    <script type="text/javascript" src="lib/Base.js"></script>
+    <script type="text/javascript" src="js/xlsx.core.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+<div id="order">
+    <div id="cellContainer"></div>
+    <div class="bottom-btn">
+        <button class="Add" onclick="OnAdd()">新增</button>
+        <button class="save" onclick="OnSave()">保存</button>
+        <button class="Delete" onclick="OnDelete()">删除</button>
+    </div>
+</div>
+
+<script>
+    let zcell;
+
+    //ZCellInit();
+    let mWebService = sessionStorage.getItem('webService')
+
+    //设置自定义右键菜单
+
+
+    GetParameter();
+
+    function ZCellInit(rows)
+    {
+        zcell = new ZCell(document.getElementById("cellContainer"));
+        //指定列、行
+        zcell.InserSheet(0, 16, rows);
+
+        let colWidth = [130,100,100,200,130,100,100,150,200,100,100,130,130,130,130,200];
+
+        //列宽度
+        for(let index = 0; index < 16; ++index)
+        {
+            zcell.GetSheet(0).SetColWidth(index + 1, colWidth[index]);
+        }
+
+        //行高度
+        for (let index = 1; index <= rows; ++index) {
+            zcell.GetSheet(0).SetRowHeight(index, 40);
+        }
+
+        //设置列/行标签不显示
+        zcell.GetSheet(0).ShowColLab(0);
+        zcell.GetSheet(0).ShowRowLab(0);
+
+        //列、行、合并列数(从第1列开始算)、合并行数(从第1行开始算)
+        //zcell.GetSheet(0).MergeCells(1, 2, 1, 1);
+
+        zcell.GetSheet(0).SetCellValue(1, 1, "供应商信息");
+        zcell.GetSheet(0).SetCellValue(2, 1, "类别");
+        zcell.GetSheet(0).SetCellValue(3, 1, "编码");
+        zcell.GetSheet(0).SetCellValue(4, 1, "公司名称");
+        zcell.GetSheet(0).SetCellValue(5, 1, "品牌");
+        zcell.GetSheet(0).SetCellValue(6, 1, "类型");
+        zcell.GetSheet(0).SetCellValue(7, 1, "级别");
+        zcell.GetSheet(0).SetCellValue(8, 1, "统一信用代码");
+        zcell.GetSheet(0).SetCellValue(9, 1, "地点");
+        zcell.GetSheet(0).SetCellValue(10, 1, "库存");
+        zcell.GetSheet(0).SetCellValue(11, 1, "产能");
+        zcell.GetSheet(0).SetCellValue(12, 1, "联系人");
+        zcell.GetSheet(0).SetCellValue(13, 1, "联系电话");
+        zcell.GetSheet(0).SetCellValue(14, 1, "邮箱");
+        zcell.GetSheet(0).SetCellValue(15, 1, "物流系数");
+        zcell.GetSheet(0).SetCellValue(16, 1, "公司网址");
+
+        $('#zfstatd').hide();
+
+        //zcell.GetSheet(0).Events(ZCell.Events.Cus .CustomContextMenu, {}, function (e) { setmenu(e); });
+
+
+    }
+
+    //隐藏右键菜单
+    $(document).click(function () {
+        $(".contextmenu").hide();
+    });
+
+    function GetParameter()
+    {
+        $.ajax({
+            url: mWebService + 'Service1.asmx/ExecuteQuery',
+            type: "post",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:
+                {
+                    Database: "kaizhuang",
+                    Sql:"select * from manufacturer"
+                },
+            success: function (data)
+            {
+                if("1" == data.code)
+                {
+                    let jData = JSON.parse(data.data);
+                    let rows = jData.Table.length;
+                    ZCellInit(rows + 1);
+
+                    for(let index = 0; index < rows; ++index)
+                    {
+                        let item = jData.Table[index];
+
+                        zcell.GetSheet(0).SetCellValue(1, 2 + index, item.name);
+                        zcell.GetSheet(0).SetCellValue(2, 2 + index, item.class);
+                        zcell.GetSheet(0).SetCellValue(3, 2 + index, item.code);
+                        zcell.GetSheet(0).SetCellValue(4, 2 + index, item.company_name);
+                        zcell.GetSheet(0).SetCellValue(5, 2 + index, item.brand);
+                        zcell.GetSheet(0).SetCellValue(6, 2 + index, item.style);
+                        zcell.GetSheet(0).SetCellValue(7, 2 + index, item.level);
+                        zcell.GetSheet(0).SetCellValue(8, 2 + index, item.credit_code);
+                        zcell.GetSheet(0).SetCellValue(9, 2 + index, item.address);
+                        zcell.GetSheet(0).SetCellValue(10, 2 + index, item.project);
+                        zcell.GetSheet(0).SetCellValue(11, 2 + index, item.capacity);
+                        zcell.GetSheet(0).SetCellValue(12, 2 + index, item.contacts);
+                        zcell.GetSheet(0).SetCellValue(13, 2 + index, item.telphone);
+                        zcell.GetSheet(0).SetCellValue(14, 2 + index, item.mail);
+                        zcell.GetSheet(0).SetCellValue(15, 2 + index, item.factor);
+                        zcell.GetSheet(0).SetCellValue(16, 2 + index, item.homepage);
+                    }
+                }
+                else if("0" == data.code)
+                {
+                    alert(data.msg);
+                }
+            },
+            error: function (err)
+            {
+                console.log(err);
+            }
+        });
+    }
+
+    function OnAdd()
+    {
+        let nRow = zcell.GetSheet(0).GetRows();
+        zcell.GetSheet(0).AppendRow(1);
+        zcell.GetSheet(0).SetRowHeight(nRow+1, 40);
+    }
+
+    function OnSave()
+    {
+        let nRow = zcell.GetSheet(0).GetRows();
+        let nCol = zcell.GetSheet(0).GetCols();
+        let insertData = "";
+
+        for(let index = 2; index <= nRow; ++index)
+        {
+            let rowValue = "";
+            for(let k = 1; k <= nCol; ++k)
+            {
+                rowValue += `'${zcell.GetSheet(0).GetCellValue(k,index)}'`;
+                rowValue += ",";
+            }
+
+            rowValue = rowValue.substring(0,rowValue.length -1 );
+
+            insertData += '(';
+            insertData += rowValue;
+            insertData += ')';
+            insertData += ',';
+        }
+
+        if(insertData != '')
+        {
+            insertData = insertData.substring(0,insertData.length -1 );
+
+            let strSQL="delete from manufacturer;insert into manufacturer values" + insertData;
+
+            $.ajax({
+                url: mWebService + 'Service1.asmx/ExecuteNonQuery',
+                type: "post",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                data:
+                    {
+                        Database: "kaizhuang",
+                        Sql:strSQL
+                    },
+                success: function (data)
+                {
+                    ExportManufacturer();
+                    alert(data.msg);
+                },
+                error: function (err)
+                {
+                    console.log(err);
+                }
+            });
+        }
+    }
+
+    //导出品牌信息
+    function ExportManufacturer()
+    {
+        $.ajax({
+            url: mWebService + 'Service1.asmx/ExportKZManufacturer',
+            type: "post",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:
+                {
+
+                },
+            success: function (data)
+            {
+                console.log(data.msg);
+            },
+            error: function (err)
+            {
+                console.log(err);
+            }
+        });
+    }
+
+    //执行右键菜单事件
+    function OnDelete() {
+
+        let currentRowNo = zcell.GetSheet(0).GetCurrentRowNo();
+        if(1 == currentRowNo)
+        {
+            alert('禁止删除表头数据');
+            return;
+        }
+
+        if(-1 == currentRowNo)
+        {
+            alert('请选择要删除的行');
+            return;
+        }
+
+        if(confirm("确定要删除吗？"))
+        {
+            Delete();
+        }
+    }
+
+    function Delete()
+    {
+        let currentRowNo = zcell.GetSheet(0).GetCurrentRowNo();
+
+        zcell.GetSheet(0).DeleteRow(currentRowNo, 1);
+        OnSave();
+    }
+
+</script>
+
+</body>

@@ -1,0 +1,268 @@
+﻿.clearfix:after { content: " "; display: block; height: 0; clear: both; visibility: hidden; }
+img {-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none}
+
+.text-cut2 { overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+#LAY_app_tabs { display: none; }
+.pull-right { float: right; }
+
+.pull-left { float: left; }
+
+.color-primary { color: #009688!important; }
+.color-warm { color: #FFB800; }
+.color-zi { color: #6083FB; }
+.color-darkzi{ color: #A365F8; }
+.color-disabled{ color: #999999; }
+.color-danger{ color: #FF5722; }
+.color-red{ color: #f00!important; }
+.color-green{ color: #CF1900; }
+.color-blue{ color: #01AAED; }
+.color-light { color: #5FB878; }
+.color-primary:hover { color: #009688; }
+.color-warm:hover { color: #FFB800; }
+.color-danger:hover{ color: #FF5722; }
+.color-blue:hover{ color: #01AAED; }
+.color-light:hover { color: #5FB878; }
+.before-primary:before { background-color: #009688; }
+.before-warm:before { background-color: #FFB800; }
+.before-danger:before{ background-color: #FF5722; }
+.before-blue:before{ background-color: #01AAED; }
+.before-light:before { background-color: #5FB878; }
+.text-center{ text-align: center; }
+
+.color-ornament { color: #c0a062; }
+
+.bg_login { background-color: #009688; }
+
+.loginwrap { width: 420px; margin: 110px auto 0; padding: 30px; box-sizing: border-box; background-color: rgba(0, 0, 0, .5); box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 3px; }
+.loginwrap .hd { text-align: center; font-size: 24px; }
+.loginwrap .hd img { height: 125px; }
+.loginwrap .bd { margin-top: 30px; }
+.loginwrap .bd .layui-form-item { position: relative; }
+.loginwrap .bd .layui-form-label { width: 38px; height: 38px; padding: 0; line-height: 38px; text-align: center; padding-left: 0; color: #666; position: absolute; left: 0; top: 0; z-index: 2; }
+.loginwrap .bd .layui-input-block { margin-left: 0; }
+.loginwrap .bd .layui-input-block .layui-input { padding-left: 40px; }
+.loginwrap .vscode input { padding-right: 100px; }
+.loginwrap .vscode img { width: 100px; height: 36px; position: absolute; right: 1px; top: 1px; }
+.loginwrap .layui-btn { background-color: #009688; }
+
+.copy { position: absolute; left: 0; right: 0; bottom: 20px; font-size: 12px; color: #fff; text-align: center; }
+
+.fimg { width: 80px; height: 60px; }
+
+.imgupload { overflow: hidden; }
+.imgupload .item { width: 80px; height: 80px; float: left; margin: 5px 10px 5px 0; background: #eee no-repeat center; background-size: cover; position: relative; text-align: center; line-height: 80px; }
+.imgupload .item .delbtn { width: 18px; height: 18px; line-height: 18px; background: #f00; background: rgba(255, 0, 0, 0.75); position: absolute; right: 0; top: 0; font-size: 12px; color: #fff; }
+
+.fieldname { font-weight: bold; color: #000; text-align: right; }
+.layui-nav .layui-nav-item .avater{ margin-right: 10px; width: 35px; height: 35px; border-radius: 50%; }
+.iconfont { font-size: inherit; }
+.layui-logo .logo{ height: 45px; }
+
+.fytab { height: 40px; border-bottom: 1px solid #ddd; box-sizing: border-box; }
+.fytab li { height: 40px; float: left; padding: 0 20px; line-height: 40px; cursor: pointer; box-sizing: border-box; }
+.fytab .active { height: 40px; border-bottom: 2px solid #009688; }
+
+.console_con.layui-card { box-shadow: none; }
+.console_con .layui-col-xs3, .console_con .layui-col-xs2 { text-align: center }
+.console_con .layui-col-xs2 span{ font-size: 20px; font-weight: bold; vertical-align: middle; }
+.console_con .layui-col-xs2 span.text-red{ color: #FA7272; }
+.console_con .layui-col-xs2 span.text-yellow{ color: #FFC971; }
+.console_con .layui-col-xs2 span.text-green{ color: #22C93D; }
+.console_con .layui-col-xs2 span.text-cyan{ color: #0FB19A; }
+.console_con .layui-col-xs2 span.text-purple{ color: #4E10B1; }
+.console_con.layui-card .layui-card-body{ padding: 0; background-color: #f2f2f2; }
+.cai_con.layui-card { box-shadow: none; }
+.cai_con .layui-col-xs3 { text-align: center;  }
+.cai_con.layui-card .layui-card-body{ padding: 0; background-color: #f2f2f2; }
+.layadmin-backlog .layadmin-backlog-body.console_grid { padding: 25px 15px; background-color: #fff; font-size: 14px; color: #333; }
+.console_grid .img{ height: 50px; }
+.console_label{ position: relative; padding: 0 13px; height: 30px; line-height: 30px; font-size: 16px; color: #333; font-weight: bold; }
+.console_label::before{ display: block; position: absolute; top: 5px; left: 0; content: ''; width: 3px; height: 18px; background-color: #01c691; border-radius: 5px; }
+.process_box{ padding-right: 10px; height: 350px; overflow-y: scroll; } 
+.process_box::-webkit-scrollbar { width: 5px; height: 16px; background-color: #F5F5F5; }
+.process_box .process_item{ position: relative; padding-left: 20px; }
+.process_box .process_item::before{ display: block; position: absolute; top: 35px; left: 0; content: ''; width: 10px; height: 10px; border-radius: 5px; }
+.process_box .process_item .title{ height: 40px; line-height: 40px; font-size: 15px; color: #333; border-bottom: 1px solid #DEDEDE; }
+.process_box .process_item .title .date{ font-size: 14px; color: #666 }
+.process_box .desc{ height: 40px; line-height: 40px; font-size: 12px; color: #666; }
+.process_box .desc .iconfont{ margin-right: 5px; font-size: 16px; }
+.process_box .desc .concat{ font-size: 14px; }
+.process_box .process_item .photos .img{ margin: 0 8px 8px 0; width: 60px; height: 60px; }
+.tabs_label .tabs{ display: inline-block; margin-left: 10px; box-shadow: inset 0 0 5px -1px #888;; }
+.tabs_label .tabs .tab_item{ display: inline-block; padding: 0 15px; cursor: pointer; font-weight: 500; }
+.tabs_label .tabs .tab_item.active, .tabs_label .tabs .tab_item:hover{ background-color: #FFB800; color: #fff; }
+.jieduan_box .jieduan_label{ margin: 30px 0 15px; font-size: 16px; color: #333; }
+.jieduan_box .jieduan_item .status_icon{ display: inline-block; margin-right: 5px; width: 10px; height: 10px; border: 5px solid; border-radius: 50%; vertical-align: middle; }
+.jieduan_box .jieduan_item .status_icon.pay{ border-color: #01AAED }
+.jieduan_box .jieduan_item .status_icon.prod{ border-color: #009688 }
+.jieduan_box .jieduan_item .status_icon.send{ border-color: #FFB800 }
+.jieduan_box .jieduan_item .status_icon.down{ border-color: #FF5722 }
+.tabs_date .tabs{ display: inline-block; padding: 2px; height: 28px; background-color: #EFF1F3; font-size: 12px }
+.tabs_date .tabs .tab_item{ display: inline-block; padding: 0 10px; height: 28px;  cursor: pointer; border-radius: 3px; font-weight: 500; }
+.tabs_date .tabs .tab_item.active, .tabs_date .tabs .tab_item:hover{ background-color: #fff; color: #009688; }
+
+.layui-elem-field{ margin: 0 0 10px; padding: 15px; background-color: #fff; }
+
+.split-page .pull-left{ padding-left: 10px; line-height: 45px; }
+.split-page .pull-left .layui-btn{ margin-left: 10px; }
+.noborder .layui-input, .noborder .layui-textarea { border: none; }
+.no_margin .layui-form-item { margin-bottom: 0; }
+.overtime_box .label{ margin-bottom: 20px; }
+.overtime_box .layui-input-block{ margin: 0; }
+.overtime_box.margin_l .layui-input-block{ margin: 0 0 0 130px; }
+.overtime_box .layui-textarea{ resize: none; background-color: #F2F2F2; }
+.overtime_box.progress_box .layui-form-label{ padding-left: 0; float: none; text-align: left; }
+.overtime_box.progress_box .layui-form-block{ margin: 0 0 0 0; }
+.order_dsc .layui-btn { margin-left: 15px; }
+.merge{ margin: 15px; padding: 15px 15px 45px; background-color: #f2f2f2; border: 1px solid #f6f6f6; line-height: 24px; color: #666; }
+.merge .text-black{ color: #333; font-weight: bold; }
+.merge_btn{ position: fixed; left: 0; bottom: 0; padding: 0 15px; width: 100%; height: 50px; line-height: 50px; background-color: #fff; box-sizing: border-box; }
+.layui-table .img{ width: 50px; height: 50px; }
+.header_tabs { padding: 15px 15px 5px!important; }
+.header_tabs .tab_item{ display: inline-block; width: 120px; border-top: 5px solid transparent; font-size: 16px; text-align: center; cursor: pointer; }
+.header_tabs .tab_item.active, .header_tabs .tab_item:hover{ background-color: #f2f2f2; color: #009688; border-color: #009688; } 
+.header_tabs.layui-card-header.layuiadmin-card-header-auto { padding-bottom: 0; border-bottom-width: 3px; }
+.grab_con{ padding: 15px 0; background-color: #fff; }
+.grab_con .layui-form-item{ margin-bottom: 10px; }
+.grab_wrap{ height: calc(100vh - 125px); overflow-y: scroll; overflow-x: hidden; border-top: 10px solid #f2f2f2; background-color: #F2F2F2; }
+.grab_list .grab_item{ position: relative; }
+.grab_list .grab_item .layui-card-header{ padding: 15px; height: 60px; line-height: 30px; }
+.grab_list .grab_item .avater{ width: 60px; height: 60px; border-radius: 50%; }
+.grab_list .grab_item .item_info{ padding-top: 2px; margin-left: 15px; font-size: 16px; color: #333; }
+.grab_list .grab_item .item_info .date{ font-size: 14px; color: #666; }
+.grab_list .grab_item .status{ position: absolute; right: 15px; top: 30px; height: 40px; line-height: 40px; text-align: center; font-size: 14px; color: #333;}
+.grab_list .grab_item .status .img{ display: inline-block; margin-right: 5px; width: 25px; height: 25px; vertical-align: middle; color: #F59946; }
+.grab_list .grab_item .status.status_btn{ position: absolute; padding-left: 5px; right: 0; top: 30px; width: 80px; height: 40px; line-height: 40px; text-align: center; font-size: 14px; color: #fff;  }
+.grab_list .grab_item .status.dqd{ background: url(../images/icon_dqd.png) no-repeat center center; background-size: contain; }
+.grab_list .grab_item .status.qdz{ background: url(../images/icon_qdbg.png) no-repeat center center; background-size: contain; }
+.grab_list .grab_item .status.jbcg{ background: url(../images/icon_cgbg.png) no-repeat center center; background-size: contain; }
+.grab_list .grab_item .status.jbsb{ background: url(../images/icon_sbbg.png) no-repeat center center; background-size: contain; }
+.grab_list .grab_item .status.yys{ color: #54D37C; }
+.grab_list .grab_item .status.dsg, .grab_list .grab_item .status.dys, .grab_list .grab_item .status.sgz{ color: #F59946; }
+.grab_list .grab_item .item_con{  position: relative; }
+.grab_list .grab_item .item_con span{ color: #222; }
+.grab_list .grab_item .item_con span.text-green{ color:  #28A23F; }
+.grab_list .grab_item .item_con span.text-red{ color:  #FB3739; }
+.grab_list .grab_item .item_con .item_btns { text-align: right; }
+.grab_list .grab_item .item_con .item_opre { position: absolute; right: 20px; bottom: 20px; text-align: center; }
+.grab_list .grab_item .item_con .item_opre .opre_btn{ margin-bottom: 15px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; color: #fff; font-weight: bold; font-size: 24px; background: linear-gradient(-45deg, #fff, #f00); cursor: pointer; }
+.grab_list .grab_item .item_con .item_opre .success_img{ width: 80px; height: 80px; }
+.grab_con .before-primary { position: relative; }
+.grab_con .before-primary::before{ display: block; position: absolute; top: 10px; left: 45px; content: ''; width: 3px; height: 18px; background-color: #01c691; border-radius: 5px; }
+.cai_con{ margin-bottom: 10px; }
+.cai_con .cai_box{ text-align: center; }
+.cai_con .console_grid{ font-size: 16px; color: #333; }
+.cai_con .console_grid .img{ margin-right: 15px; width: 80px; height: 80px; }
+.cai_con .console_grid .label{ margin: 15px 0 10px; }
+.cai_con .console_grid .total .price{ font-size: 30px; color: #6083FB; font-weight: bold; }
+.cai_con .console_grid .balance .price{ font-size: 30px; color: #009688; font-weight: bold; }
+.cai_con .console_grid .deposit .price{ font-size: 30px; color: #A365F8; font-weight: bold; }
+.cai_con .console_grid .ti_btn{ margin: 15px; width: 100px; height: 40px; line-height: 40px; text-align: center; font-size: 20px; color: #009688; border: 1px solid #009688; border-radius: 20px; }
+.cai_con .date_box { margin-top: -3px; padding: 0 15px; height: 35px; line-height: 35px; border: 1px solid #999; border-radius: 15px; font-size: 14px; font-weight: 500; color: #666; cursor: pointer; }
+.cai_con .date_box .date_input{ height: 100%; border: none; outline: none; }
+.cai_con .date_box .layui-icon { margin-left: 15px; font-size: 16px; color: #FE6404; }
+.cai_con .console_label{ padding: 0; color: #000; font-weight: bold; }
+.cai_con .console_label::before{ display: none; }
+.cai_con  .cai_data_grid .label{ margin-bottom: 18px; line-height: 90px; font-size: 45px; font-weight: bold;}
+.cai_con  .console_grid .check_more{ display: inline-block; width: 120px; height: 35px; text-align: center; line-height: 35px; font-size: 14px; font-weight: 500; background-color: #009688; color: #fff; border-radius: 15px; }
+.cai_con .layui-table{ margin-top: 15px; }
+.card_list .card_item{ background: linear-gradient(45deg, #FEBB9A, #FC9074, #FA625C, #F94143, #F8343F); border-radius: 20px; box-shadow: 0 5px 10px -3px #999; }
+.card_list .card_item .card_head{ padding: 30px 15px; font-size: 24px; color: #fff; font-weight: bold; }
+.card_list .card_item .card_head .text-cut{ width: 80%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.card_list .card_item .card_head .logo{ margin-right: 10px; width: 50px; height: 50px; }
+.card_list .card_item .card_head .status{ margin-top: 12px; font-size: 16px; font-weight: 500; }
+.card_list .card_item .card_no{ padding: 0 30px; height: 100px; line-height: 100px; font-size: 14px; text-align: right; color: #fff; }
+.card_list .card_add { text-align: center; cursor: pointer; }
+.card_list .card_add .layui-icon{ margin: 40px auto 15px; width: 100px; height: 100px; line-height: 100px; background-color: #f2f2f2; color: #999; text-align: center; border-radius: 5px; }
+
+.company_info { padding: 50px; }
+.company_info .info_box{ margin: auto; width: 750px; }
+.company_info .tips{ margin-bottom: 30px; font-size: 16px; color: #333; text-align: center; }
+.company_info .avater .layui-upload-img{ width: 100px; height: 100px; cursor: pointer; }
+.company_info .layui-form-item .layui-input-inline { width: 290px; }
+.company_info .layui-form-item.select .layui-input-inline { width: 190px; }
+.company_info .layui-btn{ margin-top: 50px; }
+.company_info .layui-form-label{ text-align: left; }
+.home_box .banner .layui-upload-img { height: 80px; cursor: pointer; }
+.home_box .avater .layui-btn{ margin: 73px 0 0 15px; }
+.home_box .banner .layui-btn{ margin: 55px 0 0 15px; }
+.shop_page { padding: 30px 15px; }
+.shop_page .shop_box { padding: 15px; box-shadow: 0 0 5px 0 #ddd; line-height: 25px; }
+.shop_page .shop_box h3{ margin-bottom: 15px; font-weight: bold; color: #333; }
+.shop_page .shop_box .logo_box{ margin-bottom: 15px; width: 100%; height: 300px; background-size: cover; background-repeat: no-repeat; background-position: center; }
+.shop_page .shop_box .shop_sec{ padding: 15px 0; border-top: 1px solid #ddd; }
+.shop_page .shop_main .banner_box{ margin-bottom: 15px; width: 100%; height: 80px; background-size: cover; background-repeat: no-repeat; background-position: center; }
+.shop_page .shop_main .banner .banner_img{ width: 100%; height: 100%; }
+.shop_page .shop_item { padding: 15px 15px 5px; border: 1px solid #ddd; transition: all .3s; background-color: #fff; }
+.shop_page .shop_item:hover{ transform: scale(1.1); }
+.shop_page .shop_item .shop_img{ width: 100%; height: 200px; background-size: cover; background-repeat: no-repeat; background-position: center; }
+.shop_page .shop_item .title { font-size: 16px; color: #333; line-height: 35px; }
+.shop_page .shop_item .opre{ font-size: 16px; font-weight: bold; height: 35px; line-height: 35px; }
+.shop_page .shop_item .opre .layui-icon{ font-size: 26px }
+
+.materrial_box .materrial_head{ background-color: #fff; }
+.materrial_box .head_box{ margin: 20px auto; padding: 0 10px; }
+.materrial_box .title{ height: 90px; font-size: 18px; color: #333; font-weight: bold; } 
+.materrial_box .materrial_con{ font-size: 14px; color: #777; line-height: 40px; } 
+.materrial_box .materrial_con .materrial_item{ display: inline-block; width: 200px; text-align: left; }
+.materrial_box .materrial_con .materrial_item .text-red{ color: #FB3739; }
+.materrial_box .materrial_con .materrial_item .text-yellow{ color: #FAA13B; }
+.materrial_box .materrial_con .materrial_item .text-red.bold{ font-weight: bold; }
+.materrial_box .icon_status{ display: block; margin: 100px auto 10px; width: 100px; height: 100px; }
+.materrial_box .status_name { font-size: 14px; color: #55A528; text-align: center; }
+.materrial_line { margin-top: 28px; color: #0F0F0F; font-size: 16px }
+.materrial_line .line_left{ width: 200px; }
+.materrial_line .text-green{ color: #28A23F }
+.materrial_tabs .materrial_item{ display: inline-block; margin-right: 15px; padding: 0 8px; height: 25px; line-height: 25px; font-size: 14px; color: #999; border: 1px solid #EEEEEE; border-radius: 10px; cursor: pointer; }
+.materrial_tabs .materrial_item.active, .materrial_tabs .materrial_item:hover{ color: #fff; background-color: #56D17E; border-color: #56D17E;  }
+
+.materrial_box .swiper-box {margin: 20px auto;width: 100%}
+.materrial_box .layui-card { display: none; }
+.materrial_box .layui-card.show{ display: block; }
+.materrial_box .layui-card-header{ border-top: 1px solid #f6f6f6; }
+.materrial_box .layui-card-header h3{ position: absolute;left: 15px; }
+.materrial_box .layui-card-header h3 .layui-btn { margin-left: 15px; }
+.materrial_box .pic_page {position: absolute;z-index: 100;right: 20px;bottom: 20px;font-size: 18px;color: #FF5909;font-weight: bold}
+.materrial_box .pic_page img {display: block;width: 100%;height: 100%}
+.materrial_box .view {position: relative}
+.materrial_box .view .swiper-container {width: 100%;height:220px}
+.materrial_box .view .arrow-left {position: absolute;left: 0;top: 50%;margin-top: -25px;width: 28px;height: 50px;background: url('../images/arrow_l.png') no-repeat center;background-size: 100%;z-index: 10}
+.materrial_box .view .arrow-right {position: absolute;right: 0;top: 50%;margin-top: -25px;width: 28px;height: 50px;background: url('../images/arrow_r.png') no-repeat center;z-index: 10}
+.materrial_box .view .swiper-slide div {width: 100%;height: 100%;background-position: center;background-repeat: no-repeat;background-size: cover}
+.materrial_box .preview {width: 100%; height: 90px; margin-top: 18px;position: relative; overflow: hidden;}
+.materrial_box .preview .swiper-container {margin-left: 45px;margin-right: 45px; height: 100%;}
+.materrial_box .preview .swiper-slide {width: 158px;height: 90px;cursor: pointer;overflow: hidden}
+.materrial_box .preview .swiper-slide img {width: 145px;height: 86px;margin: 0 auto;border: 2px solid #edeef5}
+.materrial_box .preview .arrow-left {background-size: 100% 100%;position: absolute;left: 0px;top: 10px;margin-top: -9px;width: 44px;height: 90px;background: #353535;text-align: center;z-index: 10}
+.materrial_box .preview .arrow-left span {display: inline-block;width: 12px;height: 18px;background: url('../images/arrow_l@1x.png') no-repeat center;background-size: 100% 100%; margin-top: 34px}
+.materrial_box .preview .arrow-right {position: absolute;right: 0px;top: 10px;margin-top: -9px;width: 44px;height: 90px;background: #353535;text-align: center;z-index: 10}
+.materrial_box .preview .arrow-right span {display: inline-block;width: 12px;height: 18px;background: url('../images/arrow_r@1x.png') no-repeat center;background-size: 100% 100%;margin-top: 34px}
+.materrial_box .preview .active-nav img {padding: 0;border-color: #ff5909;opacity: .9}
+.materrial_cailiao tbody .img{ width: 50px; height: 50px; }
+.materrial_plans .text-green{ margin: 0 10px; color: #55A528; font-size: 14px }
+.materrial_plans .plan_names{ text-align: center; }
+.materrial_plans .plan_names .name{ font-size: 16px; color: #333; font-weight: bold; }
+.materrial_plans .plan_names .desc{ margin: 15px auto; font-size: 16px; color: #666 }
+.materrial_plans_item { padding: 15px; border-bottom: 1px solid #fff; }
+.materrial_plans_item .date { font-size: 16px; color: #333; font-weight: bold; }
+.materrial_plans_item .desc { margin-top: 8px; font-size: 14px; color: #666 }
+.materrial_plans_item .status { text-align: right; }
+.materrial_plans_item .status .btn { display: inline-block; padding: 0 10px; height: 25px; line-height: 25px; border-radius: 15px; border: 1px solid #DEDEDE; cursor: pointer; }
+.materrial_plans_item.down{ background-color: #EDFFF3; }
+.materrial_plans_item.down .status{ color: #55D07F; }
+.materrial_plans .plan_progress { vertical-align: text-top; }
+.materrial_plans .plan_progress .materrial_plans_item { padding: 10px 0; }
+.materrial_plans .plan_progress .img_box .img { margin: 5px 5px 0 0; width: 50px; height: 50px; border-radius: 5px;}
+.materrial_box .layui-carousel>[carousel-item]>* { display: flex; justify-content: center; align-items: center; }
+
+.materrial_change .change_list{ padding: 0 15px; }
+.materrial_change .change_list .change_item{ padding: 15px 0; }
+.materrial_change .change_list .change_item .change_user .avater{ margin-right: 15px; width: 50px; height: 50px; border-radius: 50%; }
+.materrial_change .change_list .change_item .change_user .name{ margin-top: 2px; font-size: 18px; color: #333;}
+.materrial_change .change_list .change_item .change_user .date{ margin-top: 2px; font-size: 14px; color: #999;}
+.materrial_change .change_list .change_item .change_cons{ margin-top: 10px; padding: 15px; background-color: #F2F2F2; font-size: 14px; color: #666; border: 1px solid #eee; }
+.materrial_change .change_list .change_item .change_cons .text-yellow{ color: #FAA13B; }
+.materrial_change .change_list .change_item .img_box .img { margin: 5px 5px 0 0; width: 50px; height: 50px; border-radius: 5px;}
+.materrial_change .change_list .change_item .cons_btns{ padding-top: 15px; text-align: right; }
+
+.gant { padding: 15px 0; background-color: #fff; }

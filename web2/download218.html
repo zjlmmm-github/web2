@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iHouse3D开发平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="assets/css/awesome.css">
+    <!--<link rel="stylesheet" href="assets/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="assets/fonts/themify-icons.css">
+
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.css">
+
+    <link rel="stylesheet" href="assets/css/animate.css">
+
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="assets/css/slick.css"/>
+    <link rel="stylesheet" href="assets/css/slick-theme.css"/>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcun icon" href="assets/img/favicon.ico">
+    <link rel="bookmark" href="assets/img/favicon.ico">
+    <link rel="stylesheet" href="assets/css/ui.css">
+    <link rel="stylesheet" href="assets/css/download.css">
+</head>
+<body>
+
+<div id="navigation" class="fixed-top navbar-light bg-faded site-navigation">
+</div>
+<section id="home" class="home_bg"
+         style="background-image: url(assets/img/bg/home-bg1.png);  background-size:cover; background-position: center center;height: 75px;">
+    <div class="container">
+    </div>
+</section>
+
+
+    <div class="detail-box counter_feature" id="app">
+        <div class="detail-box-info">
+            <div class="downTxt-box">
+                <p class="downTitle-box"><span class="bigTitle">免费版3D云设计源代码</span><span class="bbh">v1.0.00</span></p>
+                <p class="downTxt">
+                    建议使用谷歌浏览器调试
+                    <br>
+
+                    <br>
+                    欢迎加入技术沟通QQ群: 651290333
+                    <br><br>
+                                        发布时间：
+                    <br>
+                    2021年2月18日
+                </p><!--download/ihouse3d.rar-->
+                <a href="" class="video-play1">敬请期待</a>
+            </div>
+            <div class="downImg-box">
+                <el-carousel trigger="click" height="" arrow="never">
+                    <el-carousel-item v-for="item in imgList" :key="item.index">
+                        <img :src='item.img' style="width: 100%">
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+        </div>
+    </div>
+
+    <div class="detail-box counter_feature" id="app" style="background:#6db0ec;">
+        <div class="detail-box-info">
+            <div class="downTxt-box">
+                <p class="downTitle-box"><span class="bigTitle">iHouseMax建模大师(免费版源代码)</span><span class="bbh">v1.0.00</span></p>
+                <p class="downTxt">
+                    建议使用谷歌浏览器调试
+                    <br>
+
+                    <br>
+                    欢迎加入技术沟通QQ群: 651290333
+                    <br><br>
+                                        发布时间：
+                    <br>
+                    2021年第三季度
+                </p><!--download/ihouse3d.rar-->
+                <a href="" class="video-play1">敬请期待</a>
+            </div>
+            <div class="downImg-box">
+                <el-carousel trigger="click" height="" arrow="never">
+                    <el-carousel-item v-for="item in imgList" :key="item.index">
+                        <img :src='item.img' style="width: 100%">
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+        </div>
+    </div>
+<!-- START HOME -->
+<div class="footer-top section-padding">
+</div>
+
+<div class="footer">
+</div>
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/v.js"></script>
+<script src="assets/js/wx-login.js"></script>
+<script src="assets/js/jquery.sPage.js"></script>
+
+<!-- Latest compiled and minified Bootstrap -->
+<script src="assets/js/bootstrap.js"></script>
+<!-- modernizer JS -->
+<script src="assets/js/modernizr-2.8.3.min.js"></script>
+<!-- owl-carousel min js  -->
+<script src="assets/owlcarousel/js/owl.carousel.min.js"></script>
+<!-- jquery nav -->
+<script src="assets/js/jquery.nav.js"></script>
+<!-- jquery.slicknav -->
+<script src="assets/js/jquery.slicknav.js"></script>
+<!-- jquery smooth-scroll JS -->
+<script src="assets/js/smooth-scroll.js"></script>
+<!-- scrolltopcontrol js -->
+<script src="assets/js/scrolltopcontrol.js"></script>
+<!-- countTo js -->
+<script src="assets/js/jquery.inview.min.js"></script>
+<!-- Slick js -->
+<script src="assets/js/slick.min.js"></script>
+<!-- WOW - Reveal Animations When You Scroll -->
+<script src="assets/js/wow.min.js"></script>
+<!-- MAGNIFICANT JS -->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!-- form-contact js -->
+<script src="assets/js/form-contact.js"></script>
+<!-- scripts js -->
+<script src="assets/js/scripts.js"></script>
+<script src="headfooter.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/ui.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                imgList: [{
+                    index:0,
+                    img:'assets/img/interface_1.png'
+                }, {
+                    index:1,
+                    img:'assets/img/free001.png'
+                }, {
+                    index:2,
+                    img:'assets/img/interface_1.png'
+                }]
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>链接收藏</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <style>
+        #mySc{
+
+
+            margin-top: 50px;
+        }
+        #mySc>span{
+            display: inline-block;
+            margin: 10px;
+            text-decoration: underline;
+        }
+        a{
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+<div id="mySc"></div>
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.cookie.js"></script>
+<script src="assets/js/cookie.js"></script>
+<script>
+    loadFavorite()
+    function loadFavorite() {
+        $('#mySc').html('')
+        let url = 'http://www.ihouse3d.com.cn/users/' + cookie.fold + '/' + name + '/favorite.txt'
+        $.ajax({
+            type: 'GET',
+            cache: false,
+            url: url,
+            success: function (data) {
+                data = data.split(/[(\r\n)\r\n]+/)
+                for (let i = 0; i < data.length; i++) {
+
+
+                    if (data[i]===','){
+                        let itemInfo = `<br></br>`
+                        $('#mySc').append(itemInfo)
+                    }else {
+                        let item = data[i].split(',')
+                        let itemInfo = `<span style="font-size: 16px"><a href="${item[1]}" target="_blank">
+                ${item[0]}
+            </a></span>`
+                        $('#mySc').append(itemInfo)
+                    }
+                }
+            },
+            error: function () {
+                let txt = '技术宝库,http://www.ihouse3d.com/docs/docs.html'
+                let fold = cookie.fold
+                let path = 'C:/inetpub/wwwroot/users/' + fold + '/' + name + '/favorite.txt'
+                let data = '{"type":"string","pathfilename":"' + path + '","filedata":"' + encode(txt) + '"}'
+                $.ajax({
+                    url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                    type: 'POST',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: data,
+                    success: function (data) {
+                        if (data.code === '1') {
+                            loadFavorite()
+                        }
+                    }
+                })
+
+            }
+        })
+    }
+</script>
+</html>

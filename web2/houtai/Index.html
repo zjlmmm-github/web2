@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+
+    <title>iHouse3D后台端</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="style/admin.css" media="all">
+    <link rel="stylesheet" type="text/css" href="iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <!-- <script>
+        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+    </script> -->
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        .makeBox {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 2001;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .makeBox-detail {
+            padding: 20px;
+            width: 800px;
+            /*height: 500px;*/
+            margin: 100px auto;
+            background: #ffffff;
+            border-radius: 5px;
+        }
+
+        .makeBox-detail > p {
+            color: red;
+            margin-bottom: 20px;
+        }
+
+        #txt {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #e7e7e7;
+        }
+
+        .makeBtn-box {
+            display: flex;
+            justify-content: space-between;
+            width: 400px;
+            margin: 20px auto;
+        }
+
+        .saveBtn {
+            width: 102px;
+            height: 52px;
+            text-align: center;
+            line-height: 52px;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #409eff;
+        }
+
+        .saveBtn:hover {
+            background: #66b1ff;
+        }
+
+        .closeBtn {
+            width: 102px;
+            height: 52px;
+            text-align: center;
+            line-height: 52px;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #f56c6c;
+        }
+
+        .closeBtn:hover {
+            background: #f78989;
+        }
+
+        .picDetail {
+            width: 100%;
+            margin: 0 auto;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+
+        }
+
+        #bigPic {
+            width: 60%;
+            display: block;
+            margin: auto auto;
+            position: relative;
+            cursor: move;
+            /*max-width: 120% !important;*/
+            /*min-width: 30% !important;*/
+
+        }
+        .picClose{
+            width: 40px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <!-- 头部区域 -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layadmin-flexible" lay-unselect="">
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩" onclick="changeQQ()">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect="">
+                    <a href="javascript:;" layadmin-event="fullscreen" title="全屏">
+                        <i class="layui-icon layui-icon-screen-full"></i> 全屏
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect="">
+                    <a href="javascript:;" layadmin-event="refresh" title="刷新">
+                        <i class="layui-icon layui-icon-refresh-3"></i> 刷新
+                    </a>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+                <li class="layui-nav-item" lay-unselect="" style="padding-right: 15px;display: none" id="indexConfig">
+                    <a onclick="changePage('13')">
+                        <cite>首页管理</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect="" style="padding-right: 15px;">
+                    <a onclick="changePage('7')">
+                        <cite>个人充值</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect="" style="padding-right: 15px;">
+                    <a onclick="changePage('8')">
+                        <cite>个人信息</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect="" style="padding-right: 30px;">
+                    <a href="javascript:;">
+
+                        <cite id="nameDetail">管理员</cite>
+                    </a>
+                    <dl class="layui-nav-child layui-nav-child layui-anim layui-anim-upbit">
+                        <dd layadmin-event="logout" style="text-align: center;"><a
+                                style="display: flex;justify-content: space-between"><span>云币：</span><span
+                                id="cont"></span></a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu" style="background-color: #2A7368!important;">
+
+            <div class="layui-side-scroll">
+                <div id="qq">
+                    <p style="margin: 10px 0;text-align: center;font-size: 16px;margin-left: -20px">欢迎加入技术交流群</p>
+                    <p style="margin: 10px 0;text-align: center;font-size: 16px;margin-left: -20px">qq群：651290333</p>
+                </div>
+                <!--						<div class="layui-logo" target="main_self_frame" href="console.html" style="background-color: #2A7368!important;"><img src="images/logo.png" class="logo"></div>-->
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
+                    lay-filter="layadmin-system-side-menu">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a onclick="changePage('0')" lay-tips="3D云设计后台">
+                            <i class="icon iconfont icon-yingxiao"></i>
+                            <cite>3D云设计后台</cite>
+                        </a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a onclick="changePage('1')" lay-tips="开发日志">
+                            <i class="icon layui-icon layui-icon-date"></i>
+                            <cite>开发日志</cite>
+                        </a>
+
+                    </li>
+                    <li class="layui-nav-item">
+                        <a onclick="changePage('2')" lay-tips="开发文档管理">
+                            <i class="icon iconfont icon-copy"></i>
+                            <cite>开发文档管理</cite>
+                        </a>
+                        <!--								<dl class="layui-nav-child">-->
+                        <!--									<dd><a target="main_self_frame" onclick="setURL_kz(0)">绘制户型</a></dd>-->
+                        <!--									<dd><a target="main_self_frame" onclick="setURL_kz(1)">模块硬装</a></dd>-->
+                        <!--									<dd><a target="main_self_frame" onclick="setURL_kz(2)">部 品 库</a></dd>-->
+                        <!--									<dd><a target="main_self_frame" onclick="setURL_kz(3)">我的收藏</a></dd>-->
+                        <!--									<dd><a target="main_self_frame" onclick="setURL_kz(4)">我的设计</a></dd>-->
+                        <!--								</dl>-->
+                    </li>
+                    <li class="layui-nav-item">
+                        <a target="_blank" href="../faq.html" lay-tips="常见问题及处理">
+                            <i class="icon layui-icon layui-icon-help"></i>
+                            <cite>常见问题及处理</cite>
+                        </a>
+                        <!--								<dl class="layui-nav-child">-->
+                        <!--									<dd><a target="main_self_frame" href="http://localhost:63342/3d/baojia/kaizhuang/kaizhuangzhucai.html?username=123456">加工清单</a></dd>-->
+                        <!--									<dd><a target="main_self_frame" href="http://localhost:63342/3d/baojia/kaizhuang/BoardOptimized/index.html?username=123456">算料优化</a></dd>-->
+                        <!--									<dd><a target="main_self_frame" href="http://localhost:63342/3d/baojia/kaizhuang/baozhuangguanli.html?username=123456">包装管理</a></dd>-->
+                        <!--									<dd><a target="main_self_frame" href="http://localhost:63342/3d/baojia/kaizhuang/wuliaoguanli.html?username=123456">物料管理</a></dd>-->
+                        <!--								</dl>-->
+                    </li>
+                    <li class="layui-nav-item">
+                        <a target="main_self_frame" lay-tips="开发辅助工具">
+                            <i class="icon layui-icon layui-icon-util"></i>
+                            <cite>开发辅助工具</cite>
+
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a onclick="changePage('9')">模型查看器</a>
+                            </dd>
+                            <dd><a onclick="openPano()">全景编辑</a></dd>
+                            <dd><a onclick="changePage('3')">在线换装</a></dd>
+                            <dd><a onclick="changePage('4')">裁板工具</a></dd>
+                            <dd><a onclick="changePage('5')">全景生成工具</a></dd>
+                            <dd><a onclick="changePage('6')">法向量贴图</a></dd>
+                            <dd><a onclick="openShop()">在线商城</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a target="main_self_frame" lay-tips="免费资源">
+                            <i class="icon layui-icon layui-icon-util"></i>
+                            <cite>免费资源</cite>
+
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="../model.html" target="_blank">免费模型</a>
+                            </dd>
+                            <dd><a href="../bmp.html" target="_blank">免费贴图</a></dd>
+                            <dd><a href="../materialModel.html" target="_blank">实物模型</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="有用收藏">
+                            <i class="icon layui-icon layui-icon-star-fill"></i>
+                            <cite>有用收藏</cite>
+
+                        </a>
+                        <dl class="layui-nav-child" id="mySc">
+                            <dd id="linkBtn"><a  target="_blank" onclick="changePage('12')">
+                               链接收藏<i class="layui-icon layui-icon-edit" title="编辑" onclick="openMakeBox()"></i>
+                            </a></dd>
+                            <dd><a target="_blank" onclick="changePage('10')">
+                                图片收藏
+                            </a></dd>
+                            <dd><a  target="_blank" onclick="changePage('11')">
+                                视频收藏
+                            </a></dd>
+                        </dl>
+                    </li>
+<!--                    <li class="layui-nav-item">-->
+<!--                        <a href="javascript:;" lay-tips="图片收藏" onclick="changePage('10')">-->
+<!--                            <i class="icon layui-icon layui-icon-star-fill"></i>-->
+<!--                            <cite>图片收藏</cite>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="layui-nav-item">-->
+<!--                        <a href="javascript:;" lay-tips="视频收藏" onclick="changePage('11')">-->
+<!--                            <i class="icon layui-icon layui-icon-star-fill"></i>-->
+<!--                            <cite>视频收藏</cite>-->
+<!--                        </a>-->
+<!--                    </li>-->
+                    <!--							<li class="layui-nav-item">-->
+                    <!--								<a target="main_self_frame" href="user_manage.html" lay-tips="人员管理">-->
+                    <!--									<i class="icon iconfont icon-tuandui"></i>-->
+                    <!--									<cite>人员管理</cite>-->
+                    <!--								</a>-->
+                    <!--							</li>-->
+                    <!--							<li class="layui-nav-item">-->
+                    <!--								<a href="javascript:;" lay-tips="账户中心">-->
+                    <!--									<i class="icon iconfont icon-huiyuan"></i>-->
+                    <!--									<cite>账户中心</cite>-->
+                    <!--								</a>-->
+                    <!--								<dl class="layui-nav-child">-->
+                    <!--									<dd><a target="main_self_frame" href="company_info.html">装企信息</a></dd>-->
+                    <!--									<dd><a target="main_self_frame" href="reset_pwd.html">修改密码</a></dd>-->
+                    <!--									<dd><a target="main_self_frame" href="money_account.html">收款账户</a></dd>-->
+                    <!--								</dl>-->
+                    <!--							</li>-->
+                </ul>
+            </div>
+        </div>
+        <div id="makeBox" class="makeBox" style="display: none">
+            <div class="makeBox-detail">
+                <p>格式：网站名称,网站地址(英文逗号分隔,填写完一条数据后换行)</p><textarea id="txt"></textarea>
+                <div class="makeBtn-box">
+                    <p onclick="saveMakeTxt()" class="saveBtn">保存</p>
+                    <p onclick="closeMakeBox()" class="closeBtn">关闭</p>
+                </div>
+            </div>
+        </div>
+        <div class="makeBox" style="display: none" id="picBox" >
+            <img src="../assets/img/x.png" alt="" onclick="closePicBox(this)" class="picClose">
+            <div class="picDetail">
+                <img src="" id="bigPic" class="dragAble">
+            </div>
+        </div>
+        <!-- 用到了事件，勿删 -->
+        <!-- <div class="layadmin-pagetabs" id="LAY_app_tabs">
+            <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-down">
+                <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;"></a>
+                        <dl class="layui-nav-child layui-anim-fadein">
+                            <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                            <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                            <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+                <ul class="layui-tab-title" id="LAY_app_tabsheader">
+                    <li lay-id="console.html" lay-attr="console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                </ul>
+            </div>
+        </div> -->
+
+        <!-- 主体内容 -->
+        <div class="layui-body" id="LAY_app_body">
+            <div class="layadmin-tabsbody-item layui-show">
+                <iframe id="lay_inframe" src="../3dyun.html" name="main_self_frame" frameborder="0"
+                        class="layadmin-iframe"></iframe>
+            </div>
+        </div>
+
+        <!-- 辅助元素，一般用于移动设备下遮罩 -->
+        <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+</div>
+
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="layui/layui.all.js"></script>
+<script src="js/md5.js"></script>
+<script src="../assets/js/cookie.js"></script>
+<script>
+    layui.config({
+        base: '' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+
+    function openChat() {
+        layer.open({
+            type: 2,
+            title: false,
+            area: ['800px', '600px'],
+            content: 'chat.html',
+            yes: function (e, t) {
+                layer.close(e)
+            },
+        });
+    }
+
+    var payData = {
+        type: 2,
+        user_account: name
+    }
+
+    function setURL_kz(int) {
+
+        if (document.main_self_frame.m_version == undefined) {
+            let userName = 'zhouqj'
+            let timeStamp = Date.parse(new Date());
+            timeStamp = parseInt(timeStamp) / 1000;
+            let random = timeStamp; //随机数
+            let encodeData = `auth=${random}&timestamp=${timeStamp}&userid=${userName}&username=${userName}&key=PkRp3lrUAyL95Ku7FHzYvFA92LRugz0tFqrquFgzZQrHqZvFZpB2qqz`;
+            let singData = hex_md5(encodeData).toLowerCase();
+
+            //$('.layadmin-iframe').attr('src', `http://localhost:63342/3d/kz.html?auth=${random}&timestamp=${timeStamp}&userid=${userName}&username=${userName}&sign=${singData}&demohide=true&projectid=8`);
+            $('.layadmin-iframe').attr('src', `http://localhost:63342/3d/kz.html?auth=${random}&timestamp=${timeStamp}&userid=${userName}&username=${userName}&sign=${singData}&demohide=true&projectid=8&projectname=如家酒店&address=下城区华中南路86号&area=2000&linkman=张经理`);
+        } else {
+            window.frames['lay_inframe'].contentWindow.kzUrl_list(int);
+        }
+
+
+        // $('.layadmin-iframe').attr('src', `http://www.ihouse3d.com.cn/h5/kz.html?auth=${random}&timestamp=${timeStamp}&userid=${userName}&username=${userName}&sign=${singData}`);
+
+        // console.log($(window.frames["main_self_frame"].document).contents().find(".kz_left_conter"));
+        // window.open(`http://www.ihouse3d.com.cn/h5/index.html?auth=${random}&timestamp=${timeStamp}&userid=${userName}&username=${userName}&sign=${singData}`);
+    }
+
+    function openPano() {
+        // window.open('http://www.ihouse3d.com.cn/h5/Panoramagram/index.html?username=' + name)
+        $('.layadmin-iframe').attr('src', 'http://www.ihouse3d.com.cn/h5/Panoramagram/index.html?username=' + name)
+    }
+
+
+    function changePage(num) {
+        $('#LAY_app_body').show()
+        let linkArr = ['../3dyun.html', '../calendar/index.html', '../word.html', '../replace.html',
+            'http://www.ihouse3d.com.cn/h5/baojia/kaizhuang/BoardOptimized/board.html',
+            'http://www.ihouse3d.com.cn/h5/plugins/ImageToVr/index.html', '../cpetry/index.html', '../recharge.html',
+            '../rechargeList.html', 'http://www.ihouse3d.com.cn/h5/SimpleMaterial/materialTexture.html',
+            '../CollectionPic.html','../CollectionVideo.html','../CollectionLink.html','../indexConfig.html']
+        $('.layadmin-iframe').attr('src', linkArr[num])
+    }
+
+    $(function () {
+        let userType = ''
+        $.ajax({
+            url: `http://www.ihouse3d.com.cn/service1.asmx/ExecuteQuery`,
+            type: "post",
+            dataType: "json",
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            data: {
+                Database: "render",
+                Sql: `select * from accounttype_function`
+            },
+            success: function (data) {
+                if ("1" == data.code) {
+                    let JData = JSON.parse(data.data);
+                    let userList = []
+                    if (true == JData.ok) {
+                        let itemArr = JData.Table
+                        for (let i = 0; i < itemArr.length; i++) {
+                            let item = {
+                                type: itemArr[i].type,
+                                name: itemArr[i].name
+                            }
+                            userList.push(item)
+                        }
+                        let obj = userList.filter(function (ele) {
+                            return ele.type === ut
+                        })
+                        if (obj.length !== 0) {
+                            userType = obj[0].name
+                        } else if (ut === '11') {
+                            userType = '管理员'
+                        }
+
+                    }
+                } else {
+
+                }
+            },
+            complete: function (xmlHttpRequest) {
+
+            },
+            error: function (err) {
+
+
+            }
+        })
+        $('#nameDetail')[0].innerHTML = name + '，' + userType
+        $.ajax({
+            type: 'POST',
+            async: false,
+            url: 'http://www.ihouse3d.com.cn/PayWebService.asmx/Payment',
+            dataType: 'json',
+            data: {
+                PayData: JSON.stringify(payData)
+            },
+            success: function (data) {
+
+                document.getElementById('cont').innerHTML = data.count
+            }
+        })
+    })
+    // loadFavorite()
+
+    function loadFavorite() {
+        $('#mySc').html('')
+        let url = 'http://www.ihouse3d.com.cn/users/' + cookie.fold + '/' + name + '/favorite.txt?time=' + guid()
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (data) {
+                data = data.split(/[(\r\n)\r\n]+/)
+                for (let i = 0; i < data.length; i++) {
+                    let item = data[i].split(',')
+                    let itemInfo = `<dd><a href="${item[1]}" target="_blank">
+                ${item[0]}
+            </a></dd>`
+                    $('#mySc').append(itemInfo)
+                }
+            },
+            error: function () {
+                let txt = '技术宝库,http://www.ihouse3d.com/docs/docs.html'
+                let fold = cookie.fold
+                let path = 'C:/inetpub/wwwroot/users/' + fold + '/' + name + '/favorite.txt'
+                let data = '{"type":"string","pathfilename":"' + path + '","filedata":"' + encode(txt) + '"}'
+                $.ajax({
+                    url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                    type: 'POST',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: data,
+                    success: function (data) {
+                        if (data.code === '1') {
+                            loadFavorite()
+                        }
+                    }
+                })
+
+            }
+        })
+    }
+
+    function guid() {
+        return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function openMakeBox() {
+        $('#makeBox').show()
+        let url = 'http://www.ihouse3d.com.cn/users/' + cookie.fold + '/' + name + '/favorite.txt?time=' + guid()
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (data) {
+                document.getElementById('txt').value = data
+            },
+            error: function () {
+                document.getElementById('txt').value = '技术宝库,http://www.ihouse3d.com/docs/docs.html'
+            }
+        })
+    }
+
+    function encode(str) {
+// 对字符串进行编码
+        var encode = encodeURI(str);
+// 对编码的字符串转化base64
+        var base64 = btoa(encode);
+        return base64;
+    }
+
+    function saveMakeTxt() {
+        let txt = document.getElementById('txt').value
+        let fold = cookie.fold
+        let path = 'C:/inetpub/wwwroot/users/' + fold + '/' + name + '/favorite.txt'
+        let data = '{"type":"string","pathfilename":"' + path + '","filedata":"' + encode(txt) + '"}'
+        console.log(data)
+        $.ajax({
+            url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+            type: 'POST',
+            dataType: "json",
+            contentType: "application/json",
+            data: data,
+            success: function (data) {
+                if (data.code === '1') {
+                    alert('保存成功！')
+                }
+            }
+        })
+    }
+
+    function closeMakeBox() {
+        $('#makeBox').hide()
+        $('#linkBtn a').click()
+    }
+
+    function openShop() {
+        let _pwd = cookie.passW
+        $.ajax({
+            url: 'http://www.ihouse3d.cn/Service1.asmx/ExecuteQuery',
+            type: "post",
+            dataType: "json",
+            async: true,
+            contentType: "application/x-www-form-urlencoded",
+            data:
+                {
+                    Database: "shopxo",
+                    Sql: `select username from  s_user where username='${name}'`
+                },
+            success: function (data) {
+                if ("1" == data.code) {
+                    let JData = JSON.parse(data.data);
+                    let userList = []
+                    if (true == JData.ok) {
+                        window.open('http://www.ihouse3d.cn/shop/public/index.php?s=/index/index/index.html&userTxt=' + name + ',' + _pwd)
+                    } else {
+                        window.open('http://www.ihouse3d.cn/shop/public/index.php?s=/index/user/reginfo.html&userTxt=' + name + ',' + _pwd)
+                    }
+                } else {
+                    //帐号不存在
+
+                }
+            },
+            complete: function (xmlHttpRequest) {
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function closePicBox(obj) {
+        let father=obj.parentNode
+        $(father).hide()
+    }
+
+    function stopPropagation(e) {
+        e = e || window.event;
+        if (e.stopPropagation) { //W3C阻止冒泡方法
+            e.stopPropagation();
+        } else {
+            e.cancelBubble = true; //IE阻止冒泡方法
+        }
+    }
+
+    function childrenClick() {
+        stopPropagation()
+    }
+
+    window.onload = function () {
+        console.log(cookie)
+        if (cookie.ut==='11'){
+            $('#indexConfig').show()
+        }
+        var oImg = document.getElementById("bigPic");
+        console.log(oImg)
+        function fnWheel(obj, fncc) {
+            obj.onmousewheel = fn;
+            if (obj.addEventListener) {
+                obj.addEventListener('DOMMouseScroll', fn, false);
+            }
+
+            function fn(ev) {
+                var oEvent = ev || window.event;
+                var down = true;
+                if (oEvent.detail) {
+                    down = oEvent.detail > 0
+                } else {
+                    down = oEvent.wheelDelta < 0
+                }
+                if (fncc) {
+                    fncc.call(this, down, oEvent);
+                }
+                if (oEvent.preventDefault) {
+                    oEvent.preventDefault();
+                }
+                return false;
+            }
+        };
+        fnWheel(oImg, function (down, oEvent) {
+            var oldWidth = this.offsetWidth;
+            var oldHeight = this.offsetHeight;
+            var oldLeft = this.offsetLeft;
+            var oldTop = this.offsetTop;
+            var scaleX = (oEvent.clientX - oldLeft) / oldWidth; //比例
+            var scaleY = (oEvent.clientY - oldTop) / oldHeight;
+            console.log(oldWidth,oldHeight)
+            if (down) {
+                this.style.width = this.offsetWidth * 0.9 + "px";
+                this.style.height = this.offsetHeight * 0.9 + "px";
+            } else {
+                this.style.width = this.offsetWidth * 1.1 + "px";
+                this.style.height = this.offsetHeight * 1.1 + "px";
+            }
+            var newWidth = this.offsetWidth;
+            var newHeight = this.offsetHeight;
+            this.style.left =( oldLeft - scaleX * (newWidth - oldWidth) )/4+"px";
+            this.style.top = oldTop - scaleY * (newHeight - oldHeight) + "px";
+        });
+    }
+
+    var ie = document.all;
+    var nn6 = document.getElementByIdx && !document.all;
+    var isdrag = false;
+    var y, x;
+    var oDragObj;
+
+    function moveMouse(e) {
+        if (isdrag) {
+            oDragObj.style.top = (nn6 ? nTY + e.clientY - y : nTY + event.clientY - y) + "px";
+            oDragObj.style.left = (nn6 ? nTX + e.clientX - x : nTX + event.clientX - x) + "px";
+            if (oDragObj.style.left>1100){
+                oDragObj.style.left=1100
+            }
+                return false;
+        }
+    }
+
+    function initDrag(e) {
+        var oDragHandle = nn6 ? e.target : event.srcElement;
+        var topElement = "HTML";
+        while (oDragHandle.tagName != topElement && oDragHandle.className != "dragAble") {
+            oDragHandle = nn6 ? oDragHandle.parentNode : oDragHandle.parentElement;
+        }
+        if (oDragHandle.className == "dragAble") {
+            isdrag = true;
+            oDragObj = oDragHandle;
+            nTY = parseInt(oDragObj.style.top + 0);
+            y = nn6 ? e.clientY : event.clientY;
+            nTX = parseInt(oDragObj.style.left + 0);
+            x = nn6 ? e.clientX : event.clientX;
+            document.onmousemove = moveMouse;
+            return false;
+        }
+    }
+
+    document.onmousedown = initDrag;
+    document.onmouseup = new Function("isdrag=false");
+    function changeQQ() {
+        let obj=document.getElementById('qq')
+        if (obj.style.display==='none'){
+            obj.style.display='block'
+        }else {
+            obj.style.display='none'
+        }
+    }
+</script>
+</body>
+</html>

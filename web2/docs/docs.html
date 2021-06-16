@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>第三方3D技术资料库</title>
+	<link rel="stylesheet" href="css/config.css">
+	<link rel="stylesheet" href="css/element.css">
+	<link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+	<div id="app">
+		<div style="left:300px;right:0px;top:0px;bottom:0px;position:absolute;overflow: hidden;">
+			<iframe class="canvas" src="info.html" frameborder="0" style="width:100%;height:100%;overflow: auto"></iframe>
+		</div>
+		<div class="leftWindow">
+			<div class="list_header">
+				<p>第三方3D技术资料库</p>
+			</div>
+			<div class="select_blcok">
+				<el-select v-model="left_value" placeholder="请选择">
+				    <el-option
+				      v-for="item in left_options"
+				      :key="item.value"
+				      :label="item.label"
+				      :value="item.value">
+				    </el-option>
+				</el-select>
+			</div>
+			<div class="conter_body">
+				<el-scrollbar style="height:100%;overflow-y: auto;">
+					<div class="kz_three">
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>综合3D技术资料</span>
+							</div>
+							<div class="three_cneter_body">
+								<div class="three_cneter_header active">
+									<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>ThreeJS读写CAD</span>
+								</div>
+							
+								<div class="three_cneter_body">
+										<div class="three_cneter_item" onclick="OnShow('cadexchanger.com/blog/how-to-load-3d-cad-data-into-three-js')">
+											<i class="el-icon-link"></i><span>CAD Exchanger</span>
+										</div>									
+								</div>
+							</div>
+							<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('blog.csdn.net/Vikanill/article/details/83305609')">
+										<i class="el-icon-link"></i><span>墙面换贴图原理参考</span>
+									</div>									
+							</div>								
+							<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('blog.csdn.net/qq_35158695/article/details/94410480')">
+										<i class="el-icon-link"></i><span>墙体操作相关</span>
+									</div>									
+							</div>							
+							
+							<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('blog.csdn.net/weixin_36822002/article/details/79907812')">
+										<i class="el-icon-link"></i><span>ThreeJS中文字体乱码问题</span>
+									</div>									
+							</div>	
+							<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('segmentfault.com/a/1190000004567538?utm_source=tag-newest')">
+										<i class="el-icon-link"></i><span>Threejs显示中文字体</span>
+									</div>									
+							</div>
+							<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('blog.csdn.net/tang05709/article/details/86580434')">
+										<i class="el-icon-link"></i><span>Threejs二维轮廓线</span>
+									</div>									
+							</div>	
+							<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('www.jianshu.com/p/61ba1906f9a7')">
+										<i class="el-icon-link"></i><span>Threejs事件绑定插件</span>
+									</div>									
+							</div>	
+							<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('www.cnblogs.com/chaogex/p/13199224.html?utm_source=tuicool')">
+										<i class="el-icon-link"></i><span>WebGPU+光线追踪RayTracing</span>
+									</div>									
+							</div>	
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('dbbh666.blog.csdn.net/')">
+									<i class="el-icon-link"></i><span>Threejs的shader入门教程</span>
+								</div>
+							</div>	
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('thebookofshaders.com/',1)">
+									<i class="el-icon-link"></i><span>shader教程</span>
+								</div>
+							</div>							
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('codepen.io/mitsuya_bauhaus/pen/YzyQXqR?editors=1010',1)">
+									<i class="el-icon-link"></i><span>切割</span>
+								</div>
+							</div>							
+							
+						</div>
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>ThreeJS技术</span>
+							</div>
+								<div class="three_cneter_body">
+									<div class="three_cneter_header">
+										<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>基础教程</span>
+									</div>
+									<div class="three_cneter_body">
+										<div class="three_cneter_item" onclick="OnShow('www.geofx.com/graphics/nehe-three-js/nehe-three-js.html')">
+											<i class="el-icon-link"></i><span>nehe的教程</span>
+										</div>
+										<div class="three_cneter_item" onclick="OnShow('www.webgl3d.cn')">
+											<i class="el-icon-link"></i><span>Threejs中文网</span>
+										</div>	
+										<div class="three_cneter_item" onclick="OnShow('edu.51cto.com/center/course/lesson/index?id=216924')">
+											<i class="el-icon-link"></i><span>51cto学院</span>
+										</div>
+										<div class="three_cneter_item" onclick="OnShow('www.hiwebgl.com/?p=42')">
+											<i class="el-icon-link"></i><span>WebGL中文教程</span>
+										</div>						
+										<div class="three_cneter_item" onclick="OnShow('webglfundamentals.org/webgl/lessons/zh_cn/webgl-fundamentals.html#toc')">
+											<i class="el-icon-link"></i><span>WebGL学习</span>
+										</div>	
+										<div class="three_cneter_item" onclick="OnShow('mugen87.github.io/yuka/')">
+											<i class="el-icon-link"></i><span>YUKA开发游戏的类库</span>
+										</div>										
+									</div>
+								</div>
+								<div class="three_cneter_body">
+									<div class="three_cneter_header">
+										<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>计算机图形学</span>
+									</div>
+									<div class="three_cneter_body">
+										<div class="three_cneter_item" onclick="OnShow('github.com/yszhao91/cga.js')">
+											<i class="el-icon-link"></i><span>3D 计算几何算法库</span>
+										</div>
+						
+										<div class="three_cneter_item" onclick="OnShow('sean.cm/a/polygon-clipping-pt2')">
+											<i class="el-icon-link"></i><span>Polygon Clipping</span>
+										</div>
+										<div class="three_cneter_item" onclick="OnShow('jsclipper.sourceforge.net/6.4.2.2/index.html?p=starter_boolean.html')">
+											<i class="el-icon-link"></i><span>Clipper</span>
+										</div>	
+										<div class="three_cneter_item" onclick="OnShow('github.com/sshirokov/ThreeBSP',1)">
+											<i class="el-icon-link"></i><span>ThreeBSP</span>
+										</div>	
+										<div class="three_cneter_item" onclick="OnShow('www.meshlab.net',1)">
+											<i class="el-icon-link"></i><span>MeshLab开源三维几何处理</span>
+										</div>										
+									</div>
+								</div>	
+								<div class="three_cneter_body">
+									<div class="three_cneter_header">
+										<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>光照相关</span>
+									</div>
+									<div class="three_cneter_body">
+										<div class="three_cneter_item" onclick="OnShow('jeromeetienne.github.io/threex.volumetricspotlight/examples/basic.html')">
+											<i class="el-icon-link"></i><span>探照灯</span>
+										</div>
+						
+										<div class="three_cneter_item" onclick="OnShow('sean.cm/a/polygon-clipping-pt2')">
+											<i class="el-icon-link"></i><span>Polygon Clipping</span>
+										</div>
+										<div class="three_cneter_item" onclick="OnShow('jsclipper.sourceforge.net/6.4.2.2/index.html?p=starter_boolean.html')">
+											<i class="el-icon-link"></i><span>Clipper</span>
+										</div>										
+									</div>
+								</div>	
+								<div class="three_cneter_body">
+									<div class="three_cneter_header">
+										<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>实时渲染技术</span>
+									</div>
+									<div class="three_cneter_body">
+										<div class="three_cneter_item" onclick="OnShow('sanonz.github.io/2018/offscreen-render-target-with-three-js')">
+											<i class="el-icon-link"></i><span>RenderTarget离屏渲染</span>
+										</div>
+										<div class="three_cneter_item" onclick="OnShow('github.com/erichlof/THREE.js-PathTracing-Renderer',1)">
+											<i class="el-icon-link"></i><span>Pathtracing Renderer</span>
+										</div>
+			
+									</div>
+								</div>	
+
+							<div class="three_cneter_body">
+								<div class="three_cneter_header">
+									<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>物理引擎</span>
+								</div>
+								<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('chandlerprall.github.io/Physijs/')">
+										<i class="el-icon-link"></i><span>Physijs</span>
+									</div>									
+								</div>
+								<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('schteppe.github.io/cannon.js/')">
+										<i class="el-icon-link"></i><span>cannon.js</span>
+									</div>									
+								</div>	
+							</div>
+							<div class="three_cneter_body">
+								<div class="three_cneter_header">
+									<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>碰撞检测</span>
+								</div>
+								<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('wow.techbrood.com/fiddle/27807')">
+										<i class="el-icon-link"></i><span>碰撞检测例子</span>
+									</div>
+									<div class="three_cneter_item" onclick="OnShow('zhuanlan.zhihu.com/p/157583852')">
+										<i class="el-icon-link"></i><span>带重力碰撞的第一人称视角</span>
+									</div>									
+								</div>
+							</div>
+						</div>
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>BIM技术</span>
+							</div>
+								<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('xeokit.io')">
+										<i class="el-icon-link"></i><span>xeokit SDK</span>
+									</div>
+									<div class="three_cneter_item" onclick="OnShow('www.glendale.top/yuandaima.aspx')">
+										<i class="el-icon-link"></i><span>葛兰岱尔开发源代码</span>
+									</div>								
+								</div>		
+						</div>	
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>CAD/CAM</span>
+							</div>
+								<div class="three_cneter_body">	
+									<div class="three_cneter_item" onclick="OnShow('cloud.cadbrother.com/sharelink/r1oKSaEkHByloKS641r')">
+										<i class="el-icon-link"></i><span>机械设备展示例子</span>
+									</div>									
+								</div>		
+						</div>						
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>增强现实</span>
+							</div>
+								<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('blog.csdn.net/ALLENJIAO/article/details/100010014')">
+										<i class="el-icon-link"></i><span>Web AR-ThreeJS增强现实</span>
+									</div>									
+								</div>							
+						</div>			
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>SIGGRAPH文章集</span>
+							</div>	
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('s2021.siggraph.org')">
+									<i class="el-icon-link" ></i><span>SIGGRAPH 2021</span>
+								</div>
+								<div class="three_cneter_item" onclick="OnShow('s2020.siggraph.org')">
+									<i class="el-icon-link" ></i><span>SIGGRAPH 2020</span>
+								</div>								
+								<div class="three_cneter_item" onclick="OnShow('s2019.siggraph.org')">
+									<i class="el-icon-link" ></i><span>SIGGRAPH 2019</span>
+								</div>
+								<div class="three_cneter_item" onclick="OnShow('s2018.siggraph.org')">
+									<i class="el-icon-link" ></i><span>SIGGRAPH 2018</span>
+								</div>
+								<div class="three_cneter_item" onclick="OnShow('www.realtimerendering.com')">
+									<i class="el-icon-link" ></i><span>Real-Time Rendering Resources</span>
+								</div>		
+							</div>									
+						</div>
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>模型格式</span>
+							</div>
+								<div class="three_cneter_body">
+									<div class="three_cneter_item" onclick="OnShow('blog.csdn.net/linziping/article/details/100739991')">
+										<i class="el-icon-link"></i><span>obj文件、mtl文件结构说明</span>
+									</div>								
+								</div>		
+						</div>						
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>有用例子库</span>
+							</div>
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('www.realtimerendering.com/threejs')">
+									<i class="el-icon-link"></i><span>Real-Time Rendering</span>
+								</div>								
+								<div class="three_cneter_item" onclick="OnShow('tutorialzine.com/2013/09/20-impressive-examples-for-learning-webgl-with-three-js')">
+									<i class="el-icon-link"></i><span>20个特色的例子</span>
+								</div>
+								<div class="three_cneter_item" onclick="OnShow('alexan0308.github.io/threejs/examples/#games/labirint/index')">
+									<i class="el-icon-link"></i><span>国外的例子库</span>
+								</div>								
+
+								<div class="three_cneter_item" onclick="OnShow('www.jq22.com/yanshi21216')">
+									<i class="el-icon-link"></i><span>魔方源代码</span>
+								</div>
+								<div class="three_cneter_item" onclick="OnShow('www.threejsgames.com/extensions')">
+									<i class="el-icon-link"></i><span>THREEx</span>
+								</div>	
+								<div class="three_cneter_item" onclick="OnShow('freefrontend.com/three-js-examples')">
+									<i class="el-icon-link"></i><span>39 Three JS Examples</span>
+								</div>
+								<div class="three_cneter_item" onclick="OnShow('alexan0308.github.io/threejs/examples/#controls_events_example')">
+									<i class="el-icon-link"></i><span>国外例子</span>
+								</div>
+								<div class="three_cneter_item" onclick="OnShow('www.techbrood.com')">
+									<i class="el-icon-link"></i><span>国内综合型例子</span>
+								</div>
+								<div class="three_cneter_item" onclick="OnShow('opensourcerover.jpl.nasa.gov')">
+									<i class="el-icon-link"></i><span>NASA的threejs例子</span>
+								</div>
+								<div class="three_cneter_item" onclick="OnShow('www.nunustudio.org')">
+									<i class="el-icon-link"></i><span>nunustudio</span>
+								</div>	
+								<div class="three_cneter_item" onclick="OnShow('lo-th.github.io/root/traffic/')">
+									<i class="el-icon-link"></i><span>室外交通道路的例子</span>
+								</div>	
+								<div class="three_cneter_item" onclick="OnShow('maptalks.org')">
+									<i class="el-icon-link"></i><span>maptalks+three</span>
+								</div>									
+							</div>			
+						</div>	
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>在线模型查看器</span>
+							</div>
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('gltf-viewer.donmccurdy.com')">
+									<i class="el-icon-link"></i><span>gltf模型查看</span>
+								</div>																
+							</div>			
+						</div>						
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>牛人网站</span>
+							</div>
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('www.john-keith.cn/animation/circle')">
+									<i class="el-icon-link"></i><span>汤圆小站</span>
+								</div>
+							</div>
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('shader.ecoblog.online/index.html#/Shader2Dpreview')">
+									<i class="el-icon-link"></i><span>桔子桑</span>
+								</div>
+							</div>							
+							
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('duoduoview.com/homepage')">
+									<i class="el-icon-link"></i><span>朵朵视野</span>
+								</div>
+							</div>
+
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('blog.csdn.net/lin5165352')">
+									<i class="el-icon-link"></i><span>动力装甲</span>
+								</div>
+							</div>
+							
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('www.wjceo.com/blog/threejs2/')">
+									<i class="el-icon-link"></i><span>暮志未晚</span>
+								</div>
+							</div>
+
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('http://ufcjd3.coding-pages.com/')">
+									<i class="el-icon-link"></i><span>Jeff Zhong</span>
+								</div>
+							</div>
+							
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('www.wellyyss.cn')">
+									<i class="el-icon-link"></i><span>跃焱邵隼</span>
+								</div>
+							</div>
+
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('blog.csdn.net/Chou_Junn')">
+									<i class="el-icon-link"></i><span>跃焱邵隼的博客</span>
+								</div>
+							</div>
+		
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('www.yanhuangxueyuan.com')">
+									<i class="el-icon-link"></i><span>郭隆邦</span>
+								</div>
+							</div>	
+	
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('blog.csdn.net/shenmifangke/article/details/54729572?utm_source=blogxgwz5')">
+									<i class="el-icon-link"></i><span>神米米</span>
+								</div>
+							</div>
+							
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('www.mrguo.link/home')">
+									<i class="el-icon-link"></i><span>郭先生</span>
+								</div>
+							</div>	
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('hpugis.blog.csdn.net/')">
+									<i class="el-icon-link"></i><span>HPUGIS博客</span>
+								</div>
+							</div>							
+						</div>
+						<div class="three_cneter">
+							<div class="three_cneter_header">
+								<i class="el-icon-caret-bottom"></i><i class="el-icon-folder-opened"></i><span>参考网站</span>
+							</div>
+							<div class="three_cneter_body">
+								<div class="three_cneter_item" onclick="OnShow('www.evdo.vip')">
+									<i class="el-icon-link"></i><span>医维度</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</el-scrollbar>
+			</div>
+		</div>
+		<p style="right:180px;top:40px;position:absolute;opacity:0.8">无法打开网站，请在新窗口浏览</p>
+		<el-button plain class="Printing" v-on:click="OpenWindow()">新窗口打开</el-button>
+	</div>
+
+	<script src="js/vue.min.js"></script>
+	<script src="js/element.js"></script>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/docs.js"></script>
+</body>
+</html>

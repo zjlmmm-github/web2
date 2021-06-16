@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>烘焙步骤</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .bg{
+            width: 100%;
+            background: #f6f6f6;
+        }
+        .box{
+            min-height: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding-bottom: 50px;
+        }
+        .title{
+            font-size: 28px;
+            line-height: 20px;
+            text-align: center;
+            font-weight: bold;
+            padding: 20px 0;
+        }
+        .list-title{
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+            padding-bottom: 20px;
+        }
+        .pic{
+            width: 800px;
+            margin-left: 20px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="bg">
+    <div class="box">
+        <p class="title">UV展开步骤</p>
+        <div style="margin: 0 auto;width: 800px">
+            <p class="list-title">1.打开VR的MAX文件，另存为3DS的MAX文件，所有的元素按大小分离（烘焙贴图大小最大不超过512x512像素，通用为256X256）</p>
+            <img src="image/hong1.png" class="pic">
+            <p class="list-title">2、按分离好的对象，分别在UV通道3中展开UV，删除掉隐藏的面。</p>
+            <img src="image/hong2.png" class="pic">
+            <img src="image/hong3.png" class="pic">
+            <img src="image/hong4.png" class="pic">
+            <img src="image/hong5.png" class="pic">
+            <img src="image/hong6.png" class="pic">
+            <img src="image/hong7.png" class="pic">
+            <p class="list-title">3、保存3DS的MAX文件，另存为灯光MAX文件</p>
+            <p class="list-title">4、导入模板灯光和渲染设置</p>
+            <img src="image/hong8.png" class="pic">
+            <img src="image/hong9.png" class="pic">
+            <img src="image/hong10.png" class="pic">
+            <p class="list-title">5、复制VR文件夹中的贴图到3DS文件夹</p>
+            <img src="image/hong11.png" class="pic">
+            <p class="list-title">6、调整烘焙参数及烘焙贴图的名称/存储位置/格式等信息后烘焙贴图</p>
+            <img src="image/hong12.png" alt="" class="pic">
+            <p class="list-title">7、保存灯光max文件，打开3DSmax文件，将烘焙完的贴图赋予模型，将UV通道3中的UV移动到通道1，</p>
+            <img src="image/hong13.png" alt="" class="pic"><img src="image/hong14.png" alt="" class="pic">
+        </div>
+    </div>
+</div>
+</body>
+</html>

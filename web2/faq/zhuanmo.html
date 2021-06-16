@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>转模处理</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .bg{
+            width: 100%;
+            background: #f6f6f6;
+        }
+        .box{
+            min-height: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding-bottom: 50px;
+        }
+        .title{
+            font-size: 28px;
+            line-height: 20px;
+            text-align: center;
+            font-weight: bold;
+            padding: 20px 0;
+        }
+        .list-title{
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+            padding-bottom: 20px;
+        }
+        .pic{
+            width: 800px;
+            margin-left: 20px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="bg">
+    <div class="box">
+        <p class="title">转模处理步骤</p>
+        <div style="margin: 0 auto;width: 800px">
+            <p class="list-title">1.模型下载</p>
+            <a href="https://www.justeasy.cn/index.html" class="list-title" style="text-decoration:underline" target="_blank">https://www.justeasy.cn/index.html</a>
+            <a href="https://www.3d66.com/model.html" class="list-title" style="text-decoration:underline" target="_blank">https://www.3d66.com/model.html</a>
+            <p class="list-title">2、（导出VR文件）打开要处理的模型，另存为导出VR文件的MAX文件，重命名为（英文+数字），注：不超过八位数</p>
+            <p class="list-title">3、调整材质和贴图导出VR文件：</p>
+            <p class="list-title"> a、解散全部组,去掉涡轮平滑，转换为可编辑多边形后附加成一个整体</p>
+            <img src="zhuan/图片1.png" class="pic">
+            <img src="zhuan/图片2.png" class="pic">
+            <img src="zhuan/图片3.png" class="pic">
+            <img src="zhuan/图片4.png" class="pic">
+            <img src="zhuan/图片5.png" class="pic">
+            <p class="list-title">b、单位统一调整为毫米</p>
+            <img src="zhuan/图片6.png" class="pic">
+            <p class="list-title">c、停止启用Gamma校正</p>
+            <img src="zhuan/图片7.png" class="pic">
+            <p class="list-title">d、用场景助手插件把模型的坐标轴调整到模型</p>
+            <img src="zhuan/图片8.png" class="pic">
+            <img src="zhuan/图片9.png" class="pic">
+            <p class="list-title">e、顶视图中通过旋转调整模型朝向（正面向前）</p>
+            <img src="zhuan/图片10.png" class="pic">
+            <img src="zhuan/图片11.png" class="pic">
+            <p class="list-title">f、模型世界坐标轴归零(鼠标右键点击即可归零)</p>
+            <img src="zhuan/图片12.png" class="pic">
+            <img src="zhuan/图片13.png" class="pic">
+            <p class="list-title">j、在元素模式下，选中模型所有元素分离为对象，删除掉除分离对象以外的东西</p>
+            <img src="zhuan/图片14.png" class="pic">
+            <img src="zhuan/图片15.png" class="pic">
+            <img src="zhuan/图片16.png" class="pic">
+            <p class="list-title"> k、调整模型材质及贴图</p>
+            <p class="list-title">01、按m键打开材质编辑器，重置材质编辑器窗口，拾取模型材质。Shift+T面板贴图路径正确、贴图重命名插件修改贴图名字（字母加数字，不超过八个字符）</p>
+            <img src="zhuan/图片17.png" class="pic">
+            <img src="zhuan/图片18.png" class="pic">
+            <img src="zhuan/图片19.png" class="pic">
+            <img src="zhuan/图片20.png" class="pic">
+            <p class="list-title">l、重置变换俩次，查看模型是否反面。如果有反面，执行翻转或者法线命令，再重置变换俩次，塌陷全部；没有反面直接塌陷全部。</p>
+            <img src="zhuan/图片21.png" class="pic">
+            <img src="zhuan/图片22.png" class="pic">
+            <img src="zhuan/图片23.png" class="pic">
+            <p class="list-title">m、调整渲染设置（渲染设置里面不能有贴图，可先调回默认扫描线渲染器，再切换到VR渲染器即可</p>
+            <img src="zhuan/图片24.png" class="pic">
+            <img src="zhuan/图片25.png" class="pic">
+            <p class="list-title"> o、场景清理</p>
+            <img src="zhuan/图片26.png" class="pic">
+            <p class="list-title">P、另存为导出VR文件的MAX</p>
+            <img src="zhuan/图片27.png" class="pic">
+            <p class="list-title">q、导出VR文件</p>
+            <img src="zhuan/图片28.png" class="pic">
+            <img src="zhuan/图片29.png" class="pic">
+            <img src="zhuan/图片30.png" class="pic">
+            <p class="list-title">四、（导出3DS）打开导出VR的MAX文件，另存为导出3DS的MAX文件。</p>
+            <p class="list-title">a、材质转换：转换所有材质为标准材质</p>
+            <img src="zhuan/图片31.png" class="pic">
+            <p class="list-title">b、贴图和路径：复制VR文件夹里面的贴图到3DS文件夹；Sitft+T面板里面调整贴图路径为3DS文件夹。</p>
+            <img src="zhuan/图片32.png" class="pic">
+            <img src="zhuan/图片33.png" class="pic">
+            <img src="zhuan/图片34.png" class="pic">
+            <p class="list-title">c、调整3DS文件夹中贴图大小64X**，最大不超过500X**）</p>
+            <img src="zhuan/图片35.png" class="pic">
+            <img src="zhuan/图片36.png" class="pic">
+            <p class="list-title">d、减面（简单模型三角面不超过8千，复杂模型三角面数不超过3万）：</p>
+            <p class="list-title">1、删除掉所有看不到的面 </p>
+            <img src="zhuan/图片37.png" class="pic">
+            <p class="list-title">2、调整焊接阈值，不改变模型造型的基础上焊接顶点 </p>
+            <img src="zhuan/图片38.png" class="pic">
+            <img src="zhuan/图片39.png" class="pic">
+            <p class="list-title">3、数字键7显示模型面数统计面板，Alt+b设置查看方式为三角形面数</p>
+            <img src="zhuan/图片40.png" class="pic">
+            <p class="list-title">4、专业优化</p>
+            <p class="list-title">a将面数较高的元素分离来，用专业优化工具减面</p>
+            <img src="zhuan/图片41.png" class="pic">
+            <img src="zhuan/图片42.png" class="pic">
+            <img src="zhuan/图片43.png" class="pic">
+            <img src="zhuan/图片44.png" class="pic">
+            <img src="zhuan/图片45.png" class="pic">
+            <p class="list-title">4、全部附加成一个整体，重置变换俩次，转换为可编辑多边形</p>
+            <img src="zhuan/图片46.png" class="pic">
+            <p class="list-title">5、导出3DS文件</p>
+            <img src="zhuan/图片47.png" class="pic">
+            <img src="zhuan/图片48.png" class="pic">
+            <p class="list-title">6、截取缩略图、保存模型尺寸、保存导出3DS的MAX文件</p>
+            <img src="zhuan/图片50.png" class="pic">
+            <img src="zhuan/图片51.png" class="pic">
+            <img src="zhuan/图片52.png" class="pic">
+            <p class="list-title">7、将模型3DS文件拖拽到查看器中，检查3DS模型，若没有问题即可上传模型。</p>
+            <p class="list-title">五、（模型上传）如果文件过大、网络速度较差，文件上传速度会变慢，请耐心等待上传完成再进行下一步操作。文件右边的删除按键，变成白色说明贴图上传完成，灰色的话说明正在上传。</p>
+            <p class="list-title">1、打开模型上传链接，登录后准备上传模型。</p>
+            <p class="list-title">2、选择模型/素材库，选择测试/测试/测试三级管理目录</p>
+            <img src="zhuan/图片53.png" class="pic">
+            <p class="list-title">3、点击右下角新增加按键</p>
+            <img src="zhuan/图片54.png" class="pic">
+            <p class="list-title">4、录入模型</p>
+            <p class="list-title">A、名称（复制并粘贴3ds文件名称）</p>
+            <img src="zhuan/图片55.png" class="pic">
+            <p class="list-title">B、中文名称（重命名模型）</p>
+            <img src="zhuan/图片56.png" class="pic">
+            <p class="list-title">C、长/宽/高</p>
+            <img src="zhuan/图片57.png" class="pic">
+            <p class="list-title">D、素材库（选择素材库，点击右下角上传本地文件，上传3DS文件夹中除了模型尺寸以外的所有文件）</p>
+            <img src="zhuan/图片58.png" class="pic">
+            <p class="list-title">E、渲染库（选择渲染库，点击右下角上传本地文件，上传VR文件夹中的所有文件）</p>
+            <img src="zhuan/图片59.png" class="pic">
+            <p class="list-title">F、确定（点击确定，完成模型上传）</p>
+            <img src="zhuan/图片60.png" class="pic">
+            <p class="list-title">六、测试及缩略图的调整</p>
+            <p class="list-title">A、画一个简单户型，在平台上测试模型渲染效果（位置、尺寸、效果）</p>
+            <img src="zhuan/图片61.png" class="pic">
+            <p class="list-title">B、打开缩略图模板，渲染并保存缩略图</p>
+            <img src="zhuan/图片62.png" class="pic">
+            <p class="list-title">C、调整缩略图大小为150x150像素，替换掉原来的缩略图。</p>
+            <img src="zhuan/图片63.png" class="pic">
+            <img src="zhuan/图片64.png" class="pic">
+            <img src="zhuan/图片65.png" class="pic">
+            <img src="zhuan/图片66.png" class="pic">
+        </div>
+    </div>
+</div>
+</body>
+</html>

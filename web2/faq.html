@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>问题解决</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="assets/css/awesome.css">
+    <!--<link rel="stylesheet" href="assets/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="assets/fonts/themify-icons.css">
+
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.css">
+
+    <link rel="stylesheet" href="assets/css/animate.css">
+
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="assets/css/slick.css"/>
+    <link rel="stylesheet" href="assets/css/slick-theme.css"/>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+<!--    <link rel="stylesheet" href="css/reset.css">-->
+    <link rel="stylesheet" href="faq/iconfont/iconfont.css">
+    <link rel="stylesheet" href="faq/css/sjjc.css">
+    <script src="faq/js/sjjc.js"></script>
+</head>
+<style>
+    ul, ol, menu {
+        list-style: none
+    }
+    a{
+        color: #333;
+    }
+</style>
+<body>
+
+
+
+<!-- START NAVBAR -->
+<div id="navigation" class="fixed-top navbar-light bg-faded site-navigation">
+</div>
+<!-- END NAVBAR -->
+
+<!-- START HOME -->
+<section id="home" class="home_bg" style="background-image: url(assets/img/bg/home-bg1.png);  background-size:cover; background-position: center center;height: 75px;">
+    <div class="container">
+    </div><!--- END CONTAINER -->
+</section>
+<div class="bg">
+    <div class="box">
+        <div>
+            <div class="top-world">
+                iHouse3D问题解决
+            </div>
+            <div class="new-world">
+                <div onclick="handleChangeClick()" class="flex-just" onmouseover="mOver(this)"
+                     onmouseout="mOut(this)"><span
+                        class="title-text">浏览器问题</span>
+                    <p style="margin-top: 15px;margin-right: 10px;color: #333333"><span class="iconfont"
+                                                                                        id="xinshoujia">&#xe640;</span>
+                    </p>
+                </div>
+                <ul id="xinshou" class="li-display">
+                    <li class="li-text" onclick="change360()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;360浏览器
+                    </li>
+                    <li class="li-text" onclick="changeFlash()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;flash前端
+                    </li>
+                    <a href="download/chrome.zip" target="_blank" download="chrome"><li class="li-text"  onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;谷歌浏览器flash
+                    </li></a>
+                    <a href="download/firefox.zip" target="_blank" download="firefox"><li class="li-text"  onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;火狐浏览器flash
+                    </li></a>
+                    <a href="download/Firefox44.exe" target="_blank" download="firefox"><li class="li-text"  onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;火狐浏览器
+                    </li></a>
+                </ul>
+            </div>
+            <div class="new-world">
+                <div onclick="handleChangeWindow()" class="flex-just" onmouseover="mOver(this)" onmouseout="mOut(this)">
+                    <span class="title-text">CAD</span>
+                    <p style="margin-top: 15px;margin-right: 10px;color: #333333"><span class="iconfont"
+                                                                                        id="menchuanjia">&#xe640;</span>
+                    </p></div>
+                <ul id="window" class="li-display">
+                    <li class="li-text" onclick="changeCad()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;新手入门
+                    </li>
+                    <li class="li-text" onclick="huxing()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;CAD户型处理
+                    </li>
+                </ul>
+            </div>
+            <div class="new-world">
+                <div onclick="handleLightClick()" class="flex-just" onmouseover="mOver(this)" onmouseout="mOut(this)">
+                    <span class="title-text">灯光</span>
+                    <p style="margin-top: 15px;margin-right: 10px;color: #333333"><span class="iconfont" id="lightjia">&#xe640;</span>
+                    </p></div>
+                <ul id="light" class="li-display">
+                    <li class="li-text" onclick="changeLight()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;舞台灯设置
+                    </li>
+                </ul>
+            </div>
+            <div class="new-world">
+                <div onclick="handleApkClick()" class="flex-just" onmouseover="mOver(this)" onmouseout="mOut(this)">
+                    <span class="title-text">安装包</span>
+                    <p style="margin-top: 15px;margin-right: 10px;color: #333333"><span class="iconfont" id="apljia">&#xe640;</span>
+                    </p></div>
+                <ul id="apk" class="li-display">
+                    <li class="li-text" onclick="changeApk()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;安卓安装包生成
+                    </li>
+                </ul>
+            </div>
+            <div class="new-world">
+                <div onclick="handelModelClick()" class="flex-just" onmouseover="mOver(this)" onmouseout="mOut(this)">
+                    <span class="title-text">模型制作与导入</span>
+                    <p style="margin-top: 15px;margin-right: 10px;color: #333333"><span class="iconfont" id="modeljia">&#xe640;</span>
+                    </p></div>
+                <ul id="modelUp" class="li-display">
+                    <li class="li-text" onclick="changeModel('0')" onmouseover="mOver(this)"
+                        onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;Sketchup模型导入max
+                    </li>
+                    <li class="li-text" onclick="changeModel('1')" onmouseover="mOver(this)"
+                        onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;顶视图制作
+                    </li>
+                    <li class="li-text" onclick="changeModel('2')" onmouseover="mOver(this)"
+                        onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;烘焙步骤
+                    </li>
+                    <li class="li-text" onclick="changeModel('3')" onmouseover="mOver(this)"
+                        onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;转模步骤
+                    </li>
+                    <li class="li-text" onclick="changeModel('4')" onmouseover="mOver(this)"
+                        onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;烘焙模型
+                    </li>
+                    <li class="li-text" onclick="changeModel('5')" onmouseover="mOver(this)"
+                        onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;瓷砖贴图上传
+                    </li>
+                    <li class="li-text" onclick="changeModel('6')" onmouseover="mOver(this)"
+                        onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;壁纸贴图上传
+                    </li>
+                </ul>
+            </div>
+            <div class="new-world">
+                <div onclick="handelWebClick()" class="flex-just" onmouseover="mOver(this)" onmouseout="mOut(this)">
+                    <span class="title-text">iHouse网站</span>
+                    <p style="margin-top: 15px;margin-right: 10px;color: #333333"><span class="iconfont" id="webjia">&#xe640;</span>
+                    </p></div>
+                <ul id="web" class="li-display">
+                    <li class="li-text" onclick="changePano()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;全景制作
+                    </li>
+                    <li class="li-text" onclick="changeScence()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;场景上传
+                    </li>
+                </ul>
+            </div>
+            <div class="new-world">
+                <div onclick="handleBzClick()" class="flex-just" onmouseover="mOver(this)" onmouseout="mOut(this)">
+                    <span class="title-text">一键布置</span>
+                    <p style="margin-top: 15px;margin-right: 10px;color: #333333"><span class="iconfont" id="buzhijia">&#xe640;</span>
+                    </p></div>
+                <ul id="buzhi" class="li-display">
+                    <li class="li-text" onclick="changeBuzhi()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;iHouse一键布置
+                    </li>
+                </ul>
+            </div>
+            <div class="new-world">
+                <div onclick="handleQtClick()" class="flex-just" onmouseover="mOver(this)" onmouseout="mOut(this)">
+                    <span class="title-text">其他</span>
+                    <p style="margin-top: 15px;margin-right: 10px;color: #333333"><span class="iconfont" id="qitajia">&#xe640;</span>
+                    </p></div>
+                <ul id="qita" class="li-display">
+                    <li class="li-text" onclick="changeHttps()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;https配置
+                    </li>
+                    <li class="li-text" onclick="changeVr()" onmouseover="mOver(this)" onmouseout="mOut(this)"><span
+                            class="iconfont" style="color: #333333">&#xe75d;</span> &nbsp;vr设置
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-detail">
+            <p style="color: #898989" id="daohang"><span class="detail-header">当前位置：</span><span class="nav"
+                                                                                                 id="href"></span></p>
+            <div id="detail-text">
+                <iframe src="" frameborder="0" id="src-box"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-top section-padding">
+</div>
+
+<div class="footer">
+</div>
+<script>
+    var box = document.getElementById('src-box')
+
+    function change360() {
+        box.src = 'faq/360.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+
+    function changeCad() {
+        box.src = 'faq/cad.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+
+    function changeLight() {
+        box.src = 'faq/light.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+
+    function changeApk() {
+        box.src = 'faq/apk.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+
+    function changeFlash() {
+        box.src = 'http://www.ihouse3d.com.cn/CWTS/ihouse3d1/index.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+
+    function changeModel(e) {
+        let arr = ['faq/modelUp.html', 'faq/ding.html', 'faq/hongbei.html', 'faq/zhuanmo.html', 'faq/hb.html', 'faq/tietu.html', 'faq/bizhi.html']
+        box.src = arr[e]
+        document.getElementById('href').innerHTML = box.src
+    }
+
+    function changePano() {
+        box.src = 'faq/panoLoad.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+
+    function changeScence() {
+        box.src = 'faq/scenceLoad.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+    function huxing() {
+        box.src = 'faq/huxing.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+    function changeBuzhi() {
+        box.src = 'faq/buzhi.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+
+    function changeHttps() {
+        box.src = 'faq/https.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+    function changeVr() {
+        box.src = 'faq/vr.html'
+        document.getElementById('href').innerHTML = box.src
+    }
+    function handleLightClick() {
+        if (document.getElementById('light').style.display === 'none') {
+            document.getElementById('light').style.display = 'block'
+            document.getElementById('lightjia').innerHTML = '&#xe713;'
+        } else {
+            document.getElementById('light').style.display = 'none'
+            document.getElementById('lightjia').innerHTML = '&#xe640;'
+        }
+    }
+
+    function handleApkClick() {
+        if (document.getElementById('apk').style.display === 'none') {
+            document.getElementById('apk').style.display = 'block'
+            document.getElementById('apkjia').innerHTML = '&#xe713;'
+        } else {
+            document.getElementById('apk').style.display = 'none'
+            document.getElementById('apkjia').innerHTML = '&#xe640;'
+        }
+    }
+
+    function handelModelClick() {
+        if (document.getElementById('modelUp').style.display === 'none') {
+            document.getElementById('modelUp').style.display = 'block'
+            document.getElementById('modeljia').innerHTML = '&#xe713;'
+        } else {
+            document.getElementById('modelUp').style.display = 'none'
+            document.getElementById('modeljia').innerHTML = '&#xe640;'
+        }
+    }
+
+    function handelWebClick() {
+        if (document.getElementById('web').style.display === 'none') {
+            document.getElementById('web').style.display = 'block'
+            document.getElementById('webjia').innerHTML = '&#xe713;'
+        } else {
+            document.getElementById('web').style.display = 'none'
+            document.getElementById('webjia').innerHTML = '&#xe640;'
+        }
+    }
+
+    function handleBzClick() {
+        if (document.getElementById('buzhi').style.display === 'none') {
+            document.getElementById('buzhi').style.display = 'block'
+            document.getElementById('buzhijia').innerHTML = '&#xe713;'
+        } else {
+            document.getElementById('buzhi').style.display = 'none'
+            document.getElementById('buzhijia').innerHTML = '&#xe640;'
+        }
+    }
+
+    function handleQtClick() {
+        if (document.getElementById('qita').style.display === 'none') {
+            document.getElementById('qita').style.display = 'block'
+            document.getElementById('qitajia').innerHTML = '&#xe713;'
+        } else {
+            document.getElementById('qita').style.display = 'none'
+            document.getElementById('qitajia').innerHTML = '&#xe640;'
+        }
+    }
+</script>
+<script src="assets/js/jquery.min.js"></script>
+<!-- Latest compiled and minified Bootstrap -->
+<script src="assets/js/bootstrap.js"></script>
+<!-- modernizer JS -->
+<script src="assets/js/modernizr-2.8.3.min.js"></script>
+<!-- owl-carousel min js  -->
+<script src="assets/owlcarousel/js/owl.carousel.min.js"></script>
+<!-- jquery nav -->
+<script src="assets/js/jquery.nav.js"></script>
+<!-- jquery.slicknav -->
+<script src="assets/js/jquery.slicknav.js"></script>
+<!-- jquery smooth-scroll JS -->
+<script src="assets/js/smooth-scroll.js"></script>
+<!-- scrolltopcontrol js -->
+<script src="assets/js/scrolltopcontrol.js"></script>
+<!-- countTo js -->
+<script src="assets/js/jquery.inview.min.js"></script>
+<!-- Slick js -->
+<script src="assets/js/slick.min.js"></script>
+<!-- WOW - Reveal Animations When You Scroll -->
+<script src="assets/js/wow.min.js"></script>
+<!-- MAGNIFICANT JS -->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!-- form-contact js -->
+<script src="assets/js/form-contact.js"></script>
+<!-- scripts js -->
+<script src="assets/js/scripts.js"></script>
+<script src="headfooter.js"></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>基于layui的日历记事本</title>
+    <link rel="stylesheet" href="./layui/css/layui.css"/>
+    <link rel="stylesheet" href="./layui_exts/laydateNote/laydateNote.css"/>
+</head>
+<body>
+<style>
+    #layui-layer1 {
+        min-width: 600px !important;
+        min-height: 400px !important;
+        top:100px!important;
+    }
+
+    .layui-layer {
+        min-width: 600px !important;
+        min-height: 400px !important;
+        top:100px!important;
+    }
+
+    #text_book {
+        min-height: 300px;
+    }
+
+    .laydate-btns-clear {
+        display: none !important;
+    }
+
+    .laydate-btns-confirm {
+        display: none !important;
+    }
+
+    .layui-layer-btn1 {
+        display: none !important;
+    }
+
+    .laydate-day-mark {
+        color: #ffffff !important;
+    }
+
+    .wc {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: #3a8ee6;
+        margin: 0 5px;
+    }
+
+    .wwc {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: red;
+        margin: 0 5px;
+    }
+
+    .blue {
+        background: #3a8ee6 !important;
+        color: #ffffff !important;
+    }
+
+    .red {
+        background: red !important;
+        color: #ffffff !important;
+    }
+
+    .green {
+        background: green !important;
+        color: #ffffff !important;
+    }
+
+    .yellow {
+        background: yellow !important;
+        color: #ffffff !important;
+    }
+
+    .orange {
+        background: orange !important;
+        color: #ffffff !important;
+    }
+
+    .greenyellow {
+        background: greenyellow !important;
+        color: #ffffff !important;
+    }
+
+    .yellowgreen {
+        background: yellowgreen !important;
+        color: #ffffff !important;
+    }
+
+    .rebeccapurple {
+        background: rebeccapurple !important;
+        color: #ffffff !important;
+    }
+
+    .layui-layer-btn {
+        position: relative;
+    }
+
+    .tishi {
+        display: flex;
+        
+    }
+
+    .tishi > p {
+        width: 20px;
+        height: 20px;
+        margin: 0 5px;
+        cursor: pointer;
+        border: 1px solid #000000;
+    }
+</style>
+
+<!-- 你的HTML代码 -->
+
+<div class="layui-container" style="padding: 15px;">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <!--容器-->
+            <div class="layui-inline laydateNote" id="test-n2"></div>
+            <!--容器-->
+
+            <!--详细记事本-->
+            <div class="laydateNotebook">
+                <div class="box"></div>
+            </div>
+            <!--容器-->
+            <script type="text/html" id="fineTpl">
+                <ul class="layui-timeline">
+                    {{each lists v i }}
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">{{v.time}}</h3>
+                            <p>
+                                {{v.value}}
+                            </p>
+                        </div>
+                    </li>
+                    {{/each}}
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="layui-timeline-title">...</div>
+                        </div>
+                    </li>
+                </ul>
+            </script>
+            <!---->
+        </div>
+    </div>
+</div>
+<script src="jquery.js"></script>
+<script src="./layui/layui.js"></script>
+<script>
+    function GetRequest() {
+        var url = document.cookie;
+        var theRequest = {};
+        var strs = url.split(";");
+        for (var i = 0; i < strs.length; i++) {
+            strs[i] = strs[i].replace(" ", "")
+            theRequest[strs[i].split("=")[0].substring(0, 5)] = strs[i].split("=")[1];
+        }
+
+        return theRequest;
+    }
+
+    var cookie = GetRequest()
+    var name = cookie.name
+    var folder = cookie.fold
+    //调用
+    layui
+        .config({
+            base: './layui_exts' //假设这是你存放拓展模块的根目录
+        })
+        .extend({
+            //设定模块别名
+            laydateNote: '/laydateNote/laydateNote', //如果 mymod.js 是在根目录，也可以不用设定别名
+            artTemplate: '/artTemplate/artTemplate'
+        })
+
+    layui.use(['laydateNote'], function () {
+        $.ajax({
+            type: 'GET',
+            url: 'http://www.ihouse3d.com.cn/users/' + folder + '/' + name + '/test2.json?time=' + guid(),
+            success: function () {
+                var laydateNote = layui.laydateNote
+                laydateNote({
+                    elem: '#test-n2', //容器id,CLass
+                    url: 'http://www.ihouse3d.com.cn/users/' + folder + '/' + name + '/test2.json?time=' + guid(), //异步数据接口,本地浏览时可不设置
+                    sort: 'down', //日期排序，默认不设置不排序，up 日期升序，down 日期降序
+                    fine: '.laydateNotebook', //开启详细模式
+                    param: {id: 1},
+                    done: function (data, chooseData, type) {
+                        //回调数据，这里发送你的请求ajax
+                        // console.log(data, chooseData, type)
+                        // data = data.reverse()
+                        let httpData = {
+                            "code": 0,
+                            "msg": "请求成功",
+                            "data": data
+                        }
+                        httpData = JSON.stringify(httpData)
+                        let path = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/test2.json'
+                        let _data = '{"type":"string","pathfilename":"' + path + '","filedata":"' + encode(httpData) + '"}'
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: _data,
+                            success: function (ele) {
+                                // console.log(ele)
+                                let _time = setTimeout(function () {
+                                    $('td').on('click', function () {
+                                        let obj = `<div  class="tishi">
+                                <p style="background: red" title="red"></p>
+                                <p style="background: #3a8ee6" title="blue"></p>
+                                <p style="background: green" title="green"></p>
+                                <p style="background: yellow" title="yellow"></p>
+                                <p style="background: orange" title="orange"></p>
+                                <p style="background: greenyellow" title="greenyellow"></p>
+                                <p style="background: yellowgreen" title="yellowgreen"></p>
+                                <p style="background: rebeccapurple" title="rebeccapurple"></p>
+                            </div>`
+                                        $('.layui-layer-btn').append(obj)
+                                        $('.tishi>p').on('click', function () {
+                                            let colorTxt = $(this).attr('title')
+                                            let father = this.parentNode.parentNode.parentNode
+                                            let box = $(father).children('.layui-layer-content').children().children().children().eq(1).children()[0]
+                                            if (box.value !== '') {
+                                                let txt = box.value.split('~')[0]
+                                                box.value = txt + '~' + colorTxt
+                                            } else {
+                                                box.value = '~' + colorTxt
+                                            }
+                                        })
+                                    })
+                                }, 1000)
+                            }
+                        })
+                    }
+                })
+                let time = setInterval(function () {
+                    let arr = $('.laydate-day-mark')
+                    for (let i = 0; i < arr.length; i++) {
+                        let item = arr[i]
+                        let type = item.innerHTML.split('~')
+                        type = type[1]
+                        if (type !== undefined) {
+                            if (type === '蓝色') {
+                                type = 'blue'
+                            }
+                            $(item.parentNode).addClass(type)
+                        } else {
+                            $(item.parentNode).addClass('red')
+                        }
+                    }
+                }, 500)
+                let _time = setTimeout(function () {
+                    $('td').on('click', function () {
+                        let obj = `<div  class="tishi">
+                                <p style="background: red" title="red"></p>
+                                <p style="background: #3a8ee6" title="blue"></p>
+                                <p style="background: green" title="green"></p>
+                                <p style="background: yellow" title="yellow"></p>
+                                <p style="background: orange" title="orange"></p>
+                                <p style="background: greenyellow" title="greenyellow"></p>
+                                <p style="background: yellowgreen" title="yellowgreen"></p>
+                                <p style="background: rebeccapurple" title="rebeccapurple"></p>
+                            </div>`
+                        $('.layui-layer-btn').append(obj)
+                        $('.tishi>p').on('click', function () {
+                            let colorTxt = $(this).attr('title')
+                            let father = this.parentNode.parentNode.parentNode
+                            let box = $(father).children('.layui-layer-content').children().children().children().eq(1).children()[0]
+                            if (box.value !== '') {
+                                let txt = box.value.split('~')[0]
+                                box.value = txt + '~' + colorTxt
+                            } else {
+                                box.value = '~' + colorTxt
+                            }
+                        })
+                    })
+                }, 1000)
+
+
+            },
+            error: function () {
+                var laydateNote = layui.laydateNote
+                laydateNote({
+                    elem: '#test-n2', //容器id,CLass
+                    // url: 'http://www.ihouse3d.com.cn/test2.json?time=' + guid(), //异步数据接口,本地浏览时可不设置
+                    sort: 'up', //日期排序，默认不设置不排序，up 日期升序，down 日期降序
+                    fine: '.laydateNotebook', //开启详细模式
+                    param: {id: 1},
+                    done: function (data, chooseData, type) {
+                        //回调数据，这里发送你的请求ajax
+                        // console.log(data, chooseData, type)
+                        let httpData = {
+                            "code": 0,
+                            "msg": "请求成功",
+                            "data": data
+                        }
+                        httpData = JSON.stringify(httpData)
+                        let path = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/test2.json'
+                        let _data = '{"type":"string","pathfilename":"' + path + '","filedata":"' + encode(httpData) + '"}'
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: _data,
+                            success: function (ele) {
+                                // console.log(ele)
+                            }
+                        })
+                    }
+                })
+            }
+        })
+        //调用
+        // var laydateNote = layui.laydateNote
+        // laydateNote({
+        //     elem: '#test-n2', //容器id,CLass
+        //     // url: 'http://www.ihouse3d.com.cn/test2.json?time=' + guid(), //异步数据接口,本地浏览时可不设置
+        //     sort: 'up', //日期排序，默认不设置不排序，up 日期升序，down 日期降序
+        //     fine: '.laydateNotebook', //开启详细模式
+        //     param: {id: 1},
+        //     done: function (data, chooseData, type) {
+        //         //回调数据，这里发送你的请求ajax
+        //         // console.log(data, chooseData, type)
+        //         let httpData = {
+        //             "code": 0,
+        //             "msg": "请求成功",
+        //             "data": data
+        //         }
+        //         httpData = JSON.stringify(httpData)
+        //         let path = 'C:/inetpub/wwwroot/test2.json'
+        //         let _data = '{"type":"string","pathfilename":"' + path + '","filedata":"' + encode(httpData) + '"}'
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+        //             dataType: "json",
+        //             contentType: "application/json",
+        //             data: _data,
+        //             success: function (ele) {
+        //                 // console.log(ele)
+        //             }
+        //         })
+        //     }
+        // })
+    })
+
+    function encode(str) {
+// 对字符串进行编码
+        var encode = encodeURI(str);
+// 对编码的字符串转化base64
+        var base64 = btoa(encode);
+        return base64;
+    }
+
+    function guid() {
+        return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+</script>
+</body>
+</html>

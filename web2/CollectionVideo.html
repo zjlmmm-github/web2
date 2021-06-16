@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>视频收藏</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/ui.css">
+    <style>
+        #app {
+            width: 100%;
+            min-height: 800px;
+        }
+        #app>div{
+            width: 100%;
+            min-height: 800px;
+        }
+        .itemBox {
+            position: relative;
+            width: 100%;
+        }
+
+        .item {
+            position: absolute;
+            width: 18.8%;
+            margin: .5%;
+            cursor: pointer;
+            box-shadow: 8px 8px 20px #ccc;
+            border-radius: 4px;
+        }
+
+        .item > video {
+            width: 100%;
+        }
+
+        .itemIcon {
+            display: none;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .iconBox {
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            top: 40%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .itemIcon-item {
+            width: 60px;
+            z-index: 99999;
+        }
+
+        .itemIcon-item > img {
+            width: 30px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .itemIcon-item > p {
+            margin-top: 5px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .addBtnBox {
+            height: 60px;
+            width: 100%;
+            position: relative;
+        }
+
+        .addBtnBox > p {
+            background: #2d98e6;
+            color: #ffffff;
+            height: 50px;
+            width: 100px;
+            text-align: center;
+            border-radius: 4px;
+            line-height: 50px;
+            right: 20px;
+            position: absolute;
+            top: 10px
+        }
+
+        #file {
+            position: absolute;
+            height: 50px;
+            width: 100px;
+            right: 20px;
+            opacity: 0;
+            cursor: pointer;
+            top: 10px
+        }
+
+        .copy {
+            position: absolute;
+            top: -1000px;
+            opacity: 0;
+        }
+
+        .bottomIcon {
+            padding: 5px 0;
+            position: relative;
+            height: 20px;
+
+        }
+
+        .icon1 {
+            position: absolute;
+            right: 35px;
+        }
+
+        .icon2 {
+            position: absolute;
+            right: 5px;
+        }
+
+        .videoName {
+            padding-left: 10px;
+        }
+
+        .changeVideo {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+
+        }
+
+        .changeVideo-box {
+            width: 350px;
+            height: 200px;
+            background: #ffffff;
+            margin: 300px auto;
+            border-radius: 5px;
+        }
+
+        .changeVideo-title {
+            font-size: 18px;
+            font-weight: bolder;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .buttonBox {
+            margin: 20px auto;
+            width: 240px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-loading="loading" element-loading-text="上传中,请稍等.....">
+    <div v-loading="loading1" element-loading-text="加载中.....">
+        <div class="addBtnBox">
+            <!--        <span style="font-size: 16px;color: red;padding-left: 20px;padding-top: 20px">视频格式限制为MP4</span>-->
+            <p>新增视频</p>
+            <input type="file" id="file" multiple="multiple">
+        </div>
+        <div class="itemBox">
+
+        </div>
+        <div class="changeVideo">
+            <div class="changeVideo-box">
+                <p class="changeVideo-title">修改视频名称</p>
+                <p style="text-align: center">名称:
+                    <el-input v-model="name" style="width: 200px"></el-input>
+                </p>
+                <div class="buttonBox">
+                    <el-button type="primary" onclick="loadVideoName()">保存</el-button>
+                    <el-button type="danger" onclick="closeBox()">关闭</el-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="text" class="copy" id="copy">
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/cookie.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/ui.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                loading: false,
+                loading1: true,
+                name: ''
+            }
+        }
+    })
+    var folder = cookie.fold
+    loadVideo()
+    window.addEventListener("DOMContentLoaded", contentLoaded, false);
+
+    function contentLoaded() {
+        document.getElementById('file').addEventListener('change',
+            file1, false);
+    }
+
+    function file1() {
+        let obj = document.getElementById('file')
+        if (obj.files[0].name.split('.')[1] !== 'mp4') {
+            alert('请上传格式为mp4的视频！')
+        } else {
+            if (obj.files[0].size>50*1024*1024){
+                alert('上传的视频不能大于50M！')
+            }else{
+                OnUploadFile(obj)
+            }
+        }
+
+    }
+
+    function loadVideo() {
+        $.ajax({
+            type: 'GET',
+            cache: false,
+            async: false,
+            url: 'http://www.ihouse3d.com.cn/users/' + folder + '/' + name + '/video.txt',
+            success: function (data) {
+                $('.itemBox').html('')
+                if (data !== '') {
+                    let dataArr = data.split(',')
+                    dataArr.reverse()
+                    for (let i = 0; i < dataArr.length; i++) {
+                        let txt = dataArr[i]
+                        let videoName = ''
+                        let link = ''
+                        if (txt.includes('-')) {
+                            videoName = txt.split('-')[1]
+                            link = txt.split('-')[0]
+                        } else {
+                            videoName = '尚未命名'
+                            link = txt
+                        }
+                        let item = dataArr[i].split('.')
+                        item = item[0] + '_icon.' + item[1]
+                        let itemInfo = `<div class="item">
+
+        <video src="http://www.ihouse3d.com.cn/users/${folder}/${name}/collectionVideo/${link}" alt="" controls></video>
+        <div class="bottomIcon">
+        <span class="videoName" onclick="changeVideoName(this)" id="${link}change">${videoName}</span>
+            <img src="assets/img/删除_icon.png" alt="" width="20" onclick="deleteVideo(this)" id="${link}del" class="icon1" title="删除">
+            <img src="assets/img/分享_icon.png" alt="" width="20" class="icon2" title="分享" onclick="copy(this)">
+        </div>
+    </div>`
+                        $('.itemBox').append(itemInfo)
+                    }
+
+
+                }
+            },
+            error: function () {
+
+            }
+        })
+        setTimeout(function () {
+            init()
+            app.loading1 = false
+        }, 1000)
+    }
+
+    function deleteVideo(obj) {
+        let id = obj.id
+        let delTxt = id.replace('del', '')
+        if (confirm('确定要删除吗') === true) {
+            $.ajax({
+                type: 'GET',
+                cache: false,
+                url: 'http://www.ihouse3d.com.cn/users/' + folder + '/' + name + '/video.txt',
+                success: function (data) {
+                    let dataArr = data.split(',')
+                    let num
+                    for (let i = 0; i < dataArr.length; i++) {
+                        if (dataArr[i] === delTxt) {
+                            num = i
+                        }
+                    }
+                    dataArr.splice(num, 1)
+                    let numTxt = ''
+                    for (let i = 0; i < dataArr.length; i++) {
+                        if (i === dataArr.length - 1) {
+                            numTxt = numTxt + dataArr[i]
+                        } else {
+                            numTxt = numTxt + dataArr[i] + ','
+                        }
+                    }
+                    let txtPath = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/video.txt'
+                    let txtData = '{"type":"string","pathfilename":"' + txtPath + '","filedata":"' + encode(numTxt) + '"}'
+                    $.ajax({
+                        url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                        type: 'POST',
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: txtData,
+                        success: function (data) {
+                            if (data.code === '1') {
+                                alert('删除成功！')
+                                loadVideo()
+                            }
+                        }
+                    })
+                },
+                error: function () {
+
+                }
+            })
+        }
+    }
+
+    function init() {
+        //width()  不包括 margin/padding/border
+        //outerWidth(true) 包括padding/border  加参数true 能获取到argin
+        var itemWidth = $(".item").outerWidth(true);//每个图片的宽度
+        var cols = parseInt($(window).width() / itemWidth);//浏览器的宽度/图片的宽度=列数
+        var heightArr = [];//创建一个存放每个图片的高度的数组
+        for (var i = 0; i < cols; i++) { //每个数组的长度就是 列数的长度
+            heightArr.push(0);//最开始的时候可以默认高度是0；【，0，0】
+        }
+        //循环每一条图片
+        $('.item').each(function (index, item) {
+            var idex = 0;//初始索引为0
+            var minHeight = heightArr[0];//初始设置最小高度是数组的第一个
+            for (var i = 0; i < heightArr.length; i++) {
+                if (heightArr[i] < minHeight) {//判断数组中的每一个是否比默认设置的最小高度小，小于直接赋值给最小高度
+                    minHeight = heightArr[i];//最小高度
+                    idex = i;//当前索引
+                }
+            }
+            //设置每个图片的样式
+
+            $(item).css({
+                left: itemWidth * idex,//图片距离左边的位置 就是当前图片的宽度*他的索引
+                top: minHeight //图片距离顶部的位置就是最小高度
+            })
+            heightArr[idex] += $(item).outerHeight(true); //高度对应的索引值就是当前图片高度的值
+        })
+    }
+
+    function guid() {
+        return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function OnUploadFile(that) {
+        if (that.files && that.files.length) {
+            var bytesPerPiece = 1024 * 1024 * 2; // 每个文件切片大小定为2Mb .
+            var totalPieces;//切片总数，这个根据 文件大小来计算
+            var start = 0;
+            var end;
+            var index = 0;
+            let fileType = that.files[0].name.split('.')[1]
+            var filesize = that.files[0].size;// 文件大小
+            var filename = guid() + '.' + fileType;// 文件名称
+            var fileid = guid(); //
+            var filepath = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/collectionVideo/'   //在服务器上保存的位置
+            var nProgress = 1;
+
+            //计算文件切片总数
+            totalPieces = Math.ceil(filesize / bytesPerPiece);
+            while (start < filesize) {
+                end = start + bytesPerPiece;
+                if (end > filesize) {
+                    end = filesize;
+                } // 匹配最后一个分片的情况
+                var chunk = that.files[0].slice(start, end);//切割文件
+                var sliceIndex = filename;
+                var formData = new FormData();
+                formData.append("totalPieces", totalPieces);
+                formData.append("index", index);
+                formData.append("progress", nProgress);
+                formData.append("file", chunk, sliceIndex);
+                formData.append("fileid", fileid);
+                formData.append("filepath", filepath);
+
+                $.ajax({
+                    url: 'http://www.ihouse3d.com.cn:5003/service1.asmx/Upload_File',
+                    async: true,
+                    type: 'POST',
+                    cache: false,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (data) {
+                        app.loading = true
+                        if (data.val) {
+                            let txtPath = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/video.txt'
+                            let oldTxt = ''
+                            $.ajax({
+                                type: 'GET',
+                                cache: false,
+                                async: false,
+                                url: 'http://www.ihouse3d.com.cn/users/' + folder + '/' + name + '/video.txt',
+                                success: function (data) {
+                                    oldTxt = data
+                                },
+                                error: function () {
+                                    oldTxt = ''
+                                }
+                            })
+                            let newTxt = ''
+                            if (oldTxt === '') {
+                                newTxt = filename
+                            } else {
+                                newTxt = oldTxt + ',' + filename
+                            }
+                            let txtData = '{"type":"string","pathfilename":"' + txtPath + '","filedata":"' + encode(newTxt) + '"}'
+                            $.ajax({
+                                url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                                type: 'POST',
+                                dataType: "json",
+                                async: false,
+                                contentType: "application/json",
+                                data: txtData,
+                                success: function (data) {
+                                    if (data.code === '1') {
+                                        app.loading = false
+                                        alert('添加成功！')
+                                        loadVideo()
+                                    }
+                                }
+                            })
+                        } else {
+                            let progress = nProgress * 100 / totalPieces;
+                            progress = progress.toFixed(0);
+                            ++nProgress;
+                        }
+                    }
+                }).done(function (res) {
+                    //
+                }).fail(function (res) {
+
+                });
+                start = end;
+                ++index;
+            }
+        }
+    }
+
+    function encode(str) {
+// 对字符串进行编码
+        var encode = encodeURI(str);
+// 对编码的字符串转化base64
+        var base64 = btoa(encode);
+        return base64;
+    }
+
+    function copy(obj) {
+        let father = obj.parentNode.parentNode
+        let video = $(father).children('video')[0].src
+        let transfer = document.getElementById('copy');
+        transfer.value = video;  // 这里表示想要复制的内容
+        transfer.focus();
+        transfer.select();
+        if (document.execCommand('copy')) {
+            document.execCommand('copy');
+        }
+        transfer.blur();
+        alert('已将视频链接复制到剪切板')
+    }
+
+    var changeName = ''
+
+    function changeVideoName(obj) {
+        changeName = obj.id.replace('change', '')
+        $('.changeVideo').show()
+        app.name = obj.innerHTML
+
+    }
+
+    function closeBox() {
+        $('.changeVideo').hide()
+        loadVideo()
+        app.name = ''
+    }
+
+    function loadVideoName() {
+        $.ajax({
+            type: 'GET',
+            cache: false,
+            url: 'http://www.ihouse3d.com.cn/users/' + folder + '/' + name + '/video.txt',
+            success: function (data) {
+                let num = ''
+                let dataArr = data.split(',')
+                for (let i = 0; i < dataArr.length; i++) {
+                    if (dataArr[i].includes(changeName)) {
+                        num = i
+                    }
+                }
+                dataArr[num] = changeName + '-' + app.name
+                let numTxt = ''
+                for (let i = 0; i < dataArr.length; i++) {
+                    if (i === dataArr.length - 1) {
+                        numTxt = numTxt + dataArr[i]
+                    } else {
+                        numTxt = numTxt + dataArr[i] + ','
+                    }
+                }
+                let txtPath = 'C:/inetpub/wwwroot/users/' + folder + '/' + name + '/video.txt'
+                let txtData = '{"type":"string","pathfilename":"' + txtPath + '","filedata":"' + encode(numTxt) + '"}'
+                $.ajax({
+                    url: 'http://www.ihouse3d.com.cn:5001/api/uploadfile',
+                    type: 'POST',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: txtData,
+                    success: function (data) {
+                        if (data.code === '1') {
+                            closeBox()
+                        }
+                    }
+                })
+            },
+            error: function () {
+
+            }
+        })
+    }
+</script>
+</html>
